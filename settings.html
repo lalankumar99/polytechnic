@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FFFFFF">
+<title>Polytechnic Hub - Settings</title>
+<style>
+/* --- Theme Variables --- */
+:root {
+  --primary-navy: #0B1F3A;
+  --primary-blue: #1677FF;
+  --bg-color: #F5F8FC;
+  --white: #FFFFFF;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-drawer: 4px 0 24px rgba(0,0,0,0.15);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --success: #10B981;
+  --danger: #EF4444;
+}
+
+[data-theme="dark"] {
+  --primary-navy: #93C5FD;
+  --primary-blue: #3B82F6;
+  --bg-color: #0F172A;
+  --white: #1E293B;
+  --text-dark: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border-color: #334155;
+}
+
+/* --- Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Layout & Header --- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--white);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  height: 60px;
+}
+.header-center {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-navy);
+}
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-dark);
+  border-radius: 50%;
+}
+.main-content {
+  flex: 1;
+  padding: 24px 16px 90px 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Profile Card --- */
+.profile-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 32px;
+}
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  overflow: hidden;
+}
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile-info { flex: 1; min-width: 0; }
+.profile-name { font-size: 1.25rem; font-weight: 700; }
+.profile-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+/* --- Settings Groups & Rows --- */
+.settings-group {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.settings-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 16px 20px 8px;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+.settings-row:last-child { border-bottom: none; }
+.row-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #F8FAFC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  margin-right: 16px;
+}
+[data-theme="dark"] .row-icon { background: #334155; }
+.row-content { flex: 1; }
+.row-title { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
+.row-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+/* --- Custom Toggle --- */
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border-color);
+  border-radius: 24px;
+  transition: background 0.3s;
+}
+.toggle-switch.active { background: var(--success); }
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+.toggle-switch.active::after { transform: translateX(20px); }
+
+/* --- Modals & Drawer --- */
+.modal-overlay, .drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.modal-overlay.open, .drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+.modal-card {
+  background: var(--white);
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 24px;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s;
+  box-shadow: var(--shadow-lg);
+  display: none;
+}
+.modal-overlay.open .modal-card.active-modal {
+  display: block;
+  transform: translateY(0) scale(1);
+}
+.drawer {
+  position: fixed;
+  top: 0; left: -280px; bottom: 0;
+  width: 280px;
+  background-color: var(--white);
+  z-index: 61;
+  transition: transform 0.3s;
+  box-shadow: var(--shadow-drawer);
+}
+.drawer.open { transform: translateX(280px); }
+
+/* --- Forms & Buttons --- */
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary { background-color: var(--primary-blue); color: white; }
+.btn-danger { background-color: var(--danger); color: white; }
+.btn-secondary { background-color: var(--border-color); color: var(--text-dark); }
+.modal-alert {
+  padding: 12px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 16px; display: none;
+}
+.modal-alert.error { background: #FEF2F2; color: var(--danger); border: 1px solid #FECACA; display: block;}
+.modal-alert.success { background: #F0FDF4; color: var(--success); border: 1px solid #BBF7D0; display: block;}
+
+/* --- Bottom Nav --- */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background-color: var(--white);
+  display: flex; justify-content: space-around;
+  padding: 12px 0 calc(12px + var(--safe-bottom));
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+  z-index: 40; border-radius: 20px 20px 0 0;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: var(--text-muted); text-decoration: none; width: 25%;
+}
+.nav-item.active { color: var(--primary-blue); }
+
+@media (min-width: 1024px) {
+  .bottom-nav { display: none; }
+  .main-content { padding-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Main Header -->
+<header class="header">
+  <div class="header-left">
+    <button class="icon-btn" id="btn-back" aria-label="Go Back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </button>
+  </div>
+  <div class="header-center">Settings</div>
+  <div class="header-right">
+     <button class="icon-btn" id="btn-menu" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
+</header>
+
+<main class="main-content">
+  <!-- Profile Section -->
+  <div class="profile-card">
+    <div class="profile-avatar" id="prof-avatar"></div>
+    <div class="profile-info">
+      <div class="profile-name" id="prof-name">Loading...</div>
+      <div class="profile-meta" id="prof-email">loading...</div>
+      <div class="profile-meta" id="prof-branch" style="margin-top:2px;">...</div>
+    </div>
+    <button class="btn btn-secondary" style="width:auto; padding:8px 16px;" onclick="openModal('modal-edit-profile')">Edit</button>
+  </div>
+
+  <!-- Account Group -->
+  <div class="settings-group">
+    <div class="settings-group-title">Account</div>
+    <button class="settings-row" onclick="openModal('modal-password')">
+      <div class="row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+      <div class="row-content">
+        <div class="row-title">Change Password</div>
+        <div class="row-desc">Secure your account</div>
+      </div>
+    </button>
+    <button class="settings-row" onclick="handleLogout()">
+      <div class="row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></div>
+      <div class="row-content">
+        <div class="row-title">Logout</div>
+        <div class="row-desc">Sign out of your account</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- Appearance Group -->
+  <div class="settings-group">
+    <div class="settings-group-title">Appearance</div>
+    <button class="settings-row" onclick="openModal('modal-theme')">
+      <div class="row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg></div>
+      <div class="row-content">
+        <div class="row-title">Theme</div>
+        <div class="row-desc">System, Light or Dark</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- Storage & Privacy Group -->
+  <div class="settings-group">
+    <div class="settings-group-title">Storage & Privacy</div>
+    <button class="settings-row" onclick="openModal('modal-clear-data')">
+      <div class="row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></div>
+      <div class="row-content">
+        <div class="row-title">Clear Local Data</div>
+        <div class="row-desc">Reset preferences</div>
+      </div>
+    </button>
+    <button class="settings-row" onclick="window.location.href='help.html'">
+      <div class="row-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
+      <div class="row-content">
+        <div class="row-title">Support</div>
+        <div class="row-desc">Get help</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="settings-group" style="margin-top: 32px;">
+    <button class="settings-row danger" onclick="openModal('modal-delete-acc')" style="color:var(--danger);">
+      <div class="row-icon" style="background:#FEF2F2; color:var(--danger);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path></svg></div>
+      <div class="row-content">
+        <div class="row-title">Delete Account</div>
+        <div class="row-desc">Permanently remove your data</div>
+      </div>
+    </button>
+  </div>
+</main>
+
+<!-- Modals Container -->
+<div class="modal-overlay" id="modal-overlay">
+  <!-- Profile Modal -->
+  <div class="modal-card" id="modal-edit-profile">
+    <h3 class="modal-title" style="margin-bottom:20px;">Edit Profile</h3>
+    <div id="alert-edit-prof" class="modal-alert"></div>
+    <form id="form-edit-prof">
+      <input type="text" id="edit-name" class="form-control" placeholder="Full Name" required>
+      <select id="edit-branch" class="form-control" required>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Electrical Engineering">Electrical Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Computer Science Engineering">Computer Science Engineering</option>
+      </select>
+      <div style="display:flex; gap:12px;">
+        <button type="button" class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-prof">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Password Modal -->
+  <div class="modal-card" id="modal-password">
+    <h3 class="modal-title" style="margin-bottom:20px;">Change Password</h3>
+    <div id="alert-pwd" class="modal-alert"></div>
+    <form id="form-pwd">
+      <input type="password" id="pwd-new" class="form-control" placeholder="New Password" required minlength="6">
+      <input type="password" id="pwd-conf" class="form-control" placeholder="Confirm Password" required minlength="6">
+      <div style="display:flex; gap:12px;">
+        <button type="button" class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-pwd">Update</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Theme Modal -->
+  <div class="modal-card" id="modal-theme">
+    <h3 class="modal-title" style="margin-bottom:20px;">Choose Theme</h3>
+    <button class="btn btn-secondary" style="margin-bottom:8px;" onclick="setTheme('system')">System</button>
+    <button class="btn btn-secondary" style="margin-bottom:8px;" onclick="setTheme('light')">Light</button>
+    <button class="btn btn-secondary" style="margin-bottom:8px;" onclick="setTheme('dark')">Dark</button>
+    <button class="btn btn-primary" style="margin-top:12px;" onclick="closeModals()">Done</button>
+  </div>
+
+  <!-- Clear Data Modal -->
+  <div class="modal-card" id="modal-clear-data">
+    <h3 class="modal-title" style="margin-bottom:12px;">Clear Local Data</h3>
+    <p style="color:var(--text-muted); margin-bottom:20px;">This will clear preferences. You will not be logged out.</p>
+    <div style="display:flex; gap:12px;">
+      <button class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+      <button class="btn btn-danger" onclick="clearLocalData()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Delete Account Modal -->
+  <div class="modal-card" id="modal-delete-acc">
+    <h3 class="modal-title" style="color:var(--danger); margin-bottom:12px;">Delete Account</h3>
+    <div id="alert-del" class="modal-alert"></div>
+    <p style="color:var(--text-muted); margin-bottom:20px;">This permanently deletes your account and cannot be undone.</p>
+    <div style="display:flex; gap:12px;">
+      <button class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+      <button class="btn btn-danger" id="btn-del-acc" onclick="deleteAccount()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+    <span style="font-size:0.75rem;">Home</span>
+  </a>
+  <a href="my-courses.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    <span style="font-size:0.75rem;">Courses</span>
+  </a>
+  <a href="downloads.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>
+    <span style="font-size:0.75rem;">Downloads</span>
+  </a>
+  <a href="help.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path></svg>
+    <span style="font-size:0.75rem;">Help</span>
+  </a>
+</nav>
+
+<!-- Side Drawer -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="drawer" id="side-drawer" style="padding:20px;">
+  <h2 style="margin-bottom: 20px; color:var(--primary-navy);">Menu</h2>
+  <a href="home.html" style="display:block; margin-bottom:16px; text-decoration:none; color:var(--text-dark);">Home</a>
+  <a href="settings.html" style="display:block; margin-bottom:16px; text-decoration:none; color:var(--primary-blue); font-weight:bold;">Settings</a>
+  <button onclick="handleLogout()" style="background:none; border:none; color:var(--danger); font-size:1rem; cursor:pointer;">Logout</button>
+</div>
+
+<script type="module">
+// --- Firebase Imports ---
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged, signOut, updatePassword, deleteUser } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+let currentUser = null;
+
+// --- UI Handlers (Navigation & Modals) ---
+document.getElementById('btn-back').addEventListener('click', () => {
+  window.history.length > 1 ? window.history.back() : window.location.replace('home.html');
+});
+
+document.getElementById('btn-menu').addEventListener('click', () => {
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('side-drawer').classList.add('open');
+});
+document.getElementById('drawer-overlay').addEventListener('click', () => {
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('side-drawer').classList.remove('open');
+});
+
+const modalOverlay = document.getElementById('modal-overlay');
+window.openModal = function(id) {
+  document.querySelectorAll('.modal-card').forEach(m => m.classList.remove('active-modal'));
+  document.querySelectorAll('.modal-alert').forEach(a => a.style.display = 'none');
+  document.getElementById(id).classList.add('active-modal');
+  modalOverlay.classList.add('open');
+}
+window.closeModals = function() {
+  modalOverlay.classList.remove('open');
+}
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModals();
+});
+
+function showAlert(modalId, msg, isSuccess = false) {
+  const el = document.querySelector(`#${modalId} .modal-alert`);
+  el.textContent = msg;
+  el.className = `modal-alert ${isSuccess ? 'success' : 'error'}`;
+}
+
+// --- Preferences & Theme ---
+window.setTheme = function(theme) {
+  localStorage.setItem('polytechnic_theme', theme);
+  applyTheme(theme);
+  closeModals();
+}
+function applyTheme(theme) {
+  if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.body.setAttribute('data-theme', 'dark');
+  } else {
+    document.body.removeAttribute('data-theme');
+  }
+}
+applyTheme(localStorage.getItem('polytechnic_theme') || 'system');
+
+window.clearLocalData = function() {
+  localStorage.clear();
+  closeModals();
+  alert("Local preferences cleared.");
+}
+
+// --- Firebase Data Fetching ---
+async function loadUserData(user) {
+  try {
+    const docSnap = await getDoc(doc(db, "students", user.uid));
+    let dbName = null, dbBranch = "";
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      dbName = data.name;
+      dbBranch = data.branch || "";
+    }
+    const finalName = dbName || user.displayName || "Student";
+    
+    document.getElementById('prof-name').textContent = finalName;
+    document.getElementById('prof-email').textContent = user.email || "";
+    document.getElementById('prof-branch').textContent = dbBranch || "Branch not set";
+    document.getElementById('prof-avatar').textContent = finalName.charAt(0).toUpperCase();
+    
+    document.getElementById('edit-name').value = finalName;
+    if(dbBranch) document.getElementById('edit-branch').value = dbBranch;
+  } catch (error) {
+    document.getElementById('prof-name').textContent = user.displayName || "Student";
+  }
+}
+
+// --- Firebase Operations (Update/Delete/Logout) ---
+document.getElementById('form-edit-prof').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if(!currentUser) return;
+  const newName = document.getElementById('edit-name').value.trim();
+  const newBranch = document.getElementById('edit-branch').value;
+  try {
+    await updateDoc(doc(db, "students", currentUser.uid), { name: newName, branch: newBranch });
+    showAlert('modal-edit-profile', 'Profile updated successfully.', true);
+    setTimeout(closeModals, 1000);
+    loadUserData(currentUser);
+  } catch (error) {
+    showAlert('modal-edit-profile', 'Unable to update your profile.');
+  }
+});
+
+document.getElementById('form-pwd').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const p1 = document.getElementById('pwd-new').value;
+  if(p1 !== document.getElementById('pwd-conf').value) return showAlert('modal-password', 'Passwords do not match.');
+  try {
+    await updatePassword(currentUser, p1);
+    showAlert('modal-password', 'Password changed successfully.', true);
+    document.getElementById('form-pwd').reset();
+    setTimeout(closeModals, 1500);
+  } catch (error) {
+    showAlert('modal-password', 'Please sign in again for security.');
+  }
+});
+
+window.deleteAccount = async function() {
+  try {
+    await deleteUser(currentUser);
+  } catch(error) {
+    showAlert('modal-delete-acc', 'Please sign in again before deleting your account.');
+  }
+}
+
+window.handleLogout = async function() {
+  try {
+    await signOut(auth);
+    window.location.replace("login.html");
+  } catch (e) {
+    alert("Logout failed.");
+  }
+}
+
+// --- Auth State Observer ---
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.replace("login.html");
+    return;
+  }
+  currentUser = user;
+  await loadUserData(user);
+});
+</script>
+</body>
+</html>
