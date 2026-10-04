@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FFFFFF">
+<title>Polytechnic Hub - Downloads</title>
+<style>
+:root {
+  --primary-navy: #0B1F3A;
+  --primary-blue: #1677FF;
+  --bg-color: #F5F8FC;
+  --white: #FFFFFF;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-drawer: 4px 0 24px rgba(0,0,0,0.15);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--white);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  height: 60px;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  min-width: 48px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-navy);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: -8px;
+  cursor: pointer;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:active {
+  background-color: var(--bg-color);
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 16px 90px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.page-title-wrap {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-navy);
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.btn-clear {
+  background: none;
+  border: none;
+  color: #EF4444;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background-color: #FEF2F2;
+  transition: all 0.2s;
+}
+
+.btn-clear:active {
+  background-color: #FEE2E2;
+}
+
+.search-container {
+  margin-bottom: 24px;
+  position: relative;
+  display: none;
+}
+
+.search-container.active {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  font-size: 1rem;
+  color: var(--text-dark);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.filter-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -16px 24px;
+  padding: 0 16px;
+  scrollbar-width: none;
+}
+
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-container {
+  display: inline-flex;
+  background-color: var(--white);
+  padding: 4px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  gap: 4px;
+}
+
+.filter-tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.filter-tab.active {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+
+.file-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.file-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.file-card:active {
+  transform: scale(0.98);
+}
+
+.file-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.type-pdf { background-color: #FEE2E2; color: #EF4444; }
+.type-doc { background-color: #E0F2FE; color: #0EA5E9; }
+.type-zip { background-color: #FEF3C7; color: #F59E0B; }
+.type-ppt { background-color: #FFEDD5; color: #F97316; }
+.type-xls { background-color: #DCFCE7; color: #22C55E; }
+.type-other { background-color: #F1F5F9; color: #64748B; }
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #CBD5E1;
+  border-radius: 50%;
+}
+
+.btn-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #EFF6FF;
+  color: var(--primary-blue);
+  flex-shrink: 0;
+  min-width: 110px;
+}
+
+.btn-download:active {
+  background-color: #DBEAFE;
+}
+
+.btn-download.downloading {
+  background-color: #F8FAFC;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.btn-download.downloaded {
+  background-color: #F0FDF4;
+  color: #16A34A;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: spin 0.8s linear infinite;
+}
+
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px dashed var(--border-color);
+  margin-top: 20px;
+}
+
+.empty-state.visible {
+  display: flex;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  background: #F1F5F9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #94A3B8;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 8px;
+}
+
+.empty-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  max-width: 250px;
+}
+
+.btn-explore {
+  padding: 12px 24px;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.2);
+}
+
+.skeleton-card {
+  display: none;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 16px;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.skeleton-card.visible {
+  display: flex;
+}
+
+.skeleton-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #E2E8F0;
+}
+
+.skeleton-lines {
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 16px;
+  background: #E2E8F0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-line.short { width: 60%; margin-bottom: 0; }
+.skeleton-btn { width: 90px; height: 36px; border-radius: 20px; background: #E2E8F0; }
+
+.skeleton-anim {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.error-state {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: #EF4444;
+}
+
+.error-state.visible { display: block; }
+
+.btn-retry {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0 calc(12px + var(--safe-bottom));
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+  z-index: 40;
+  border-radius: 20px 20px 0 0;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  text-decoration: none;
+  width: 25%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item.active {
+  color: var(--primary-blue);
+}
+
+.nav-icon {
+  transition: transform 0.2s;
+}
+
+.nav-item:active .nav-icon {
+  transform: scale(0.9);
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  bottom: 0;
+  width: 280px;
+  background-color: var(--white);
+  z-index: 51;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-drawer);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.drawer.open {
+  transform: translateX(280px);
+}
+
+.drawer-header {
+  background: linear-gradient(135deg, var(--primary-navy) 0%, #173258 100%);
+  padding: 30px 20px 20px;
+  color: var(--white);
+  position: relative;
+}
+
+.drawer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.drawer-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.drawer-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--primary-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid rgba(255,255,255,0.2);
+  overflow: hidden;
+}
+
+.drawer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drawer-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.drawer-info p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.drawer-menu {
+  padding: 16px 0;
+  flex: 1;
+}
+
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.drawer-item:active {
+  background-color: #F3F4F6;
+}
+
+.drawer-item svg {
+  color: var(--text-muted);
+}
+
+.drawer-item.logout {
+  color: #DC2626;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+}
+
+.drawer-item.logout svg {
+  color: #DC2626;
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-color);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.main-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(22, 119, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--primary-blue);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (min-width: 768px) {
+  .file-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+@media (min-width: 1024px) {
+  .file-grid { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto; }
+  .bottom-nav { display: none; }
+  .main-content { padding-bottom: 40px; }
+}
+
+.skeleton-text-block { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; color: transparent !important; }
+</style>
+</head>
+<body>
+
+<div id="loading-screen" class="loading-overlay">
+  <div class="main-spinner"></div>
+</div>
+
+<header class="header">
+  <div class="header-left">
+    <button class="icon-btn" id="btn-back" aria-label="Go Back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+  </div>
+  <div class="header-center">
+    Downloads
+  </div>
+  <div class="header-right" style="justify-content: flex-end;">
+    <button class="icon-btn" id="btn-search-toggle" aria-label="Search">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="search-container" id="search-container">
+    <svg class="search-icon-inside" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="search" id="search-input" class="search-input" placeholder="Search by name, subject, category...">
+  </div>
+
+  <div class="page-header">
+    <div class="page-title-wrap">
+      <h1 class="page-title">My Downloads</h1>
+      <p class="page-subtitle">Access your saved study materials anytime</p>
+    </div>
+    <button class="btn-clear" id="btn-clear-history" style="display:none;">Clear History</button>
+  </div>
+
+  <div class="filter-scroll">
+    <div class="filter-container" id="filter-container">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="Notes">Notes</button>
+      <button class="filter-tab" data-filter="PDF">PDF</button>
+      <button class="filter-tab" data-filter="PYQ">PYQ</button>
+      <button class="filter-tab" data-filter="Test">Test</button>
+      <button class="filter-tab" data-filter="Other">Other</button>
+    </div>
+  </div>
+
+  <div id="file-grid" class="file-grid">
+    <div class="skeleton-card visible" id="skel-1">
+      <div class="skeleton-box skeleton-anim"></div>
+      <div class="skeleton-lines">
+        <div class="skeleton-line skeleton-anim"></div>
+        <div class="skeleton-line short skeleton-anim"></div>
+      </div>
+      <div class="skeleton-btn skeleton-anim"></div>
+    </div>
+    <div class="skeleton-card visible" id="skel-2">
+      <div class="skeleton-box skeleton-anim"></div>
+      <div class="skeleton-lines">
+        <div class="skeleton-line skeleton-anim"></div>
+        <div class="skeleton-line short skeleton-anim"></div>
+      </div>
+      <div class="skeleton-btn skeleton-anim"></div>
+    </div>
+  </div>
+
+  <div class="empty-state" id="empty-state">
+    <div class="empty-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+    </div>
+    <h2 class="empty-title">No Downloads Yet</h2>
+    <p class="empty-desc" id="empty-desc">Your downloaded study materials will appear here.</p>
+    <a href="home.html" class="btn-explore">Explore Study Material</a>
+  </div>
+
+  <div class="error-state" id="error-state">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <h3>Unable to load downloads</h3>
+    <button class="btn-retry" id="btn-retry">Try Again</button>
+  </div>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <span class="nav-label">Home</span>
+  </a>
+  <a href="my-courses.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="nav-label">My Course</span>
+  </a>
+  <a href="downloads.html" class="nav-item active">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    <span class="nav-label">Downloads</span>
+  </a>
+  <a href="help.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
+    <span class="nav-label">Help</span>
+  </a>
+</nav>
+
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="drawer" id="side-drawer">
+  <div class="drawer-header">
+    <button class="drawer-close" id="btn-close-drawer" aria-label="Close Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="drawer-profile">
+      <div class="drawer-avatar" id="drawer-avatar"></div>
+      <div class="drawer-info">
+        <h3 id="drawer-name" class="skeleton-text-block" style="width: 140px; margin-bottom: 4px;">Loading Name</h3>
+        <p id="drawer-email" class="skeleton-text-block" style="width: 180px; margin-bottom: 4px;">loading@email.com</p>
+        <p id="drawer-branch" class="skeleton-text-block" style="width: 120px;">Loading Branch...</p>
+      </div>
+    </div>
+  </div>
+  
+  <nav class="drawer-menu">
+    <a href="home.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      Home
+    </a>
+    <a href="my-courses.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+      My Courses
+    </a>
+    <a href="downloads.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Downloads
+    </a>
+    <a href="help.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      Help
+    </a>
+    <a href="settings.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      Settings
+    </a>
+    <a href="about.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      About Us
+    </a>
+    <button class="drawer-item logout" id="btn-logout" style="width: 100%; border-bottom: none; background: none; cursor: pointer; text-align: left; font-size: 1rem; font-family: inherit;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+      Logout
+    </button>
+  </nav>
+</div>
+
+<script type="module">
+import { auth, db, storage } from "./firebase.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { doc, getDoc, collection, getDocs, query } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+const loadingScreen = document.getElementById('loading-screen');
+const btnBack = document.getElementById('btn-back');
+const btnSearchToggle = document.getElementById('btn-search-toggle');
+const searchContainer = document.getElementById('search-container');
+const searchInput = document.getElementById('search-input');
+const fileGrid = document.getElementById('file-grid');
+const emptyState = document.getElementById('empty-state');
+const emptyDesc = document.getElementById('empty-desc');
+const errorState = document.getElementById('error-state');
+const btnRetry = document.getElementById('btn-retry');
+const filterTabs = document.querySelectorAll('.filter-tab');
+const btnClearHistory = document.getElementById('btn-clear-history');
+
+const drawerOverlay = document.getElementById('drawer-overlay');
+const sideDrawer = document.getElementById('side-drawer');
+const btnCloseDrawer = document.getElementById('btn-close-drawer');
+const btnLogout = document.getElementById('btn-logout');
+const drawerNameEl = document.getElementById('drawer-name');
+const drawerEmailEl = document.getElementById('drawer-email');
+const drawerBranchEl = document.getElementById('drawer-branch');
+const drawerAvatarEl = document.getElementById('drawer-avatar');
+
+let currentUser = null;
+let allFiles = [];
+let currentFilter = 'all';
+let currentSearch = '';
+let downloadHistory = JSON.parse(localStorage.getItem('phub_dl_history') || '[]');
+
+btnBack.addEventListener('click', () => {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = 'home.html';
+  }
+});
+
+btnSearchToggle.addEventListener('click', () => {
+  searchContainer.classList.toggle('active');
+  if (searchContainer.classList.contains('active')) {
+    searchInput.focus();
+  } else {
+    searchInput.value = '';
+    currentSearch = '';
+    renderFiles();
+  }
+});
+
+searchInput.addEventListener('input', (e) => {
+  currentSearch = e.target.value.toLowerCase();
+  renderFiles();
+});
+
+filterTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    filterTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.getAttribute('data-filter');
+    renderFiles();
+  });
+});
+
+btnClearHistory.addEventListener('click', () => {
+  if (confirm("Are you sure you want to clear your download history?")) {
+    downloadHistory = [];
+    localStorage.setItem('phub_dl_history', JSON.stringify([]));
+    renderFiles();
+    updateClearHistoryButton();
+  }
+});
+
+function updateClearHistoryButton() {
+  if (downloadHistory.length > 0) {
+    btnClearHistory.style.display = 'block';
+  } else {
+    btnClearHistory.style.display = 'none';
+  }
+}
+
+function closeDrawer() {
+  drawerOverlay.classList.remove('open');
+  sideDrawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+btnCloseDrawer.addEventListener('click', closeDrawer);
+drawerOverlay.addEventListener('click', closeDrawer);
+
+let touchStartX = 0;
+sideDrawer.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
+sideDrawer.addEventListener('touchend', e => {
+  if (touchStartX - e.changedTouches[0].screenX > 50) closeDrawer();
+}, {passive: true});
+
+function getIconForType(type) {
+  const t = type.toLowerCase();
+  if (t === 'pdf') {
+    return { class: 'type-pdf', svg: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path>' };
+  } else if (t.includes('doc')) {
+    return { class: 'type-doc', svg: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path>' };
+  } else if (t.includes('zip')) {
+    return { class: 'type-zip', svg: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>' };
+  } else if (t.includes('ppt')) {
+    return { class: 'type-ppt', svg: '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line>' };
+  } else if (t.includes('xls')) {
+    return { class: 'type-xls', svg: '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line>' };
+  } else {
+    return { class: 'type-other', svg: '<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>' };
+  }
+}
+
+window.startDownload = async function(btnId, fileId, fileUrl, fileName) {
+  const btn = document.getElementById(btnId);
+  if (!btn || btn.classList.contains('downloading')) return;
+
+  btn.classList.add('downloading');
+  btn.innerHTML = '<span class="spinner"></span>';
+
+  setTimeout(() => {
+    const a = document.createElement("a");
+    a.href = fileUrl;
+    a.download = fileName;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    if (!downloadHistory.includes(fileId)) {
+      downloadHistory.push(fileId);
+      localStorage.setItem('phub_dl_history', JSON.stringify(downloadHistory));
+    }
+
+    btn.classList.remove('downloading');
+    btn.classList.add('downloaded');
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Downloaded';
+    
+    updateClearHistoryButton();
+  }, 1000);
+};
+
+function renderFiles() {
+  const items = Array.from(fileGrid.children);
+  items.forEach(item => {
+    if(!item.classList.contains('skeleton-card')) {
+      item.remove();
+    }
+  });
+
+  const filtered = allFiles.filter(file => {
+    const matchesFilter = currentFilter === 'all' || file.category.toLowerCase() === currentFilter.toLowerCase() || file.type.toLowerCase() === currentFilter.toLowerCase();
+    const searchTerms = currentSearch.split(' ');
+    const searchString = `${file.name} ${file.subject} ${file.category}`.toLowerCase();
+    const matchesSearch = searchTerms.every(term => searchString.includes(term));
+    return matchesFilter && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    emptyState.classList.add('visible');
+    if (allFiles.length > 0) {
+      emptyDesc.textContent = "No files match your search or filter.";
+    } else {
+      emptyDesc.textContent = "Your downloaded study materials will appear here.";
+    }
+    return;
+  }
+
+  emptyState.classList.remove('visible');
+
+  filtered.forEach(file => {
+    const card = document.createElement('div');
+    card.className = 'file-card';
+    
+    const iconData = getIconForType(file.type);
+    const isDownloaded = downloadHistory.includes(file.id);
+    const btnId = `btn-dl-${file.id}`;
+    
+    let btnHtml = '';
+    if (isDownloaded) {
+      btnHtml = `<button id="${btnId}" class="btn-download downloaded" onclick="startDownload('${btnId}', '${file.id}', '${file.url}', '${file.name}')">
+                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Downloaded
+                 </button>`;
+    } else {
+      btnHtml = `<button id="${btnId}" class="btn-download" onclick="startDownload('${btnId}', '${file.id}', '${file.url}', '${file.name}')">
+                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download
+                 </button>`;
+    }
+
+    card.innerHTML = `
+      <div class="file-icon-box ${iconData.class}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          ${iconData.svg}
+        </svg>
+      </div>
+      <div class="file-info">
+        <div class="file-name">${file.name}</div>
+        <div class="file-meta">
+          <span>${file.subject || file.category}</span>
+          <span class="meta-dot"></span>
+          <span>${file.type} • ${file.size}</span>
+        </div>
+      </div>
+      ${btnHtml}
+    `;
+    fileGrid.appendChild(card);
+  });
+}
+
+function hideSkeletons() {
+  document.querySelectorAll('.skeleton-card').forEach(el => el.classList.remove('visible'));
+}
+
+async function loadUserData(uid) {
+  try {
+    const docRef = doc(db, "students", uid);
+    const docSnap = await getDoc(docRef);
+    
+    let dbName = null;
+    let dbEmail = null;
+    let dbBranch = null;
+    let dbPhotoURL = null;
+    
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      dbName = data.name;
+      dbEmail = data.email;
+      dbBranch = data.branch;
+      dbPhotoURL = data.photoURL;
+    }
+    
+    const finalName = dbName || auth.currentUser.displayName || "Student";
+    drawerNameEl.classList.remove('skeleton-text-block');
+    drawerNameEl.textContent = finalName;
+    
+    drawerEmailEl.classList.remove('skeleton-text-block');
+    drawerEmailEl.textContent = dbEmail || auth.currentUser.email || "No email";
+    
+    drawerBranchEl.classList.remove('skeleton-text-block');
+    drawerBranchEl.textContent = dbBranch || "Student";
+    
+    if (dbPhotoURL || auth.currentUser.photoURL) {
+      drawerAvatarEl.innerHTML = `<img src="${dbPhotoURL || auth.currentUser.photoURL}" alt="Profile" onerror="this.style.display='none'; this.parentNode.innerHTML='${finalName.charAt(0).toUpperCase()}'">`;
+    } else {
+      drawerAvatarEl.textContent = finalName.charAt(0).toUpperCase();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function loadFiles() {
+  try {
+    errorState.classList.remove('visible');
+    
+    const downloadsRef = collection(db, "downloads");
+    const q = query(downloadsRef);
+    const querySnapshot = await getDocs(q);
+    
+    allFiles = [];
+    
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      allFiles.push({
+        id: doc.id,
+        name: data.name || "Untitled File",
+        url: data.url || "#",
+        type: data.type || "Other",
+        category: data.category || "General",
+        subject: data.subject || "",
+        size: data.size || "Unknown Size",
+        createdAt: data.createdAt
+      });
+    });
+
+    if (allFiles.length === 0) {
+      allFiles = [
+        { id: 'demo1', name: 'Concrete Technology Unit 1', url: '#', type: 'PDF', category: 'Notes', subject: 'Civil Eng', size: '2.4 MB' },
+        { id: 'demo2', name: 'Thermodynamics PYQ 2025', url: '#', type: 'PYQ', category: 'PYQ', subject: 'Mechanical', size: '1.1 MB' },
+        { id: 'demo3', name: 'Programming in C Assignment', url: '#', type: 'DOCX', category: 'Other', subject: 'Computer Sc.', size: '450 KB' },
+        { id: 'demo4', name: 'Engineering Drawing Basics', url: '#', type: 'ZIP', category: 'Notes', subject: 'Mechanical', size: '15.2 MB' }
+      ];
+    }
+
+    hideSkeletons();
+    renderFiles();
+    updateClearHistoryButton();
+
+  } catch (error) {
+    hideSkeletons();
+    errorState.classList.add('visible');
+    emptyState.classList.remove('visible');
+  }
+}
+
+btnRetry.addEventListener('click', () => {
+  if(currentUser) {
+    errorState.classList.remove('visible');
+    document.querySelectorAll('.skeleton-card').forEach(el => el.classList.add('visible'));
+    loadFiles();
+  }
+});
+
+btnLogout.addEventListener('click', async () => {
+  try {
+    btnLogout.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0 10px 0 0;"></span> Logging out...';
+    await signOut(auth);
+  } catch (error) {
+    alert("Failed to log out.");
+    btnLogout.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Logout';
+  }
+});
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.replace("login.html");
+    return;
+  }
+  
+  currentUser = user;
+  
+  Promise.all([
+    loadUserData(user.uid),
+    loadFiles()
+  ]).finally(() => {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+    }, 300);
+  });
+});
+
+</script>
+</body>
+</html>
