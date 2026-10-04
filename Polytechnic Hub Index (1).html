@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A192F">
+
+<!-- PWA & Mobile Web App Tags -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Polytechnic Hub">
+
+<!-- Primary Meta Tags (SEO) -->
+<title>Polytechnic Hub - Your Complete Engineering Learning Platform</title>
+<meta name="title" content="Polytechnic Hub - Your Complete Engineering Learning Platform">
+<meta name="description" content="Join Polytechnic Hub, the best digital campus for diploma engineering students. Access study materials, notes, previous year papers, and online tests instantly.">
+<meta name="keywords" content="Polytechnic, Diploma Engineering, Study Material, MSBTE, BTEUP, SBTE, Engineering Notes, Online Tests, Polytechnic Hub, Technical Education">
+<meta name="author" content="Polytechnic Hub">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+
+<!-- Open Graph / Facebook (SEO) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://your-domain.com/">
+<meta property="og:title" content="Polytechnic Hub - Your Complete Engineering Platform">
+<meta property="og:description" content="Access premium study materials, mock tests, and connect with peers to accelerate your engineering journey.">
+<meta property="og:image" content="https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg">
+
+<!-- Twitter (SEO) -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://your-domain.com/">
+<meta property="twitter:title" content="Polytechnic Hub - Your Complete Engineering Platform">
+<meta property="twitter:description" content="Access premium study materials, mock tests, and connect with peers to accelerate your engineering journey.">
+<meta property="twitter:image" content="https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg">
+
+<!-- Canonical Tag (SEO) -->
+<link rel="canonical" href="https://your-domain.com/">
+
+<link rel="manifest" href="./manifest.json">
+
+<style>
+:root {
+  --navy: #0A192F;
+  --navy-light: #172a45;
+  --blue: #2563EB;
+  --blue-hover: #1D4ED8;
+  --blue-glow: rgba(37, 99, 235, 0.5);
+  --bg: #F8FAFC;
+  --white: #FFFFFF;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#startup-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Background animated elements */
+#startup-screen::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-slow 8s infinite alternate;
+}
+
+.logo-container {
+  width: 130px;
+  height: 130px;
+  border-radius: 28px;
+  background: var(--white);
+  padding: 10px;
+  margin-bottom: 28px;
+  box-shadow: 0 0 40px var(--blue-glow), inset 0 0 20px rgba(0,0,0,0.05);
+  animation: scaleIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 2;
+}
+
+.logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.brand-text {
+  color: var(--white);
+  text-align: center;
+  animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  position: relative;
+  z-index: 2;
+}
+
+.brand-text h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  background: linear-gradient(to right, #fff, #93C5FD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text p {
+  color: #94A3B8;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.loader {
+  margin-top: 50px;
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: #60A5FA;
+  animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite, fadeUp 0.6s 0.4s both;
+}
+
+#install-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 25, 47, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#install-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.install-sheet {
+  background: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 32px 32px 0 0;
+  padding: 40px 24px 32px;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* Drag indicator for bottom sheet feel */
+.install-sheet::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 5px;
+  background: #CBD5E1;
+  border-radius: 10px;
+}
+
+#install-overlay.active .install-sheet {
+  transform: translateY(0);
+}
+
+.install-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.install-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: var(--white);
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+.install-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.install-title h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.install-title p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #F1F5F9;
+  padding: 14px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: transform 0.2s;
+}
+
+.feature-item:hover {
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 1.4rem;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  width: 100%;
+  padding: 18px;
+  border-radius: 18px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), #3B82F6);
+  color: var(--white);
+  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button Shine Effect */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: shine 3s infinite;
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 5px 10px -5px rgba(37, 99, 235, 0.4);
+}
+
+.btn-secondary {
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+}
+
+.btn-secondary:active {
+  background: #E2E8F0;
+  transform: scale(0.97);
+}
+
+@media (min-width: 768px) {
+  #install-overlay {
+    align-items: center;
+  }
+  .install-sheet {
+    border-radius: 32px;
+    transform: translateY(20px) scale(0.95);
+    padding: 48px 40px 40px;
+  }
+  .install-sheet::before {
+    display: none; /* Hide drag indicator on desktop */
+  }
+  #install-overlay.active .install-sheet {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Keyframes for animations */
+@keyframes scaleIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-slow {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0.8; }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+</style>
+</head>
+<body>
+
+<div id="startup-screen">
+  <div class="logo-container">
+    <img src="https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg" alt="Polytechnic Hub Logo">
+  </div>
+  <div class="brand-text">
+    <h1>POLYTECHNIC HUB</h1>
+    <p>Your Digital Engineering Campus</p>
+  </div>
+  <div class="loader"></div>
+</div>
+
+<div id="install-overlay">
+  <div class="install-sheet">
+    <div class="install-header">
+      <div class="install-logo">
+        <img src="https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg" alt="App Icon">
+      </div>
+      <div class="install-title">
+        <h2>Install App Now</h2>
+        <p>Get the full Polytechnic Hub experience. Faster, offline support, and directly on your home screen.</p>
+      </div>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">🚀</span>
+        Super Fast
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📚</span>
+        All Materials
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📝</span>
+        Mock Tests
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📱</span>
+        No Distractions
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button id="btn-install" class="btn btn-primary">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Install Application
+      </button>
+      <button id="btn-browser" class="btn btn-secondary">
+        Continue in Browser
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+const installOverlay = document.getElementById('install-overlay');
+const btnInstall = document.getElementById('btn-install');
+const btnBrowser = document.getElementById('btn-browser');
+const startupScreen = document.getElementById('startup-screen');
+
+let deferredPrompt = null;
+let authChecked = false;
+let installHandled = false;
+let currentUser = null;
+
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+
+// Check if app is already installed
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+// Navigation logic based on Authentication
+function proceedToNextPage() {
+  startupScreen.style.opacity = '0';
+  setTimeout(() => {
+    if (currentUser) {
+      window.location.replace("home.html");
+    } else {
+      window.location.replace("login.html");
+    }
+  }, 600); // Matches CSS transition duration
+}
+
+// Ensure both install prompt and auth check are resolved before proceeding
+function handleLogicProgression() {
+  if (authChecked && installHandled) {
+    proceedToNextPage();
+  }
+}
+
+// Catch the install prompt event
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  
+  // If already installed, skip prompt
+  if (isStandalone()) {
+    installHandled = true;
+    handleLogicProgression();
+    return;
+  }
+  
+  deferredPrompt = e;
+  
+  // Show the beautiful install bottom sheet after a short delay
+  setTimeout(() => {
+    installOverlay.classList.add('active');
+  }, 1200);
+});
+
+// Install Button Click Handler
+btnInstall.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  
+  deferredPrompt = null;
+  installOverlay.classList.remove('active');
+  installHandled = true;
+  handleLogicProgression();
+});
+
+// Continue to Browser Button Click Handler
+btnBrowser.addEventListener('click', () => {
+  installOverlay.classList.remove('active');
+  installHandled = true;
+  handleLogicProgression();
+});
+
+// App Installed Successfully Handler
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  installOverlay.classList.remove('active');
+  installHandled = true;
+  handleLogicProgression();
+});
+
+// Firebase Auth State Listener
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  authChecked = true;
+  
+  // If it's a standalone app OR device doesn't support PWA install, proceed automatically
+  if (isStandalone() || !window.BeforeInstallPromptEvent) {
+      installHandled = true;
+      setTimeout(() => {
+         if(!document.getElementById('install-overlay').classList.contains('active')){
+              handleLogicProgression();
+         }
+      }, 1800); // Let them see the awesome animation for a bit
+  }
+});
+
+// Failsafe: if nothing happens within 3.5 seconds, force proceed
+setTimeout(() => {
+  if (!installHandled && !document.getElementById('install-overlay').classList.contains('active')) {
+    installHandled = true;
+    handleLogicProgression();
+  }
+}, 3500);
+
+</script>
+</body>
+</html>
