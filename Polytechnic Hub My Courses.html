@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FFFFFF">
+<title>Polytechnic Hub - My Courses</title>
+<style>
+:root {
+  --primary-navy: #0B1F3A;
+  --primary-blue: #1677FF;
+  --bg-color: #F5F8FC;
+  --white: #FFFFFF;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-drawer: 4px 0 24px rgba(0,0,0,0.15);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--white);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  height: 60px;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  min-width: 48px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-navy);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: -8px;
+  cursor: pointer;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:active {
+  background-color: var(--bg-color);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: #EF4444;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  display: none;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 24px 16px 90px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-navy);
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Filters */
+.filter-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -16px 24px;
+  padding: 0 16px;
+  scrollbar-width: none;
+}
+
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-container {
+  display: inline-flex;
+  background-color: var(--white);
+  padding: 4px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.filter-tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  background: transparent;
+  white-space: nowrap;
+}
+
+.filter-tab.active {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+
+/* Course Grid */
+.course-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.course-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card:active {
+  transform: scale(0.98);
+}
+
+.course-thumbnail {
+  width: 100%;
+  height: 160px;
+  position: relative;
+  background-color: #E2E8F0;
+}
+
+.course-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255,255,255,0.9);
+  color: var(--primary-navy);
+  backdrop-filter: blur(4px);
+}
+
+.course-badge.completed {
+  background: #DCFCE7;
+  color: #16A34A;
+}
+
+.course-info {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.course-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.course-progress-container {
+  margin-top: auto;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.progress-percentage {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background-color: #F1F5F9;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6, var(--primary-blue));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.btn-continue {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  border: none;
+  background-color: #EFF6FF;
+  color: var(--primary-blue);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.course-card:active .btn-continue {
+  background-color: #DBEAFE;
+}
+
+.btn-continue.completed {
+  background-color: #F0FDF4;
+  color: #16A34A;
+}
+
+/* Empty State */
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px dashed var(--border-color);
+  margin-top: 20px;
+}
+
+.empty-state.visible {
+  display: flex;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  background: #F1F5F9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #94A3B8;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 8px;
+}
+
+.empty-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  max-width: 250px;
+}
+
+.btn-explore {
+  padding: 12px 24px;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.2);
+}
+
+/* Loading Skeleton */
+.skeleton-card {
+  display: none;
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.skeleton-card.visible {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-thumb {
+  height: 160px;
+  background: #E2E8F0;
+}
+
+.skeleton-body {
+  padding: 16px;
+}
+
+.skeleton-line {
+  height: 16px;
+  background: #E2E8F0;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-line.short { width: 40%; }
+.skeleton-line.medium { width: 70%; }
+.skeleton-box { height: 40px; background: #E2E8F0; border-radius: 12px; margin-top: 16px;}
+
+.skeleton-anim {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Error State */
+.error-state {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  color: #EF4444;
+}
+.error-state.visible { display: block; }
+.btn-retry {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0 calc(12px + var(--safe-bottom));
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+  z-index: 40;
+  border-radius: 20px 20px 0 0;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  text-decoration: none;
+  width: 25%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item.active {
+  color: var(--primary-blue);
+}
+
+.nav-icon {
+  transition: transform 0.2s;
+}
+
+.nav-item:active .nav-icon {
+  transform: scale(0.9);
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Notification Panel */
+.notification-panel {
+  position: fixed;
+  top: 60px;
+  right: 16px;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  z-index: 45;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.notification-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notif-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notif-body {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Full Screen Loader overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-color);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(22, 119, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--primary-blue);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (min-width: 768px) {
+  .course-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+
+@media (min-width: 1024px) {
+  .course-grid { grid-template-columns: repeat(3, 1fr); }
+  .bottom-nav { display: none; }
+  .main-content { padding-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+
+<div id="loading-screen" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <button class="icon-btn" id="btn-back" aria-label="Go Back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+  </div>
+  <div class="header-center">
+    My Courses
+  </div>
+  <div class="header-right" style="justify-content: flex-end;">
+    <button class="icon-btn" id="btn-notify" aria-label="Notifications" style="position:relative;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+      <span class="notification-badge" id="notif-badge"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Notification Panel -->
+<div class="notification-panel" id="notif-panel">
+  <div class="notif-header">
+    <span>Notifications</span>
+    <button class="icon-btn" id="btn-close-notif" style="padding: 4px; margin: 0;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="notif-body">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+      <line x1="12" y1="2" x2="12" y2="4"></line>
+    </svg>
+    No new notifications
+  </div>
+</div>
+
+<main class="main-content">
+  <div class="page-header">
+    <h1 class="page-title">Welcome back, <span id="student-name">Student</span> 👋</h1>
+    <p class="page-subtitle">Continue learning and track your progress</p>
+  </div>
+
+  <div class="filter-scroll">
+    <div class="filter-container" id="filter-container">
+      <button class="filter-tab active" data-filter="all">All Courses</button>
+      <button class="filter-tab" data-filter="active">Active</button>
+      <button class="filter-tab" data-filter="completed">Completed</button>
+    </div>
+  </div>
+
+  <div id="course-grid" class="course-grid">
+    <!-- Skeletons -->
+    <div class="skeleton-card visible skeleton-anim" id="skel-1">
+      <div class="skeleton-thumb"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-box"></div>
+      </div>
+    </div>
+    <div class="skeleton-card visible skeleton-anim" id="skel-2">
+      <div class="skeleton-thumb"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-line medium"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="empty-state">
+    <div class="empty-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+      </svg>
+    </div>
+    <h2 class="empty-title">No Courses Yet</h2>
+    <p class="empty-desc">You haven't purchased or enrolled in any courses yet.</p>
+    <a href="home.html" class="btn-explore">Explore Courses</a>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-state" id="error-state">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <h3>Unable to load your courses</h3>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Please check your connection</p>
+    <button class="btn-retry" id="btn-retry">Try Again</button>
+  </div>
+
+</main>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <span class="nav-label">Home</span>
+  </a>
+  <a href="my-courses.html" class="nav-item active">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="nav-label">My Course</span>
+  </a>
+  <a href="downloads.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    <span class="nav-label">Downloads</span>
+  </a>
+  <a href="help.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
+    <span class="nav-label">Help</span>
+  </a>
+</nav>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+// DOM Elements
+const loadingScreen = document.getElementById('loading-screen');
+const studentNameEl = document.getElementById('student-name');
+const btnBack = document.getElementById('btn-back');
+const courseGrid = document.getElementById('course-grid');
+const emptyState = document.getElementById('empty-state');
+const errorState = document.getElementById('error-state');
+const btnRetry = document.getElementById('btn-retry');
+const filterTabs = document.querySelectorAll('.filter-tab');
+
+// Notifications
+const btnNotify = document.getElementById('btn-notify');
+const notifPanel = document.getElementById('notif-panel');
+const btnCloseNotif = document.getElementById('btn-close-notif');
+
+let currentUser = null;
+let allCourses = [];
+let currentFilter = 'all';
+
+// Setup Navigation
+btnBack.addEventListener('click', () => {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = 'home.html';
+  }
+});
+
+// Setup Notifications
+btnNotify.addEventListener('click', (e) => {
+  e.stopPropagation();
+  notifPanel.classList.toggle('open');
+});
+btnCloseNotif.addEventListener('click', () => notifPanel.classList.remove('open'));
+document.addEventListener('click', (e) => {
+  if (notifPanel.classList.contains('open') && !notifPanel.contains(e.target)) {
+    notifPanel.classList.remove('open');
+  }
+});
+
+// Filters
+filterTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    filterTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.getAttribute('data-filter');
+    renderCourses();
+  });
+});
+
+// Main Routing logic
+window.openCourse = function(courseId) {
+  // Configurable routing
+  console.log(`Opening course: ${courseId}`);
+  // window.location.href = `course.html?id=${courseId}`;
+};
+
+function renderCourses() {
+  // Clear non-skeleton items
+  const items = Array.from(courseGrid.children);
+  items.forEach(item => {
+    if(!item.classList.contains('skeleton-card')) {
+      item.remove();
+    }
+  });
+
+  const filtered = allCourses.filter(course => {
+    if (currentFilter === 'all') return true;
+    return course.status === currentFilter;
+  });
+
+  if (filtered.length === 0) {
+    if(allCourses.length === 0) {
+        // True empty
+        emptyState.classList.add('visible');
+    } else {
+        // Filter empty
+        courseGrid.innerHTML = `<p style="text-align:center; color:var(--text-muted); grid-column: 1/-1; padding: 20px;">No ${currentFilter} courses found.</p>`;
+    }
+    return;
+  }
+
+  emptyState.classList.remove('visible');
+
+  filtered.forEach(course => {
+    const card = document.createElement('div');
+    card.className = 'course-card';
+    card.onclick = () => window.openCourse(course.courseId);
+
+    const isCompleted = course.status === 'completed';
+    const badgeHtml = isCompleted 
+      ? `<div class="course-badge completed">Completed</div>` 
+      : `<div class="course-badge">${course.branch}</div>`;
+
+    const btnText = isCompleted ? 'Review Course' : (course.progress > 0 ? 'Continue Learning' : 'Start Course');
+    const btnClass = isCompleted ? 'btn-continue completed' : 'btn-continue';
+    
+    // Fallback thumbnail generator
+    let thumbHtml = '';
+    if(course.thumbnail) {
+      thumbHtml = `<img src="${course.thumbnail}" alt="${course.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                   <div style="display:none; width:100%; height:100%; background:linear-gradient(135deg, var(--primary-navy), var(--primary-blue)); color:white; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; text-align:center; padding:10px;">${course.title}</div>`;
+    } else {
+      thumbHtml = `<div style="width:100%; height:100%; background:linear-gradient(135deg, var(--primary-navy), var(--primary-blue)); color:white; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; text-align:center; padding:10px;">${course.title}</div>`;
+    }
+
+    card.innerHTML = `
+      <div class="course-thumbnail">
+        ${thumbHtml}
+        ${badgeHtml}
+      </div>
+      <div class="course-info">
+        <div class="course-meta">
+          <span>${course.semester} Sem</span>
+          <span>By ${course.instructor}</span>
+        </div>
+        <h3 class="course-title">${course.title}</h3>
+        
+        <div class="course-progress-container">
+          <div class="progress-stats">
+            <span class="progress-text">${course.completedLessons} / ${course.totalLessons} Lessons</span>
+            <span class="progress-percentage">${Math.round(course.progress)}%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: ${course.progress}%"></div>
+          </div>
+          <button class="${btnClass}">${btnText}</button>
+        </div>
+      </div>
+    `;
+    courseGrid.appendChild(card);
+  });
+}
+
+function hideSkeletons() {
+  document.querySelectorAll('.skeleton-card').forEach(el => el.classList.remove('visible'));
+}
+
+async function loadUserData(uid) {
+  try {
+    const docRef = doc(db, "students", uid);
+    const docSnap = await getDoc(docRef);
+    
+    let dbName = null;
+    if (docSnap.exists()) {
+      dbName = docSnap.data().name;
+    }
+    
+    const finalName = dbName || auth.currentUser.displayName || "Student";
+    studentNameEl.textContent = finalName;
+    
+  } catch (e) {
+    console.error("Profile load error", e);
+    studentNameEl.textContent = auth.currentUser.displayName || "Student";
+  }
+}
+
+async function loadCourses(uid) {
+  try {
+    errorState.classList.remove('visible');
+    
+    // Configurable structure - currently users/{uid}/courses
+    const coursesRef = collection(db, "users", uid, "courses");
+    const q = query(coursesRef, orderBy("purchasedAt", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    allCourses = [];
+    
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      
+      // Calculate progress if not provided directly
+      let prog = data.progress || 0;
+      if(data.totalLessons > 0) {
+          prog = (data.completedLessons / data.totalLessons) * 100;
+      }
+      prog = Math.min(Math.max(prog, 0), 100);
+      
+      let stat = data.status || 'active';
+      if(prog >= 100) stat = 'completed';
+
+      allCourses.push({
+        courseId: doc.id,
+        title: data.title || "Untitled Course",
+        branch: data.branch || "General",
+        semester: data.semester || "All",
+        thumbnail: data.thumbnail || "",
+        instructor: data.instructor || "Polytechnic Hub",
+        progress: prog,
+        totalLessons: data.totalLessons || 0,
+        completedLessons: data.completedLessons || 0,
+        status: stat,
+        price: data.price || 0
+      });
+    });
+
+    hideSkeletons();
+    renderCourses();
+
+  } catch (error) {
+    console.error("Error loading courses:", error);
+    hideSkeletons();
+    errorState.classList.add('visible');
+    emptyState.classList.remove('visible');
+  }
+}
+
+btnRetry.addEventListener('click', () => {
+  if(currentUser) {
+    errorState.classList.remove('visible');
+    document.querySelectorAll('.skeleton-card').forEach(el => el.classList.add('visible'));
+    loadCourses(currentUser.uid);
+  }
+});
+
+// Auth Listener
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.replace("login.html");
+    return;
+  }
+  
+  currentUser = user;
+  
+  // Start parallel fetching
+  Promise.all([
+    loadUserData(user.uid),
+    loadCourses(user.uid)
+  ]).finally(() => {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+    }, 300);
+  });
+});
+
+</script>
+</body>
+</html>
