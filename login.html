@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytechnic Hub - Login & Registration</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==================================================
+           CSS VARIABLES & RESET
+        ================================================== */
+        :root {
+            --primary-navy: #0A192F;
+            --primary-blue: #2563EB;
+            --primary-blue-hover: #1D4ED8;
+            --light-blue: #DBEAFE;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --bg-color: #F8FAFC;
+            --input-bg: #F1F5F9;
+            --white: #FFFFFF;
+            --error: #EF4444;
+            --success: #10B981;
+            --transition: 0.5s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body, input, button {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* ==================================================
+           MAIN CONTAINER & LAYOUT
+        ================================================== */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--white);
+            overflow: hidden;
+        }
+
+        .forms-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .signin-signup {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 75%;
+            width: 50%;
+            transition: 1s ease-in-out;
+            display: grid;
+            grid-template-columns: 1fr;
+            z-index: 5;
+        }
+
+        /* ==================================================
+           FORMS STYLING
+        ================================================== */
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 5rem;
+            transition: all 0.2s 0.7s;
+            overflow: hidden;
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        form.sign-in-form {
+            z-index: 2;
+        }
+
+        form.sign-up-form {
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .input-field {
+            max-width: 380px;
+            width: 100%;
+            background-color: var(--input-bg);
+            margin: 10px 0;
+            height: 55px;
+            border-radius: 55px;
+            display: grid;
+            grid-template-columns: 15% 70% 15%;
+            padding: 0 0.4rem;
+            position: relative;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .input-field:focus-within {
+            border-color: var(--primary-blue);
+            background-color: var(--white);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-field i {
+            text-align: center;
+            line-height: 55px;
+            color: var(--text-light);
+            transition: 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .input-field:focus-within i {
+            color: var(--primary-blue);
+        }
+
+        .input-field input {
+            background: none;
+            outline: none;
+            border: none;
+            line-height: 1;
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .input-field input::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* ==================================================
+           BUTTONS & LINKS
+        ================================================== */
+        .btn {
+            width: 150px;
+            background-color: var(--primary-blue);
+            border: none;
+            outline: none;
+            height: 49px;
+            border-radius: 49px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn.solid {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-blue-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background-color: #93c5fd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn.transparent {
+            margin: 0;
+            background: none;
+            border: 2px solid #fff;
+            width: 130px;
+            height: 41px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: none;
+        }
+
+        .btn.transparent:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .forgot-password {
+            align-self: flex-end;
+            margin-right: 15px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.3s;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-navy);
+            text-decoration: underline;
+        }
+
+        /* Social Login */
+        .social-text {
+            padding: 0.7rem 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .social-text::before, .social-text::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+            margin: 0 10px;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .social-btn {
+            width: 100%;
+            max-width: 380px;
+            height: 55px;
+            border-radius: 55px;
+            border: 2px solid #e2e8f0;
+            background: var(--white);
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: var(--input-bg);
+            border-color: #cbd5e1;
+        }
+
+        .social-btn img {
+            width: 24px;
+        }
+
+        /* ==================================================
+           PANELS & BACKGROUND ANIMATION
+        ================================================== */
+        .panels-container {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            z-index: 0;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            height: 2000px;
+            width: 2000px;
+            top: -10%;
+            right: 48%;
+            transform: translateY(-50%);
+            background: linear-gradient(-45deg, var(--primary-navy) 0%, var(--primary-blue) 100%);
+            transition: 1.8s ease-in-out;
+            border-radius: 50%;
+            z-index: 4;
+            box-shadow: 0 0 50px rgba(10, 25, 47, 0.4);
+        }
+
+        .panel {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-around;
+            text-align: center;
+            z-index: 6;
+        }
+
+        .left-panel {
+            pointer-events: all;
+            padding: 3rem 17% 2rem 12%;
+        }
+
+        .right-panel {
+            pointer-events: none;
+            padding: 3rem 12% 2rem 17%;
+        }
+
+        .panel .content {
+            color: #fff;
+            transition: transform 0.9s ease-in-out, opacity 0.9s ease-in-out;
+            transition-delay: 0.6s;
+        }
+
+        .panel h3 {
+            font-weight: 600;
+            line-height: 1;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .panel p {
+            font-size: 0.95rem;
+            padding: 0.7rem 0;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .right-panel .content {
+            transform: translateX(800px);
+            opacity: 0;
+        }
+
+        /* ==================================================
+           ANIMATION CLASSES (TOGGLE)
+        ================================================== */
+        .container.sign-up-mode::before {
+            transform: translate(100%, -50%);
+            right: 52%;
+        }
+
+        .container.sign-up-mode .left-panel .content {
+            transform: translateX(-800px);
+            opacity: 0;
+        }
+
+        .container.sign-up-mode .signin-signup {
+            left: 25%;
+        }
+
+        .container.sign-up-mode form.sign-up-form {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .container.sign-up-mode form.sign-in-form {
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.sign-up-mode .right-panel .content {
+            transform: translateX(0%);
+            opacity: 1;
+        }
+
+        .container.sign-up-mode .left-panel {
+            pointer-events: none;
+        }
+
+        .container.sign-up-mode .right-panel {
+            pointer-events: all;
+        }
+
+        /* ==================================================
+           TOAST NOTIFICATION
+        ================================================== */
+        #toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.error { border-left: 4px solid var(--error); }
+        .toast.info { border-left: 4px solid var(--primary-blue); }
+
+        /* ==================================================
+           MODAL (FORGOT PASSWORD)
+        ================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 25, 47, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            transform: translateY(-20px);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal h3 {
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .modal p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        /* ==================================================
+           MOBILE RESPONSIVENESS
+        ================================================== */
+        @media (max-width: 870px) {
+            .container {
+                min-height: 800px;
+                height: 100vh;
+            }
+            .signin-signup {
+                width: 100%;
+                top: 95%;
+                transform: translate(-50%, -100%);
+                transition: 1s 0.8s ease-in-out;
+            }
+            .signin-signup, .container.sign-up-mode .signin-signup {
+                left: 50%;
+            }
+            .panels-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 2fr 1fr;
+            }
+            .panel {
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 2.5rem 8%;
+                grid-column: 1 / 2;
+            }
+            .right-panel {
+                grid-row: 3 / 4;
+            }
+            .left-panel {
+                grid-row: 1 / 2;
+            }
+            .panel .content {
+                padding-right: 15%;
+                transition: transform 0.9s ease-in-out, opacity 0.9s ease-in-out;
+                transition-delay: 0.8s;
+            }
+            .panel h3 {
+                font-size: 1.2rem;
+            }
+            .panel p {
+                font-size: 0.7rem;
+                padding: 0.5rem 0;
+            }
+            .btn.transparent {
+                width: 110px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+            .container::before {
+                width: 1500px;
+                height: 1500px;
+                transform: translateX(-50%);
+                left: 30%;
+                bottom: 68%;
+                right: initial;
+                top: initial;
+                transition: 2s ease-in-out;
+            }
+            .container.sign-up-mode::before {
+                transform: translate(-50%, 100%);
+                bottom: 32%;
+                right: initial;
+            }
+            .container.sign-up-mode .left-panel .content {
+                transform: translateY(-300px);
+            }
+            .container.sign-up-mode .right-panel .content {
+                transform: translateY(0px);
+            }
+            .right-panel .content {
+                transform: translateY(300px);
+            }
+            .container.sign-up-mode .signin-signup {
+                top: 5%;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @media (max-width: 570px) {
+            form {
+                padding: 0 1.5rem;
+            }
+            .container::before {
+                bottom: 72%;
+                left: 50%;
+            }
+            .container.sign-up-mode::before {
+                bottom: 28%;
+                left: 50%;
+            }
+            .panel .content {
+                padding: 0.5rem 1rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .panel p {
+                display: none; /* Hide extra text on very small screens to save space */
+            }
+            .panel h3 {
+                margin-bottom: 8px;
+            }
+            .title {
+                font-size: 1.8rem;
+            }
+            .input-field {
+                height: 50px;
+            }
+            .input-field i {
+                line-height: 50px;
+            }
+            .btn.solid {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        
+        <!-- Background Shape -->
+        <div class="forms-container">
+            <div class="signin-signup">
+                
+                <!-- SIGN IN FORM -->
+                <form id="signInForm" class="sign-in-form" autocomplete="on">
+                    <h2 class="title">Welcome Back</h2>
+                    <p class="subtitle">Access your Polytechnic learning dashboard</p>
+
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Email Address" autocomplete="email" required />
+                        <i></i>
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password" required />
+                        <i class="fas fa-eye password-toggle" aria-label="Toggle password visibility"></i>
+                    </div>
+
+                    <button type="button" class="forgot-password" id="forgotPwdBtn">Forgot Password?</button>
+
+                    <button type="submit" class="btn solid" id="signInSubmit">
+                        Sign In
+                    </button>
+
+                    <p class="social-text">Or continue with</p>
+
+                    <div class="social-media">
+                        <button type="button" class="social-btn" id="googleSignInBtn">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Icon" />
+                            Sign in with Google
+                        </button>
+                    </div>
+                </form>
+
+                <!-- SIGN UP FORM -->
+                <form id="signUpForm" class="sign-up-form" autocomplete="on">
+                    <h2 class="title">Create Account</h2>
+                    <p class="subtitle">Join the Polytechnic Hub community</p>
+
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="registerName" placeholder="Full Name (e.g. Lalan Kumar)" autocomplete="name" required />
+                        <i></i>
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="registerEmail" placeholder="Email Address" autocomplete="email" required />
+                        <i></i>
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="registerPassword" placeholder="Password" autocomplete="new-password" required />
+                        <i class="fas fa-eye password-toggle" aria-label="Toggle password visibility"></i>
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" autocomplete="new-password" required />
+                        <i class="fas fa-eye password-toggle" aria-label="Toggle password visibility"></i>
+                    </div>
+
+                    <button type="submit" class="btn solid" id="signUpSubmit">
+                        Create Account
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- PANELS FOR ANIMATION -->
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>New to our Hub?</h3>
+                    <p>Start your engineering journey with Polytechnic Hub today. Access notes, lectures, and a community of students.</p>
+                    <button class="btn transparent" id="sign-up-btn">Sign Up</button>
+                </div>
+            </div>
+
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>Already a student?</h3>
+                    <p>Log in to pick up right where you left off. Your Polytechnic dashboard awaits.</p>
+                    <button class="btn transparent" id="sign-in-btn">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal">
+            <button class="close-modal" id="closeModalBtn" aria-label="Close modal"><i class="fas fa-times"></i></button>
+            <h3>Reset Password</h3>
+            <p>Enter your registered email address to receive a password reset link.</p>
+            <form id="resetPwdForm">
+                <div class="input-field" style="max-width: 100%; margin-bottom: 20px;">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="resetEmail" placeholder="Email Address" required />
+                    <i></i>
+                </div>
+                <button type="submit" class="btn solid" id="resetSubmit" style="width: 100%; max-width: 100%;">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
+    <!-- ==================================================
+         FIREBASE & LOGIC (MODULE)
+    ================================================== -->
+    <script type="module">
+        // 1. Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            GoogleAuthProvider, 
+            signInWithPopup, 
+            sendPasswordResetEmail, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            getDoc, 
+            serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+        // 2. Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBkoGGaTDkgnbQTGwqwO_Ktq6-LcWm8fig",
+            authDomain: "polytechnic-hub-eb25b.firebaseapp.com",
+            projectId: "polytechnic-hub-eb25b",
+            storageBucket: "polytechnic-hub-eb25b.firebasestorage.app",
+            messagingSenderId: "496226915082",
+            appId: "1:496226915082:web:efd70f15161c61c17c20f3",
+            measurementId: "G-D78LLY62C1"
+        };
+
+        // 3. Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // 4. DOM Elements
+        const mainContainer = document.getElementById("mainContainer");
+        const signUpBtn = document.getElementById("sign-up-btn");
+        const signInBtn = document.getElementById("sign-in-btn");
+        
+        const signInForm = document.getElementById("signInForm");
+        const signUpForm = document.getElementById("signUpForm");
+        
+        const signInSubmitBtn = document.getElementById("signInSubmit");
+        const signUpSubmitBtn = document.getElementById("signUpSubmit");
+        const googleSignInBtn = document.getElementById("googleSignInBtn");
+        
+        const forgotPwdBtn = document.getElementById("forgotPwdBtn");
+        const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+        const closeModalBtn = document.getElementById("closeModalBtn");
+        const resetPwdForm = document.getElementById("resetPwdForm");
+        const resetSubmitBtn = document.getElementById("resetSubmit");
+
+        const toastContainer = document.getElementById("toast-container");
+
+        // 5. Check Logged-in State
+        // If user is already authenticated, redirect to home.html
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.location.href = "home.html";
+            }
+        });
+
+        // 6. UI Animations & Interactions
+        // Sign In / Sign Up Panel Switch
+        signUpBtn.addEventListener("click", () => {
+            mainContainer.classList.add("sign-up-mode");
+        });
+
+        signInBtn.addEventListener("click", () => {
+            mainContainer.classList.remove("sign-up-mode");
+        });
+
+        // Password Visibility Toggles
+        const togglePasswords = document.querySelectorAll('.password-toggle');
+        togglePasswords.forEach(icon => {
+            icon.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        });
+
+        // Forgot Password Modal
+        forgotPwdBtn.addEventListener('click', () => {
+            forgotPasswordModal.classList.add('active');
+        });
+        
+        closeModalBtn.addEventListener('click', () => {
+            forgotPasswordModal.classList.remove('active');
+        });
+        
+        forgotPasswordModal.addEventListener('click', (e) => {
+            if(e.target === forgotPasswordModal) {
+                forgotPasswordModal.classList.remove('active');
+            }
+        });
+
+        // 7. Utility Functions
+        // Toast Notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'fa-info-circle';
+            if (type === 'success') icon = 'fa-check-circle';
+            if (type === 'error') icon = 'fa-exclamation-circle';
+
+            toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+            toastContainer.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => toast.classList.add('show'), 10);
+
+            // Remove after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Set Button Loading State
+        function setLoading(button, isLoading, originalText = '') {
+            if (isLoading) {
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            } else {
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }
+        }
+
+        // Error Message Mapper
+        function getErrorMessage(error) {
+            const code = error.code;
+            if(code === 'auth/email-already-in-use') return 'This email is already registered.';
+            if(code === 'auth/invalid-email') return 'Please enter a valid email address.';
+            if(code === 'auth/weak-password') return 'Password must be at least 6 characters.';
+            if(code === 'auth/user-not-found' || code === 'auth/wrong-password' || code === 'auth/invalid-credential') return 'Incorrect email or password.';
+            if(code === 'auth/network-request-failed') return 'Network error. Please try again.';
+            if(code === 'auth/too-many-requests') return 'Too many attempts. Please try again later.';
+            return error.message || 'An error occurred. Please try again.';
+        }
+
+        // 8. Authentication Logic
+
+        // --- SIGN UP ---
+        signUpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+            // Validations
+            if (!name) return showToast('Please enter your full name.', 'error');
+            if (password.length < 6) return showToast('Password must be at least 6 characters.', 'error');
+            if (password !== confirmPassword) return showToast('Passwords do not match.', 'error');
+
+            setLoading(signUpSubmitBtn, true);
+
+            try {
+                // Create Auth User
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save Profile to Firestore
+                await setDoc(doc(db, "students", user.uid), {
+                    uid: user.uid,
+                    name: name,
+                    email: user.email,
+                    createdAt: serverTimestamp()
+                });
+
+                showToast('Account created successfully.', 'success');
+                // Redirection handled by onAuthStateChanged
+                window.location.href = "home.html";
+
+            } catch (error) {
+                showToast(getErrorMessage(error), 'error');
+                setLoading(signUpSubmitBtn, false, 'Create Account');
+            }
+        });
+
+        // --- SIGN IN ---
+        signInForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) return showToast('Please fill in all fields.', 'error');
+
+            setLoading(signInSubmitBtn, true);
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast('Login successful.', 'success');
+                // Redirection handled by onAuthStateChanged
+                window.location.href = "home.html";
+            } catch (error) {
+                showToast(getErrorMessage(error), 'error');
+                setLoading(signInSubmitBtn, false, 'Sign In');
+            }
+        });
+
+        // --- GOOGLE SIGN IN ---
+        googleSignInBtn.addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            const originalText = googleSignInBtn.innerHTML;
+            
+            try {
+                googleSignInBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+                googleSignInBtn.disabled = true;
+
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                // Check if user exists in Firestore
+                const docRef = doc(db, "students", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                // If new user, save their profile
+                if (!docSnap.exists()) {
+                    await setDoc(docRef, {
+                        uid: user.uid,
+                        name: user.displayName || "Polytechnic Student",
+                        email: user.email,
+                        createdAt: serverTimestamp()
+                    });
+                }
+
+                showToast('Login successful.', 'success');
+                window.location.href = "home.html";
+
+            } catch (error) {
+                // Ignore popup closed by user error
+                if (error.code !== 'auth/popup-closed-by-user') {
+                    showToast(getErrorMessage(error), 'error');
+                }
+                googleSignInBtn.innerHTML = originalText;
+                googleSignInBtn.disabled = false;
+            }
+        });
+
+        // --- FORGOT PASSWORD ---
+        resetPwdForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value.trim();
+            
+            if(!email) return showToast('Please enter your email address.', 'error');
+
+            setLoading(resetSubmitBtn, true);
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast('Password reset email sent.', 'success');
+                forgotPasswordModal.classList.remove('active');
+                document.getElementById('resetEmail').value = '';
+            } catch (error) {
+                showToast(getErrorMessage(error), 'error');
+            } finally {
+                setLoading(resetSubmitBtn, false, 'Send Reset Link');
+            }
+        });
+
+    </script>
+</body>
+</html>
