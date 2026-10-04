@@ -1,0 +1,25 @@
+{
+  "name": "Polytechnic Hub",
+  "short_name": "Polytechnic Hub",
+  "description": "Polytechnic students ke liye learning platform.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f8fc",
+  "theme_color": "#0b1f3a",
+  "icons": [
+    {
+      "src": "https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
