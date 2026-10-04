@@ -3,79 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SignIn & SignUp | Polytechnic Hub</title>
+  <title>Polytechnic Hub</title>
   <link rel="stylesheet" type="text/css" href="./style.css" />
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
   <div class="container">
 
     <div class="forms-container">
       <div class="signin-signup">
 
-        <form action="" class="sign-in-form">
+        <form class="sign-in-form">
           <h2 class="title">Sign In</h2>
-
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input
-              type="email"
-              placeholder="Username"
-              autocomplete="username"
-              required
-            />
-          </div>
-
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              placeholder="Password"
-              autocomplete="current-password"
-              required
-            />
-          </div>
-
-          <input type="submit" value="Login" class="btn solid" />
-
-          <p class="social-text">Or Sign in with social platforms</p>
-
-          <div class="social-media">
-            <a href="#" class="social-icon">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-
-            <a href="#" class="social-icon">
-              <i class="fab fa-twitter"></i>
-            </a>
-
-            <a href="#" class="social-icon">
-              <i class="fab fa-google"></i>
-            </a>
-
-            <a href="#" class="social-icon">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
-        </form>
-
-        <form action="" class="sign-up-form">
-          <h2 class="title">Sign Up</h2>
-
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input
-              type="text"
-              placeholder="Username"
-              autocomplete="name"
-              required
-            />
-          </div>
 
           <div class="input-field">
             <i class="fas fa-envelope"></i>
             <input
+              id="loginEmail"
               type="email"
               placeholder="Email"
               autocomplete="email"
@@ -86,6 +32,69 @@
           <div class="input-field">
             <i class="fas fa-lock"></i>
             <input
+              id="loginPassword"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <input type="submit" value="Login" class="btn solid" />
+
+          <p class="social-text">Or continue with</p>
+
+          <div class="social-media">
+            <a href="#" class="social-icon google-login">
+              <i class="fab fa-google"></i>
+            </a>
+          </div>
+        </form>
+
+
+        <form class="sign-up-form">
+          <h2 class="title">Registration</h2>
+
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input
+              id="registerName"
+              type="text"
+              placeholder="Name"
+              autocomplete="name"
+              required
+            />
+          </div>
+
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <input
+              id="registerEmail"
+              type="email"
+              placeholder="Email"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="input-field">
+            <i class="fas fa-graduation-cap"></i>
+            <select id="registerBranch" required>
+              <option value="" selected disabled>Select Branch</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Computer Science Engineering">Computer Science Engineering</option>
+              <option value="Electronics Engineering">Electronics Engineering</option>
+              <option value="Automobile Engineering">Automobile Engineering</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input
+              id="registerPassword"
               type="password"
               placeholder="Password"
               autocomplete="new-password"
@@ -93,25 +102,13 @@
             />
           </div>
 
-          <input type="submit" value="Sign Up" class="btn solid" />
+          <input type="submit" value="Register" class="btn solid" />
 
-          <p class="social-text">Or Sign up with social platforms</p>
+          <p class="social-text">Or continue with</p>
 
           <div class="social-media">
-            <a href="#" class="social-icon">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-
-            <a href="#" class="social-icon">
-              <i class="fab fa-twitter"></i>
-            </a>
-
-            <a href="#" class="social-icon">
+            <a href="#" class="social-icon google-register">
               <i class="fab fa-google"></i>
-            </a>
-
-            <a href="#" class="social-icon">
-              <i class="fab fa-linkedin-in"></i>
             </a>
           </div>
         </form>
@@ -119,31 +116,39 @@
       </div>
     </div>
 
+
     <div class="panels-container">
 
       <div class="panel left-panel">
         <div class="content">
-          <h3>New here?</h3>
+          <h3>New User?</h3>
           <p>
-            Join Polytechnic Hub and access your Polytechnic learning dashboard.
+            Create your Polytechnic Hub account and start your learning journey.
           </p>
 
-          <button class="btn transparent" id="sign-up-btn" type="button">
-            Sign Up
+          <button
+            class="btn transparent"
+            id="sign-up-btn"
+            type="button">
+            Registration
           </button>
         </div>
 
         <img src="./img/log.svg" class="image" alt="" />
       </div>
 
+
       <div class="panel right-panel">
         <div class="content">
-          <h3>One of us?</h3>
+          <h3>Already Registered?</h3>
           <p>
-            Sign in to continue your Polytechnic learning journey.
+            Sign in to access your Polytechnic Hub dashboard.
           </p>
 
-          <button class="btn transparent" id="sign-in-btn" type="button">
+          <button
+            class="btn transparent"
+            id="sign-in-btn"
+            type="button">
             Sign In
           </button>
         </div>
@@ -152,62 +157,77 @@
       </div>
 
     </div>
+
   </div>
 
+
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 
     import {
-      getAuth,
+      auth,
+      db
+    } from "./firebase.js";
+
+    import {
+      createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBkoGGaTDkgnbQTGwqwO_Ktq6-LcWm8fig",
-      authDomain: "polytechnic-hub-eb25b.firebaseapp.com",
-      projectId: "polytechnic-hub-eb25b",
-      storageBucket: "polytechnic-hub-eb25b.firebasestorage.app",
-      messagingSenderId: "496226915082",
-      appId: "1:496226915082:web:efd70f15161c61c17c20f3",
-      measurementId: "G-D78LLY62C1"
-    };
+    import {
+      doc,
+      setDoc,
+      getDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
 
     const signInButton = document.querySelector("#sign-in-btn");
     const signUpButton = document.querySelector("#sign-up-btn");
     const container = document.querySelector(".container");
 
+    const signInForm = document.querySelector(".sign-in-form");
+    const signUpForm = document.querySelector(".sign-up-form");
+
+    const googleLoginButton = document.querySelector(".google-login");
+    const googleRegisterButton = document.querySelector(".google-register");
+
+
     signUpButton.addEventListener("click", () => {
       container.classList.add("sign-up-mode");
     });
+
 
     signInButton.addEventListener("click", () => {
       container.classList.remove("sign-up-mode");
     });
 
-    const signInForm = document.querySelector(".sign-in-form");
 
     signInForm.addEventListener("submit", async (event) => {
+
       event.preventDefault();
 
-      const inputs = signInForm.querySelectorAll("input");
+      const email =
+        document.querySelector("#loginEmail").value.trim();
 
-      const email = inputs[0].value.trim();
-      const password = inputs[1].value;
-      const loginButton = signInForm.querySelector(".btn");
+      const password =
+        document.querySelector("#loginPassword").value;
+
+      const button =
+        signInForm.querySelector(".btn");
 
       if (!email || !password) {
         alert("Please enter your email and password.");
         return;
       }
 
-      loginButton.disabled = true;
-      loginButton.value = "Signing In...";
+      button.disabled = true;
+      button.value = "Signing In...";
 
       try {
+
         await signInWithEmailAndPassword(
           auth,
           email,
@@ -215,7 +235,9 @@
         );
 
         window.location.href = "home.html";
+
       } catch (error) {
+
         let message = "Login failed. Please try again.";
 
         if (
@@ -223,28 +245,229 @@
           error.code === "auth/wrong-password"
         ) {
           message = "Incorrect email or password.";
-        } else if (error.code === "auth/user-not-found") {
+        }
+
+        if (error.code === "auth/user-not-found") {
           message = "No account found with this email.";
-        } else if (error.code === "auth/invalid-email") {
+        }
+
+        if (error.code === "auth/invalid-email") {
           message = "Please enter a valid email address.";
-        } else if (error.code === "auth/too-many-requests") {
-          message = "Too many login attempts. Please try again later.";
-        } else if (error.code === "auth/network-request-failed") {
+        }
+
+        if (error.code === "auth/too-many-requests") {
+          message = "Too many attempts. Please try again later.";
+        }
+
+        if (error.code === "auth/network-request-failed") {
           message = "Network error. Please check your internet connection.";
         }
 
         alert(message);
 
-        loginButton.disabled = false;
-        loginButton.value = "Login";
+        button.disabled = false;
+        button.value = "Login";
       }
+
     });
 
+
+    signUpForm.addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+      const name =
+        document.querySelector("#registerName").value.trim();
+
+      const email =
+        document.querySelector("#registerEmail").value.trim();
+
+      const branch =
+        document.querySelector("#registerBranch").value;
+
+      const password =
+        document.querySelector("#registerPassword").value;
+
+      const button =
+        signUpForm.querySelector(".btn");
+
+
+      if (!name || !email || !branch || !password) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters.");
+        return;
+      }
+
+
+      button.disabled = true;
+      button.value = "Creating...";
+
+
+      try {
+
+        const userCredential =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+        const user =
+          userCredential.user;
+
+
+        await setDoc(
+          doc(db, "students", user.uid),
+          {
+            uid: user.uid,
+            name: name,
+            email: user.email,
+            branch: branch,
+            createdAt: serverTimestamp()
+          }
+        );
+
+
+        alert("Registration successful.");
+
+        window.location.href = "home.html";
+
+
+      } catch (error) {
+
+        let message =
+          "Registration failed. Please try again.";
+
+        if (error.code === "auth/email-already-in-use") {
+          message =
+            "This email is already registered.";
+        }
+
+        if (error.code === "auth/invalid-email") {
+          message =
+            "Please enter a valid email address.";
+        }
+
+        if (error.code === "auth/weak-password") {
+          message =
+            "Password must be at least 6 characters.";
+        }
+
+        if (error.code === "auth/network-request-failed") {
+          message =
+            "Network error. Please check your internet connection.";
+        }
+
+        alert(message);
+
+        button.disabled = false;
+        button.value = "Register";
+      }
+
+    });
+
+
+    async function googleAuthentication() {
+
+      const provider =
+        new GoogleAuthProvider();
+
+      try {
+
+        const result =
+          await signInWithPopup(
+            auth,
+            provider
+          );
+
+        const user =
+          result.user;
+
+        const studentRef =
+          doc(db, "students", user.uid);
+
+        const studentSnapshot =
+          await getDoc(studentRef);
+
+
+        if (!studentSnapshot.exists()) {
+
+          await setDoc(
+            studentRef,
+            {
+              uid: user.uid,
+              name: user.displayName || "Student",
+              email: user.email || "",
+              branch: "",
+              photoURL: user.photoURL || "",
+              createdAt: serverTimestamp()
+            }
+          );
+
+        }
+
+        window.location.href = "home.html";
+
+      } catch (error) {
+
+        if (error.code === "auth/popup-closed-by-user") {
+          return;
+        }
+
+        if (error.code === "auth/popup-blocked") {
+          alert("Please allow popups for Google Sign-In.");
+          return;
+        }
+
+        if (error.code === "auth/account-exists-with-different-credential") {
+          alert("An account already exists with this email.");
+          return;
+        }
+
+        if (error.code === "auth/network-request-failed") {
+          alert("Network error. Please check your internet connection.");
+          return;
+        }
+
+        console.error(error);
+
+        alert("Google Sign-In failed. Please try again.");
+      }
+
+    }
+
+
+    googleLoginButton.addEventListener(
+      "click",
+      (event) => {
+        event.preventDefault();
+        googleAuthentication();
+      }
+    );
+
+
+    googleRegisterButton.addEventListener(
+      "click",
+      (event) => {
+        event.preventDefault();
+        googleAuthentication();
+      }
+    );
+
+
     onAuthStateChanged(auth, (user) => {
+
       if (user) {
         window.location.href = "home.html";
       }
+
     });
+
   </script>
+
 </body>
   </html>
