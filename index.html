@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1f3a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Polytechnic Hub">
+
+  <link rel="manifest" href="./manifest.json">
+
+  <title>Polytechnic Hub</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f8fc;
+      color: #0b1f3a;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .loader {
+      text-align: center;
+    }
+
+    .logo {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 18px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0b1f3a, #1677ff);
+      color: #fff;
+      font-size: 25px;
+      font-weight: 800;
+      box-shadow: 0 15px 40px rgba(11, 31, 58, 0.2);
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .loading-text {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #718096;
+    }
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      margin: 20px auto 0;
+      border: 3px solid #dce6f2;
+      border-top-color: #1677ff;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .install-card {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      width: calc(100% - 32px);
+      max-width: 430px;
+      transform: translate(-50%, 150%);
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid rgba(11, 31, 58, .08);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(11, 31, 58, .22);
+      backdrop-filter: blur(18px);
+      z-index: 20;
+      transition: transform .45s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .install-card.show {
+      transform: translate(-50%, 0);
+    }
+
+    .install-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .install-icon {
+      width: 52px;
+      height: 52px;
+      flex: 0 0 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0b1f3a, #1677ff);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .install-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0b1f3a;
+    }
+
+    .install-description {
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #718096;
+    }
+
+    .install-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .install-btn,
+    .later-btn {
+      flex: 1;
+      height: 45px;
+      border-radius: 13px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .install-btn {
+      background: #1677ff;
+      color: #fff;
+    }
+
+    .later-btn {
+      background: #eef3f8;
+      color: #334155;
+    }
+
+    .install-btn:active,
+    .later-btn:active {
+      transform: scale(.97);
+    }
+
+    @media (min-width: 700px) {
+      .install-card {
+        bottom: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+    <div class="loader">
+      <div class="logo">PH</div>
+      <div class="brand">POLYTECHNIC HUB</div>
+      <div class="loading-text">Loading...</div>
+      <div class="spinner"></div>
+    </div>
+  </main>
+
+  <div class="install-card" id="installCard">
+    <div class="install-top">
+      <div class="install-icon">PH</div>
+
+      <div>
+        <div class="install-title">Install Polytechnic Hub</div>
+        <div class="install-description">
+          Install the app for a faster and better learning experience.
+        </div>
+      </div>
+    </div>
+
+    <div class="install-actions">
+      <button class="later-btn" id="laterButton">
+        Later
+      </button>
+
+      <button class="install-btn" id="installButton">
+        Install App
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+
+    import {
+      auth
+    } from "./firebase.js";
+
+    import {
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+
+    const installCard =
+      document.getElementById("installCard");
+
+    const installButton =
+      document.getElementById("installButton");
+
+    const laterButton =
+      document.getElementById("laterButton");
+
+
+    let deferredPrompt = null;
+
+
+    function isStandalone() {
+      return (
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true
+      );
+    }
+
+
+    function hideInstallCard() {
+      installCard.classList.remove("show");
+    }
+
+
+    function showInstallCard() {
+      if (!isStandalone() && deferredPrompt) {
+        setTimeout(() => {
+          installCard.classList.add("show");
+        }, 700);
+      }
+    }
+
+
+    window.addEventListener(
+      "beforeinstallprompt",
+      (event) => {
+
+        event.preventDefault();
+
+        deferredPrompt = event;
+
+        showInstallCard();
+      }
+    );
+
+
+    installButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!deferredPrompt) {
+          hideInstallCard();
+          return;
+        }
+
+        const promptEvent = deferredPrompt;
+
+        deferredPrompt = null;
+
+        hideInstallCard();
+
+        try {
+          await promptEvent.prompt();
+
+          await promptEvent.userChoice;
+
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    );
+
+
+    laterButton.addEventListener(
+      "click",
+      () => {
+        hideInstallCard();
+      }
+    );
+
+
+    window.addEventListener(
+      "appinstalled",
+      () => {
+
+        deferredPrompt = null;
+
+        hideInstallCard();
+      }
+    );
+
+
+    window.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        if (isStandalone()) {
+          hideInstallCard();
+        }
+
+        if (
+          "serviceWorker" in navigator
+        ) {
+
+          navigator.serviceWorker
+            .register("./sw.js")
+            .catch(() => {});
+        }
+      }
+    );
+
+
+    onAuthStateChanged(
+      auth,
+      (user) => {
+
+        if (user) {
+          window.location.replace("home.html");
+        } else {
+          window.location.replace("login.html");
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+    </html>
