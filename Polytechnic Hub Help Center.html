@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#FFFFFF">
+<title>Polytechnic Hub - Help & Support</title>
+<style>
+:root {
+  --primary-navy: #0B1F3A;
+  --primary-blue: #1677FF;
+  --bg-color: #F5F8FC;
+  --white: #FFFFFF;
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-drawer: 4px 0 24px rgba(0,0,0,0.15);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: var(--white);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  height: 60px;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  min-width: 48px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-navy);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: -8px;
+  cursor: pointer;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:active {
+  background-color: var(--bg-color);
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 16px 90px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary-navy);
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.help-illustration {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 16px;
+}
+
+.quick-help-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.quick-help-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.quick-help-card:active {
+  transform: scale(0.96);
+  background-color: #F8FAFC;
+}
+
+.qh-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F1F5F9;
+  color: var(--primary-blue);
+}
+
+.qh-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.contact-card {
+  background: linear-gradient(135deg, var(--primary-navy) 0%, #173258 100%);
+  border-radius: 20px;
+  padding: 24px;
+  color: var(--white);
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+}
+
+.contact-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.contact-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 20px;
+}
+
+.contact-numbers {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.contact-btn-group {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-contact {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-contact:active {
+  opacity: 0.8;
+}
+
+.btn-call {
+  background-color: var(--white);
+  color: var(--primary-navy);
+}
+
+.btn-email {
+  background-color: rgba(255,255,255,0.15);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.search-faq {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search-faq-input {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-faq-input:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.faq-container {
+  background: var(--white);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.faq-icon {
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: var(--primary-blue);
+}
+
+.faq-item.active .faq-question {
+  color: var(--primary-blue);
+}
+
+.faq-answer {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  padding: 0 20px 16px;
+  max-height: 300px;
+}
+
+.no-faq-match {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  display: none;
+}
+
+.support-form-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: #F8FAFC;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  outline: none;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.form-control:focus {
+  background-color: var(--white);
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+}
+
+.form-control:disabled {
+  color: #94A3B8;
+  cursor: not-allowed;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.char-counter {
+  display: block;
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-submit:active {
+  background-color: #1D4ED8;
+}
+
+.btn-submit:disabled {
+  background-color: #93C5FD;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: var(--white);
+  animation: spin 0.8s linear infinite;
+  display: none;
+}
+
+.btn-submit.loading .spinner {
+  display: block;
+}
+
+.form-alert {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  display: none;
+  font-weight: 500;
+}
+
+.form-alert.success {
+  background-color: #F0FDF4;
+  color: #16A34A;
+  border: 1px solid #BBF7D0;
+  display: block;
+}
+
+.form-alert.error {
+  background-color: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  display: block;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.request-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.request-subject {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-right: 12px;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.status-open { background-color: #EFF6FF; color: var(--primary-blue); }
+.status-pending { background-color: #FEF3C7; color: var(--warning); }
+.status-resolved { background-color: #F0FDF4; color: var(--success); }
+.status-closed { background-color: #F1F5F9; color: var(--text-muted); }
+
+.request-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #CBD5E1;
+  border-radius: 50%;
+}
+
+.empty-requests {
+  text-align: center;
+  padding: 32px 16px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  display: none;
+}
+
+.skeleton-text {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  color: transparent !important;
+  border-radius: 4px;
+}
+
+.skeleton-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  display: none;
+}
+
+.skeleton-card.visible {
+  display: block;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0 calc(12px + var(--safe-bottom));
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+  z-index: 40;
+  border-radius: 20px 20px 0 0;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  text-decoration: none;
+  width: 25%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item.active {
+  color: var(--primary-blue);
+}
+
+.nav-icon {
+  transition: transform 0.2s;
+}
+
+.nav-item:active .nav-icon {
+  transform: scale(0.9);
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  bottom: 0;
+  width: 280px;
+  background-color: var(--white);
+  z-index: 51;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-drawer);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.drawer.open {
+  transform: translateX(280px);
+}
+
+.drawer-header {
+  background: linear-gradient(135deg, var(--primary-navy) 0%, #173258 100%);
+  padding: 30px 20px 20px;
+  color: var(--white);
+  position: relative;
+}
+
+.drawer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.drawer-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.drawer-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--primary-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid rgba(255,255,255,0.2);
+  overflow: hidden;
+}
+
+.drawer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.drawer-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.drawer-info p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.drawer-menu {
+  padding: 16px 0;
+  flex: 1;
+}
+
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.drawer-item:active {
+  background-color: #F3F4F6;
+}
+
+.drawer-item svg {
+  color: var(--text-muted);
+}
+
+.drawer-item.logout {
+  color: #DC2626;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+}
+
+.drawer-item.logout svg {
+  color: #DC2626;
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-color);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.main-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(22, 119, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--primary-blue);
+  animation: spin 1s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .quick-help-grid { grid-template-columns: repeat(3, 1fr); }
+  .desktop-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .bottom-nav { display: none; }
+  .main-content { padding-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+
+<div id="loading-screen" class="loading-overlay">
+  <div class="main-spinner"></div>
+</div>
+
+<header class="header">
+  <div class="header-left">
+    <button class="icon-btn" id="btn-back" aria-label="Go Back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+  </div>
+  <div class="header-center">
+    Help & Support
+  </div>
+  <div class="header-right" style="justify-content: flex-end;">
+    <button class="icon-btn" aria-label="Support" onclick="scrollToForm()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main class="main-content">
+  
+  <div class="page-header">
+    <div class="help-illustration">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v15.5l-4-4h-4"></path>
+        <path d="M12 14v.01"></path>
+        <path d="M12 10a2 2 0 0 0-2-2"></path>
+      </svg>
+    </div>
+    <h1 class="page-title">How can we help you?</h1>
+    <p class="page-subtitle">Find answers or contact Polytechnic Hub support.</p>
+  </div>
+
+  <div class="quick-help-grid">
+    <div class="quick-help-card" onclick="selectCategory('Course')">
+      <div class="qh-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+      <div class="qh-title">Course Help</div>
+    </div>
+    <div class="quick-help-card" onclick="selectCategory('Payment')">
+      <div class="qh-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
+      <div class="qh-title">Payment Help</div>
+    </div>
+    <div class="quick-help-card" onclick="selectCategory('Login')">
+      <div class="qh-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+      <div class="qh-title">Login & Account</div>
+    </div>
+    <div class="quick-help-card" onclick="selectCategory('Download')">
+      <div class="qh-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+      <div class="qh-title">Download Problem</div>
+    </div>
+    <div class="quick-help-card" onclick="selectCategory('Test')">
+      <div class="qh-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+      <div class="qh-title">Test & Quiz</div>
+    </div>
+    <div class="quick-help-card" onclick="selectCategory('Technical')">
+      <div class="qh-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
+      <div class="qh-title">Technical Problem</div>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <h2 class="contact-title">Need quick help?</h2>
+    <p class="contact-desc">Contact Polytechnic Hub Support</p>
+    <div class="contact-numbers" id="support-numbers"></div>
+    <div class="contact-btn-group">
+      <a href="#" class="btn-contact btn-call" id="btn-call">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        Call Support
+      </a>
+      <a href="#" class="btn-contact btn-email" id="btn-email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        Email Support
+      </a>
+    </div>
+  </div>
+
+  <div class="desktop-two-col">
+    <div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      
+      <div class="search-faq">
+        <svg class="search-icon-inside" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="faq-search" class="search-faq-input" placeholder="Search FAQs...">
+      </div>
+
+      <div class="faq-container" id="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I purchase a course?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            To purchase a course, go to the Home screen, tap on "Paid Courses", select the course you want, and follow the payment instructions on the screen.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I access my course?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            After successful payment, your course will appear in the "My Course" section accessible from the bottom navigation bar.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Where can I download study material?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            You can download study materials from the "Downloads" tab or from the specific course modules in "My Course".
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I reset my password?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            On the login screen, tap "Forgot Password?", enter your registered email address, and we will send you a password reset link.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I update my profile?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Open the side menu using the top-left icon, tap on "Settings", and you will find options to update your profile details.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What should I do if a PDF does not download?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Please check your internet connection and ensure your device has sufficient storage space. If the problem persists, use the support form below.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What should I do if a test is not opening?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            Try refreshing the page or restarting the app. Ensure you are enrolled in the course associated with the test. Contact technical support if it still doesn't open.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How can I contact Polytechnic Hub support?
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="faq-answer">
+            You can call or email us using the buttons above, or submit a detailed request using the "Send us a message" form on this page.
+          </div>
+        </div>
+      </div>
+      <div class="no-faq-match" id="no-faq-match">No matching answer found.</div>
+    </div>
+
+    <div>
+      <h2 class="section-title">Send us a message</h2>
+      <div class="support-form-card" id="support-form-container">
+        <div id="form-alert" class="form-alert"></div>
+        <form id="support-form">
+          <div class="form-group">
+            <label class="form-label">Student Name</label>
+            <input type="text" id="f-name" class="form-control" disabled>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="f-email" class="form-control" disabled>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Issue Category</label>
+            <select id="f-category" class="form-control" required>
+              <option value="" disabled selected hidden>Select a category</option>
+              <option value="Course">Course</option>
+              <option value="Payment">Payment</option>
+              <option value="Login">Login</option>
+              <option value="Account">Account</option>
+              <option value="Download">Download</option>
+              <option value="Study Material">Study Material</option>
+              <option value="Test">Test</option>
+              <option value="Technical">Technical</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" id="f-subject" class="form-control" placeholder="Brief summary of issue" required maxlength="100">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea id="f-message" class="form-control" placeholder="Describe your issue in detail..." required maxlength="500"></textarea>
+            <span class="char-counter"><span id="char-count">0</span> / 500</span>
+          </div>
+          <button type="submit" class="btn-submit" id="btn-submit">
+            <span class="spinner"></span>
+            <span id="btn-submit-text">Send Request</span>
+          </button>
+        </form>
+      </div>
+
+      <h2 class="section-title">My Support Requests</h2>
+      
+      <div id="skel-requests" class="requests-list">
+        <div class="skeleton-card visible">
+          <div class="skeleton-text" style="height: 18px; width: 60%; margin-bottom: 8px;"></div>
+          <div class="skeleton-text" style="height: 14px; width: 40%;"></div>
+        </div>
+      </div>
+
+      <div class="requests-list" id="requests-list">
+        <!-- Requests injected here -->
+      </div>
+      <div class="empty-requests" id="empty-requests">
+        No support requests yet.
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="home.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    <span class="nav-label">Home</span>
+  </a>
+  <a href="my-courses.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="nav-label">My Course</span>
+  </a>
+  <a href="downloads.html" class="nav-item">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    <span class="nav-label">Downloads</span>
+  </a>
+  <a href="help.html" class="nav-item active">
+    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
+    <span class="nav-label">Help</span>
+  </a>
+</nav>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { doc, getDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+const loadingScreen = document.getElementById('loading-screen');
+const btnBack = document.getElementById('btn-back');
+
+// Constants
+const SUPPORT_PHONE = "9155563777";
+const SUPPORT_PHONE_2 = "9334789450";
+const SUPPORT_EMAIL = "support@polytechnichub.com";
+
+let currentUser = null;
+let currentProfileName = "Student";
+
+// Initialize UI
+document.getElementById('support-numbers').textContent = `${SUPPORT_PHONE.replace(/(\d{5})(\d{5})/, "$1 $2")} / ${SUPPORT_PHONE_2.replace(/(\d{5})(\d{5})/, "$1 $2")}`;
+document.getElementById('btn-call').href = `tel:+91${SUPPORT_PHONE}`;
+document.getElementById('btn-email').href = `mailto:${SUPPORT_EMAIL}`;
+
+btnBack.addEventListener('click', () => {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = 'home.html';
+  }
+});
+
+// FAQ Accordion
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+  const btn = item.querySelector('.faq-question');
+  btn.addEventListener('click', () => {
+    const isActive = item.classList.contains('active');
+    faqItems.forEach(i => i.classList.remove('active'));
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  });
+});
+
+// FAQ Search
+const faqSearchInput = document.getElementById('faq-search');
+const noFaqMatch = document.getElementById('no-faq-match');
+faqSearchInput.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  let hasMatch = false;
+  faqItems.forEach(item => {
+    const qText = item.querySelector('.faq-question').textContent.toLowerCase();
+    const aText = item.querySelector('.faq-answer').textContent.toLowerCase();
+    if (qText.includes(term) || aText.includes(term)) {
+      item.style.display = 'block';
+      hasMatch = true;
+    } else {
+      item.style.display = 'none';
+      item.classList.remove('active');
+    }
+  });
+  noFaqMatch.style.display = hasMatch ? 'none' : 'block';
+});
+
+// Character Counter
+const msgInput = document.getElementById('f-message');
+const charCount = document.getElementById('char-count');
+msgInput.addEventListener('input', () => {
+  charCount.textContent = msgInput.value.length;
+});
+
+// Form and Routing logic
+window.scrollToForm = function() {
+  document.getElementById('support-form-container').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.selectCategory = function(category) {
+  const select = document.getElementById('f-category');
+  if (Array.from(select.options).some(opt => opt.value === category)) {
+    select.value = category;
+  }
+  scrollToForm();
+  document.getElementById('f-subject').focus();
+};
+
+// Form Submission
+const supportForm = document.getElementById('support-form');
+const formAlert = document.getElementById('form-alert');
+const btnSubmit = document.getElementById('btn-submit');
+const btnSubmitText = document.getElementById('btn-submit-text');
+
+function showFormMessage(msg, isSuccess = false) {
+  formAlert.textContent = msg;
+  formAlert.className = `form-alert ${isSuccess ? 'success' : 'error'}`;
+}
+
+supportForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!currentUser) return;
+
+  const category = document.getElementById('f-category').value;
+  const subject = document.getElementById('f-subject').value.trim();
+  const message = msgInput.value.trim();
+
+  if(!category || !subject || !message) return;
+
+  formAlert.style.display = 'none';
+  btnSubmit.disabled = true;
+  btnSubmit.classList.add('loading');
+  btnSubmitText.textContent = "Sending...";
+
+  try {
+    await addDoc(collection(db, "support_requests"), {
+      uid: currentUser.uid,
+      name: currentProfileName,
+      email: currentUser.email,
+      category: category,
+      subject: subject,
+      message: message,
+      status: "open",
+      createdAt: serverTimestamp()
+    });
+
+    showFormMessage("Request submitted successfully. Support team will review your request.", true);
+    document.getElementById('f-subject').value = '';
+    msgInput.value = '';
+    charCount.textContent = '0';
+    document.getElementById('f-category').value = '';
+    
+    // Reload requests list
+    loadSupportRequests(currentUser.uid);
+
+  } catch (error) {
+    showFormMessage("Unable to send your request. Please try again.", false);
+  } finally {
+    btnSubmit.disabled = false;
+    btnSubmit.classList.remove('loading');
+    btnSubmitText.textContent = "Send Request";
+  }
+});
+
+// Load Data
+async function loadUserData(uid) {
+  try {
+    const docRef = doc(db, "students", uid);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      currentProfileName = docSnap.data().name || auth.currentUser.displayName || "Student";
+    } else {
+      currentProfileName = auth.currentUser.displayName || "Student";
+    }
+    
+    document.getElementById('f-name').value = currentProfileName;
+    document.getElementById('f-email').value = auth.currentUser.email || "";
+    
+  } catch (e) {
+    currentProfileName = auth.currentUser.displayName || "Student";
+    document.getElementById('f-name').value = currentProfileName;
+    document.getElementById('f-email').value = auth.currentUser.email || "";
+  }
+}
+
+function formatDate(timestamp) {
+  if (!timestamp) return "Just now";
+  const date = timestamp.toDate();
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+async function loadSupportRequests(uid) {
+  const reqList = document.getElementById('requests-list');
+  const emptyReqs = document.getElementById('empty-requests');
+  const skelReqs = document.getElementById('skel-requests');
+  
+  skelReqs.style.display = 'flex';
+  reqList.innerHTML = '';
+  emptyReqs.style.display = 'none';
+
+  try {
+    const q = query(collection(db, "support_requests"), where("uid", "==", uid), orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    skelReqs.style.display = 'none';
+
+    if (querySnapshot.empty) {
+      emptyReqs.style.display = 'block';
+      return;
+    }
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const card = document.createElement('div');
+      card.className = 'request-card';
+      
+      const statusClass = `status-${data.status || 'open'}`;
+      const displayStatus = (data.status || 'open').charAt(0).toUpperCase() + (data.status || 'open').slice(1);
+
+      card.innerHTML = `
+        <div class="request-header">
+          <div class="request-subject">${data.subject || 'No Subject'}</div>
+          <div class="status-badge ${statusClass}">${displayStatus}</div>
+        </div>
+        <div class="request-meta">
+          <span>${data.category || 'Support'}</span>
+          <span class="meta-dot"></span>
+          <span>${formatDate(data.createdAt)}</span>
+        </div>
+      `;
+      reqList.appendChild(card);
+    });
+
+  } catch (error) {
+    skelReqs.style.display = 'none';
+    // Graceful degradation, don't break the page
+    console.error(error);
+    if(reqList.children.length === 0) {
+      emptyReqs.style.display = 'block';
+      emptyReqs.textContent = "Unable to load support history.";
+    }
+  }
+}
+
+// Auth State
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.replace("login.html");
+    return;
+  }
+  
+  currentUser = user;
+  
+  Promise.all([
+    loadUserData(user.uid),
+    loadSupportRequests(user.uid)
+  ]).finally(() => {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+    }, 300);
+  });
+});
+
+</script>
+</body>
+</html>
