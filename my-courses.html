@@ -1841,3 +1841,361 @@ window.addEventListener(
   }
 );
 </script>
+<script type="module">
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+async function verifyCourseAccess(courseId) {
+  if (!currentUser || !courseId) {
+    return false;
+  }
+
+  try {
+    const assignmentRef = doc(
+      db,
+      "students",
+      currentUser.uid,
+      "purchasedCourses",
+      courseId
+    );
+
+    const assignmentSnapshot =
+      await getDoc(assignmentRef);
+
+    if (!assignmentSnapshot.exists()) {
+      return false;
+    }
+
+    const assignmentData =
+      assignmentSnapshot.data();
+
+    if (
+      assignmentData.active === false ||
+      assignmentData.access === false ||
+      assignmentData.revoked === true
+    ) {
+      return false;
+    }
+
+    const courseRef = doc(
+      db,
+      "courses",
+      courseId
+    );
+
+    const courseSnapshot =
+      await getDoc(courseRef);
+
+    if (!courseSnapshot.exists()) {
+      return false;
+    }
+
+    const courseData =
+      courseSnapshot.data();
+
+    if (courseData.published === false) {
+      return false;
+    }
+
+    return true;
+
+  } catch (error) {
+    return false;
+  }
+}
+
+async function refreshAssignedCourses() {
+  if (!currentUser) {
+    return;
+  }
+
+  try {
+    await loadAssignedCourses(
+      currentUser
+    );
+
+    renderCourses();
+
+  } catch (error) {
+    console.error(
+      "Course refresh failed:",
+      error
+    );
+  }
+}
+
+function getCourseById(courseId) {
+  if (!courseId) {
+    return null;
+  }
+
+  return (
+    allCourses.find(
+      course =>
+        course.courseId === courseId
+    ) || null
+  );
+}
+
+function getCourseProgress(courseId) {
+  const course =
+    getCourseById(courseId);
+
+  if (!course) {
+    return 0;
+  }
+
+  return normalizeProgress(
+    course.progress
+  );
+}
+
+function getCourseCompletion(
+  courseId
+) {
+  const progress =
+    getCourseProgress(courseId);
+
+  return progress >= 100;
+}
+
+function setCourseProgress(
+  courseId,
+  progress
+) {
+  const course =
+    getCourseById(courseId);
+
+  if (!course) {
+    return;
+  }
+
+  const normalized =
+    normalizeProgress(progress);
+
+  course.progress =
+    normalized;
+
+  course.status =
+    normalized >= 100
+      ? "completed"
+      : "active";
+
+  renderCourses();
+}
+
+window.getCourseById =
+  getCourseById;
+
+window.getCourseProgress =
+  getCourseProgress;
+
+window.getCourseCompletion =
+  getCourseCompletion;
+
+window.setCourseProgress =
+  setCourseProgress;
+
+window.verifyCourseAccess =
+  verifyCourseAccess;
+
+window.refreshAssignedCourses =
+  refreshAssignedCourses;
+
+document.addEventListener(
+  "visibilitychange",
+  async () => {
+
+    if (
+      document.visibilityState ===
+      "visible" &&
+      currentUser
+    ) {
+      await refreshAssignedCourses();
+    }
+
+  }
+);
+
+window.addEventListener(
+  "focus",
+  async () => {
+
+    if (!currentUser) {
+      return;
+    }
+
+    await refreshAssignedCourses();
+
+  }
+);
+</script>
+<script type="module">
+const COURSE_REFRESH_INTERVAL = 60000;
+
+let refreshTimer = null;
+
+function startCourseRefresh() {
+  stopCourseRefresh();
+
+  refreshTimer = setInterval(
+    async () => {
+
+      if (
+        !currentUser ||
+        document.visibilityState !== "visible"
+      ) {
+        return;
+      }
+
+      await refreshAssignedCourses();
+
+    },
+    COURSE_REFRESH_INTERVAL
+  );
+}
+
+function stopCourseRefresh() {
+  if (refreshTimer) {
+    clearInterval(refreshTimer);
+    refreshTimer = null;
+  }
+}
+
+window.addEventListener(
+  "online",
+  async () => {
+
+    if (!currentUser) {
+      return;
+    }
+
+    await refreshAssignedCourses();
+
+  }
+);
+
+window.addEventListener(
+  "offline",
+  () => {
+
+    if (!currentUser) {
+      return;
+    }
+
+    errorState.classList.remove(
+      "visible"
+    );
+
+  }
+);
+
+document.addEventListener(
+  "visibilitychange",
+  async () => {
+
+    if (
+      document.visibilityState ===
+      "visible" &&
+      currentUser
+    ) {
+
+      await refreshAssignedCourses();
+
+    }
+
+  }
+);
+
+window.addEventListener(
+  "beforeunload",
+  () => {
+    stopCourseRefresh();
+  }
+);
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if (!user) {
+
+      stopCourseRefresh();
+
+      window.location.replace(
+        "./login.html"
+      );
+
+      return;
+    }
+
+    currentUser = user;
+
+    try {
+
+      await loadStudentProfile(
+        user
+      );
+
+      await loadAssignedCourses(
+        user
+      );
+
+      await loadNotifications();
+
+      hideLoadingState();
+
+      renderCourses();
+
+      startCourseRefresh();
+
+    } catch (error) {
+
+      console.error(
+        "My Courses initialization failed:",
+        error
+      );
+
+      showErrorState(error);
+
+    }
+
+  }
+);
+
+window.addEventListener(
+  "pageshow",
+  async () => {
+
+    if (!currentUser) {
+      return;
+    }
+
+    try {
+
+      await loadStudentProfile(
+        currentUser
+      );
+
+      await loadAssignedCourses(
+        currentUser
+      );
+
+      await loadNotifications();
+
+      hideLoadingState();
+
+      renderCourses();
+
+    } catch {
+
+    }
+
+  }
+);
+</script>
+
+</body>
+</html>
