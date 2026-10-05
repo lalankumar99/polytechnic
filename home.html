@@ -1115,3 +1115,436 @@ button,a{
 
   </nav>
         </aside>
+<script type="module">
+import { auth, db } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+const studentName = document.getElementById("student-name");
+const drawerName = document.getElementById("drawer-name");
+const drawerEmail = document.getElementById("drawer-email");
+const drawerBranch = document.getElementById("drawer-branch");
+const drawerAvatar = document.getElementById("drawer-avatar");
+const avatarInitial = document.getElementById("avatar-initial");
+
+const drawer = document.getElementById("side-drawer");
+const drawerOverlay = document.getElementById("drawer-overlay");
+const btnMenu = document.getElementById("btn-menu");
+const btnCloseDrawer = document.getElementById("btn-close-drawer");
+const btnLogout = document.getElementById("btn-logout");
+
+const btnNotify = document.getElementById("btn-notify");
+const btnCloseNotif = document.getElementById("btn-close-notif");
+const notifPanel = document.getElementById("notif-panel");
+const notifBody = document.getElementById("notif-body");
+const notificationBadge = document.getElementById("notification-badge");
+
+const promoBanner = document.getElementById("promo-banner");
+const slides = [...document.querySelectorAll(".banner-slide")];
+const dots = [...document.querySelectorAll(".dot")];
+
+let currentUser = null;
+let currentSlide = 0;
+let slideTimer = null;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function openDrawer() {
+  drawer.classList.add("open");
+  drawerOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeDrawer() {
+  drawer.classList.remove("open");
+  drawerOverlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function openNotifications() {
+  notifPanel.classList.add("open");
+}
+
+function closeNotifications() {
+  notifPanel.classList.remove("open");
+}
+
+btnMenu.addEventListener("click", openDrawer);
+btnCloseDrawer.addEventListener("click", closeDrawer);
+drawerOverlay.addEventListener("click", closeDrawer);
+
+btnNotify.addEventListener("click", event => {
+  event.stopPropagation();
+
+  if (notifPanel.classList.contains("open")) {
+    closeNotifications();
+  } else {
+    openNotifications();
+  }
+});
+
+btnCloseNotif.addEventListener("click", closeNotifications);
+
+document.addEventListener("click", event => {
+  if (
+    notifPanel.classList.contains("open") &&
+    !notifPanel.contains(event.target) &&
+    !btnNotify.contains(event.target)
+  ) {
+    closeNotifications();
+  }
+});
+
+function getInitials(name) {
+  if (!name) return "S";
+
+  const words = name.trim().split(/\s+/);
+
+  if (words.length === 1) {
+    return words[0].substring(0, 2).toUpperCase();
+  }
+
+  return (
+    words[0].charAt(0) +
+    words[words.length - 1].charAt(0)
+  ).toUpperCase();
+}
+
+function setProfile(data, user) {
+  const name =
+    data?.name?.trim() ||
+    user.displayName?.trim() ||
+    "Student";
+
+  const email =
+    data?.email ||
+    user.email ||
+    "";
+
+  const branch =
+    data?.branch?.trim() ||
+    "Branch not selected";
+
+  const photoURL =
+    data?.photoURL ||
+    user.photoURL ||
+    "";
+
+  studentName.textContent = name;
+  drawerName.textContent = name;
+  drawerEmail.textContent = email;
+  drawerBranch.textContent = branch;
+
+  avatarInitial.textContent = getInitials(name);
+
+  if (photoURL) {
+    drawerAvatar.innerHTML = `
+      <img src="${escapeAttribute(photoURL)}" alt="Profile">
+    `;
+  } else {
+    drawerAvatar.innerHTML = `
+      <span>${escapeHTML(getInitials(name))}</span>
+    `;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function escapeAttribute(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+async function loadStudentProfile(user) {
+  try {
+    const studentRef = doc(db, "students", user.uid);
+    const studentSnap = await getDoc(studentRef);
+
+    if (studentSnap.exists()) {
+      setProfile(studentSnap.data(), user);
+    } else {
+      setProfile({
+        name: user.displayName || "Student",
+        email: user.email || "",
+        branch: "",
+        photoURL: user.photoURL || ""
+      }, user);
+    }
+  } catch (error) {
+    setProfile({
+      name: user.displayName || "Student",
+      email: user.email || "",
+      branch: "",
+      photoURL: user.photoURL || ""
+    }, user);
+  }
+}
+
+function formatNotificationTime(timestamp) {
+  if (!timestamp) return "";
+
+  try {
+    const date = timestamp.toDate();
+    return date.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+  } catch {
+    return "";
+  }
+}
+
+async function loadNotifications() {
+  if (!currentUser) return;
+
+  try {
+    const notificationsRef = collection(db, "notifications");
+
+    const notificationsQuery = query(
+      notificationsRef,
+      where("active", "==", true),
+      orderBy("createdAt", "desc"),
+      limit(20)
+    );
+
+    const snapshot = await getDocs(notificationsQuery);
+
+    if (snapshot.empty) {
+      notifBody.innerHTML = `
+        <div class="notif-empty">
+          No new notifications
+        </div>
+      `;
+
+      notificationBadge.style.display = "none";
+      return;
+    }
+
+    notifBody.innerHTML = "";
+
+    let hasUnread = false;
+
+    snapshot.forEach(item => {
+      const data = item.data();
+
+      const title =
+        data.title ||
+        "Polytechnic Hub";
+
+      const message =
+        data.message ||
+        data.description ||
+        "";
+
+      const time =
+        formatNotificationTime(data.createdAt);
+
+      const link =
+        data.link ||
+        "";
+
+      const element = document.createElement(
+        link ? "a" : "div"
+      );
+
+      if (link) {
+        element.href = link;
+      }
+
+      element.className = "notif-item";
+
+      element.innerHTML = `
+        <div class="notif-item-title">
+          ${escapeHTML(title)}
+        </div>
+
+        <div class="notif-item-message">
+          ${escapeHTML(message)}
+        </div>
+
+        ${
+          time
+            ? `<div class="notif-item-time">${escapeHTML(time)}</div>`
+            : ""
+        }
+      `;
+
+      notifBody.appendChild(element);
+
+      if (data.read === false || data.read === undefined) {
+        hasUnread = true;
+      }
+    });
+
+    notificationBadge.style.display =
+      hasUnread ? "block" : "none";
+
+  } catch (error) {
+    notifBody.innerHTML = `
+      <div class="notif-empty">
+        Notifications are currently unavailable.
+      </div>
+    `;
+
+    notificationBadge.style.display = "none";
+  }
+}
+
+function showSlide(index) {
+  if (!slides.length) return;
+
+  currentSlide =
+    (index + slides.length) % slides.length;
+
+  slides.forEach((slide, i) => {
+    slide.classList.toggle(
+      "active",
+      i === currentSlide
+    );
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle(
+      "active",
+      i === currentSlide
+    );
+  });
+}
+
+function nextSlide() {
+  showSlide(currentSlide + 1);
+}
+
+function startSlider() {
+  stopSlider();
+
+  slideTimer = setInterval(() => {
+    nextSlide();
+  }, 4000);
+}
+
+function stopSlider() {
+  if (slideTimer) {
+    clearInterval(slideTimer);
+    slideTimer = null;
+  }
+}
+
+function restartSlider() {
+  startSlider();
+}
+
+promoBanner.addEventListener("click", event => {
+  const slide = slides[currentSlide];
+
+  if (!slide) return;
+
+  const link = slide.dataset.link;
+
+  if (link) {
+    window.location.href = link;
+  }
+});
+
+promoBanner.addEventListener("touchstart", event => {
+  touchStartX = event.changedTouches[0].screenX;
+  stopSlider();
+}, { passive: true });
+
+promoBanner.addEventListener("touchend", event => {
+  touchEndX = event.changedTouches[0].screenX;
+
+  const difference =
+    touchStartX - touchEndX;
+
+  if (Math.abs(difference) > 50) {
+    if (difference > 0) {
+      showSlide(currentSlide + 1);
+    } else {
+      showSlide(currentSlide - 1);
+    }
+  }
+
+  restartSlider();
+}, { passive: true });
+
+promoBanner.addEventListener("mouseenter", stopSlider);
+promoBanner.addEventListener("mouseleave", restartSlider);
+
+btnLogout.addEventListener("click", async () => {
+  if (!currentUser) return;
+
+  const confirmed = window.confirm(
+    "Are you sure you want to logout?"
+  );
+
+  if (!confirmed) return;
+
+  btnLogout.disabled = true;
+
+  try {
+    await signOut(auth);
+    window.location.replace("./login.html");
+  } catch (error) {
+    btnLogout.disabled = false;
+    alert("Logout failed. Please try again.");
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeDrawer();
+    closeNotifications();
+  }
+});
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    window.location.replace("./login.html");
+    return;
+  }
+
+  currentUser = user;
+
+  await loadStudentProfile(user);
+  await loadNotifications();
+
+  showSlide(0);
+  startSlider();
+});
+
+window.addEventListener("pageshow", () => {
+  if (currentUser) {
+    loadStudentProfile(currentUser);
+    loadNotifications();
+  }
+});
+</script>
+
+</body>
+  </html>
