@@ -3,937 +3,1841 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#0B1F3A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Polytechnic Hub - My Courses</title>
+
 <style>
-:root {
-  --primary-navy: #0B1F3A;
-  --primary-blue: #1677FF;
-  --bg-color: #F5F8FC;
-  --white: #FFFFFF;
-  --text-dark: #1F2937;
-  --text-muted: #6B7280;
-  --border-color: #E5E7EB;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-drawer: 4px 0 24px rgba(0,0,0,0.15);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-dark);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
-}
-
-/* Header */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background-color: var(--white);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--shadow-sm);
-  height: 60px;
-}
-
-.header-left, .header-right {
-  display: flex;
-  align-items: center;
-  min-width: 48px;
-}
-
-.header-center {
-  flex: 1;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--primary-navy);
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  margin: -8px;
-  cursor: pointer;
-  color: var(--text-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background-color 0.2s;
-}
-
-.icon-btn:active {
-  background-color: var(--bg-color);
-}
-
-.notification-badge {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  width: 8px;
-  height: 8px;
-  background-color: #EF4444;
-  border-radius: 50%;
-  border: 2px solid var(--white);
-  display: none;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 24px 16px 90px 16px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.page-header {
-  margin-bottom: 24px;
+:root{
+--navy:#0B1F3A;
+--navy-2:#0A192F;
+--blue:#1677FF;
+--blue-2:#2563EB;
+--blue-soft:#EFF6FF;
+--green:#16A34A;
+--green-soft:#F0FDF4;
+--red:#EF4444;
+--orange:#F59E0B;
+--bg:#F5F8FC;
+--white:#FFFFFF;
+--text:#172033;
+--muted:#6B7280;
+--border:#E5E7EB;
+--surface:#F8FAFC;
+--shadow-sm:0 2px 8px rgba(15,23,42,.05);
+--shadow-md:0 8px 24px rgba(15,23,42,.08);
+--shadow-lg:0 16px 40px rgba(15,23,42,.14);
+--safe-bottom:env(safe-area-inset-bottom,0px);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+min-height:100vh;
+overflow-x:hidden;
+overscroll-behavior-y:none;
+}
+
+button,
+a{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+.header{
+position:sticky;
+top:0;
+z-index:50;
+height:62px;
+background:rgba(255,255,255,.96);
+backdrop-filter:blur(14px);
+-webkit-backdrop-filter:blur(14px);
+border-bottom:1px solid rgba(229,231,235,.8);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 16px;
+}
+
+.header-left,
+.header-right{
+width:44px;
+height:44px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.header-center{
+flex:1;
+text-align:center;
+font-size:1.08rem;
+font-weight:800;
+color:var(--navy);
+letter-spacing:-.2px;
+}
+
+.icon-btn{
+width:40px;
+height:40px;
+border:0;
+background:transparent;
+color:var(--navy);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+transition:.2s ease;
+}
+
+.icon-btn:active{
+transform:scale(.92);
+background:#F1F5F9;
+}
+
+.notification-badge{
+position:absolute;
+right:5px;
+top:5px;
+width:9px;
+height:9px;
+border-radius:50%;
+background:var(--red);
+border:2px solid var(--white);
+display:none;
+}
+
+.notification-panel{
+position:fixed;
+top:70px;
+right:14px;
+width:340px;
+max-width:calc(100vw - 28px);
+background:var(--white);
+border:1px solid var(--border);
+border-radius:18px;
+box-shadow:var(--shadow-lg);
+z-index:100;
+opacity:0;
+visibility:hidden;
+transform:translateY(-10px) scale(.98);
+transition:.2s ease;
+overflow:hidden;
+}
+
+.notification-panel.open{
+opacity:1;
+visibility:visible;
+transform:translateY(0) scale(1);
+}
+
+.notif-header{
+height:58px;
+padding:0 16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid var(--border);
+font-size:.98rem;
+font-weight:800;
+color:var(--navy);
+}
+
+.notif-body{
+max-height:420px;
+overflow-y:auto;
+padding:8px;
+}
+
+.notif-empty{
+padding:36px 18px;
+text-align:center;
+color:var(--muted);
+font-size:.9rem;
+}
+
+.notif-item{
+display:block;
+padding:13px;
+border-radius:13px;
+text-decoration:none;
+color:inherit;
+transition:.2s ease;
+}
+
+.notif-item:active{
+background:#F8FAFC;
+}
+
+.notif-item-title{
+font-size:.92rem;
+font-weight:800;
+color:var(--navy);
+margin-bottom:4px;
+}
+
+.notif-item-message{
+font-size:.83rem;
+line-height:1.45;
+color:var(--muted);
+}
+
+.notif-item-time{
+font-size:.72rem;
+color:#94A3B8;
+margin-top:6px;
+}
+
+.main{
+width:100%;
+max-width:1200px;
+margin:0 auto;
+padding:24px 16px calc(100px + var(--safe-bottom));
+}
+
+.page-header{
+margin-bottom:22px;
+}
+
+.page-title{
+font-size:1.55rem;
+line-height:1.25;
+font-weight:850;
+color:var(--navy);
+letter-spacing:-.4px;
+}
+
+.page-title span{
+color:var(--blue);
+}
+
+.page-subtitle{
+margin-top:6px;
+font-size:.9rem;
+line-height:1.5;
+color:var(--muted);
+}
+
+.filter-scroll{
+margin:0 -16px 22px;
+padding:0 16px;
+overflow-x:auto;
+scrollbar-width:none;
+-webkit-overflow-scrolling:touch;
+}
+
+.filter-scroll::-webkit-scrollbar{
+display:none;
+}
+
+.filter-container{
+display:inline-flex;
+gap:6px;
+padding:5px;
+background:var(--white);
+border:1px solid var(--border);
+border-radius:15px;
+box-shadow:var(--shadow-sm);
+white-space:nowrap;
+}
+
+.filter-tab{
+border:0;
+background:transparent;
+color:var(--muted);
+padding:9px 15px;
+border-radius:10px;
+font-size:.84rem;
+font-weight:750;
+transition:.2s ease;
 }
 
-.page-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary-navy);
-  margin-bottom: 4px;
+.filter-tab.active{
+background:var(--blue);
+color:var(--white);
+box-shadow:0 5px 14px rgba(22,119,255,.2);
 }
 
-.page-subtitle {
-  font-size: 0.95rem;
-  color: var(--text-muted);
+.course-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:18px;
 }
 
-/* Filters */
-.filter-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 0 -16px 24px;
-  padding: 0 16px;
-  scrollbar-width: none;
+.course-card{
+background:var(--white);
+border:1px solid var(--border);
+border-radius:20px;
+overflow:hidden;
+box-shadow:var(--shadow-sm);
+transition:.22s ease;
+cursor:pointer;
 }
 
-.filter-scroll::-webkit-scrollbar {
-  display: none;
+.course-card:active{
+transform:scale(.985);
 }
 
-.filter-container {
-  display: inline-flex;
-  background-color: var(--white);
-  padding: 4px;
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
+.course-banner{
+position:relative;
+width:100%;
+aspect-ratio:16/9;
+background:#E2E8F0;
+overflow:hidden;
 }
 
-.filter-tab {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-  background: transparent;
-  white-space: nowrap;
+.course-banner img{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover;
 }
 
-.filter-tab.active {
-  background-color: var(--primary-blue);
-  color: var(--white);
+.course-banner-placeholder{
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#0B1F3A,#2563EB);
+color:white;
+font-size:2.2rem;
+font-weight:900;
 }
 
-/* Course Grid */
-.course-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+.course-badge{
+position:absolute;
+top:12px;
+left:12px;
+padding:6px 10px;
+border-radius:999px;
+font-size:.7rem;
+font-weight:800;
+background:rgba(255,255,255,.94);
+color:var(--navy);
+backdrop-filter:blur(8px);
+-webkit-backdrop-filter:blur(8px);
 }
 
-.course-card {
-  background: var(--white);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
+.course-badge.completed{
+background:#DCFCE7;
+color:var(--green);
 }
 
-.course-card:active {
-  transform: scale(0.98);
+.course-info{
+padding:16px;
 }
 
-.course-thumbnail {
-  width: 100%;
-  height: 160px;
-  position: relative;
-  background-color: #E2E8F0;
+.course-title{
+font-size:1.08rem;
+line-height:1.35;
+font-weight:800;
+color:var(--navy);
+margin-bottom:7px;
 }
 
-.course-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.course-description{
+font-size:.86rem;
+line-height:1.55;
+color:var(--muted);
+display:-webkit-box;
+-webkit-line-clamp:3;
+-webkit-box-orient:vertical;
+overflow:hidden;
+margin-bottom:15px;
 }
 
-.course-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  background: rgba(255,255,255,0.9);
-  color: var(--primary-navy);
-  backdrop-filter: blur(4px);
+.course-meta{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-bottom:12px;
+font-size:.75rem;
+color:var(--muted);
 }
 
-.course-badge.completed {
-  background: #DCFCE7;
-  color: #16A34A;
+.course-branch{
+font-weight:700;
 }
 
-.course-info {
-  padding: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.course-progress{
+margin-bottom:14px;
 }
 
-.course-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
-  margin-bottom: 8px;
+.progress-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:7px;
 }
 
-.course-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 16px;
-  line-height: 1.3;
+.progress-label{
+font-size:.76rem;
+font-weight:650;
+color:var(--muted);
 }
 
-.course-progress-container {
-  margin-top: auto;
+.progress-value{
+font-size:.8rem;
+font-weight:800;
+color:var(--blue);
 }
 
-.progress-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 8px;
+.progress-track{
+height:7px;
+width:100%;
+background:#EAF0F7;
+border-radius:999px;
+overflow:hidden;
 }
 
-.progress-text {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
+.progress-fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#3B82F6,#1677FF);
+border-radius:999px;
+transition:width .5s ease;
 }
 
-.progress-percentage {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--primary-blue);
+.course-action{
+width:100%;
+height:46px;
+border:0;
+border-radius:13px;
+background:var(--blue-soft);
+color:var(--blue);
+font-size:.9rem;
+font-weight:800;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:7px;
+transition:.2s ease;
 }
 
-.progress-bar-bg {
-  width: 100%;
-  height: 6px;
-  background-color: #F1F5F9;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 16px;
+.course-action:active{
+background:#DBEAFE;
+transform:scale(.985);
 }
 
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #3B82F6, var(--primary-blue));
-  border-radius: 4px;
-  transition: width 0.5s ease;
+.course-action.completed{
+background:var(--green-soft);
+color:var(--green);
 }
 
-.btn-continue {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-align: center;
-  border: none;
-  background-color: #EFF6FF;
-  color: var(--primary-blue);
-  cursor: pointer;
-  transition: all 0.2s;
+.empty-state{
+display:none;
+background:var(--white);
+border:1px dashed #CBD5E1;
+border-radius:22px;
+padding:44px 22px;
+text-align:center;
+box-shadow:var(--shadow-sm);
 }
 
-.course-card:active .btn-continue {
-  background-color: #DBEAFE;
+.empty-state.visible{
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
-.btn-continue.completed {
-  background-color: #F0FDF4;
-  color: #16A34A;
+.empty-icon{
+width:82px;
+height:82px;
+border-radius:50%;
+background:#F1F5F9;
+color:#94A3B8;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:18px;
 }
 
-/* Empty State */
-.empty-state {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px 20px;
-  background: var(--white);
-  border-radius: 20px;
-  box-shadow: var(--shadow-sm);
-  border: 1px dashed var(--border-color);
-  margin-top: 20px;
+.empty-title{
+font-size:1.2rem;
+font-weight:850;
+color:var(--navy);
+margin-bottom:7px;
 }
 
-.empty-state.visible {
-  display: flex;
+.empty-desc{
+font-size:.88rem;
+line-height:1.55;
+color:var(--muted);
+max-width:290px;
+margin-bottom:20px;
 }
 
-.empty-icon {
-  width: 80px;
-  height: 80px;
-  background: #F1F5F9;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  color: #94A3B8;
+.explore-btn{
+height:46px;
+padding:0 22px;
+border:0;
+border-radius:13px;
+background:var(--blue);
+color:var(--white);
+text-decoration:none;
+font-size:.9rem;
+font-weight:800;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 7px 18px rgba(22,119,255,.2);
 }
 
-.empty-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--primary-navy);
-  margin-bottom: 8px;
+.filter-empty{
+grid-column:1/-1;
+padding:35px 15px;
+text-align:center;
+color:var(--muted);
+font-size:.88rem;
+background:var(--white);
+border-radius:18px;
+border:1px dashed var(--border);
 }
 
-.empty-desc {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-  max-width: 250px;
+.error-state{
+display:none;
+background:var(--white);
+border:1px solid #FECACA;
+border-radius:20px;
+padding:35px 20px;
+text-align:center;
+color:var(--red);
 }
 
-.btn-explore {
-  padding: 12px 24px;
-  background-color: var(--primary-blue);
-  color: var(--white);
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.2);
+.error-state.visible{
+display:block;
 }
 
-/* Loading Skeleton */
-.skeleton-card {
-  display: none;
-  background: var(--white);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
+.error-title{
+font-size:1rem;
+font-weight:800;
+margin-bottom:6px;
 }
 
-.skeleton-card.visible {
-  display: flex;
-  flex-direction: column;
+.error-message{
+font-size:.84rem;
+line-height:1.5;
+color:var(--muted);
 }
 
-.skeleton-thumb {
-  height: 160px;
-  background: #E2E8F0;
+.retry-btn{
+margin-top:18px;
+height:44px;
+padding:0 20px;
+border:1px solid var(--border);
+border-radius:12px;
+background:var(--white);
+color:var(--navy);
+font-weight:750;
 }
 
-.skeleton-body {
-  padding: 16px;
+.loading-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:18px;
+}
+
+.skeleton-card{
+background:var(--white);
+border:1px solid var(--border);
+border-radius:20px;
+overflow:hidden;
 }
 
-.skeleton-line {
-  height: 16px;
-  background: #E2E8F0;
-  border-radius: 4px;
-  margin-bottom: 12px;
+.skeleton-banner{
+aspect-ratio:16/9;
+background:linear-gradient(
+90deg,
+#E2E8F0 25%,
+#F1F5F9 50%,
+#E2E8F0 75%
+);
+background-size:200% 100%;
+animation:shimmer 1.4s infinite;
 }
 
-.skeleton-line.short { width: 40%; }
-.skeleton-line.medium { width: 70%; }
-.skeleton-box { height: 40px; background: #E2E8F0; border-radius: 12px; margin-top: 16px;}
+.skeleton-content{
+padding:16px;
+}
 
-.skeleton-anim {
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+.skeleton-line{
+height:14px;
+border-radius:6px;
+margin-bottom:11px;
+background:linear-gradient(
+90deg,
+#E2E8F0 25%,
+#F1F5F9 50%,
+#E2E8F0 75%
+);
+background-size:200% 100%;
+animation:shimmer 1.4s infinite;
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.skeleton-line.large{
+width:78%;
+height:18px;
 }
 
-/* Error State */
-.error-state {
-  display: none;
-  text-align: center;
-  padding: 40px 20px;
-  color: #EF4444;
+.skeleton-line.medium{
+width:92%;
 }
-.error-state.visible { display: block; }
-.btn-retry {
-  margin-top: 16px;
-  padding: 10px 20px;
-  background: var(--white);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
+
+.skeleton-line.small{
+width:45%;
 }
-
-/* Bottom Navigation */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--white);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 12px 0 calc(12px + var(--safe-bottom));
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
-  z-index: 40;
-  border-radius: 20px 20px 0 0;
+
+.skeleton-button{
+height:46px;
+margin-top:16px;
+border-radius:13px;
+background:linear-gradient(
+90deg,
+#E2E8F0 25%,
+#F1F5F9 50%,
+#E2E8F0 75%
+);
+background-size:200% 100%;
+animation:shimmer 1.4s infinite;
 }
 
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: var(--text-muted);
-  text-decoration: none;
-  width: 25%;
-  -webkit-tap-highlight-color: transparent;
+@keyframes shimmer{
+0%{
+background-position:200% 0;
+}
+100%{
+background-position:-200% 0;
+}
 }
 
-.nav-item.active {
-  color: var(--primary-blue);
+.bottom-nav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+z-index:60;
+height:auto;
+min-height:70px;
+padding:9px 0 calc(9px + var(--safe-bottom));
+background:rgba(255,255,255,.97);
+backdrop-filter:blur(15px);
+-webkit-backdrop-filter:blur(15px);
+border-top:1px solid rgba(229,231,235,.9);
+box-shadow:0 -6px 20px rgba(15,23,42,.06);
+display:flex;
+align-items:center;
+justify-content:space-around;
 }
 
-.nav-icon {
-  transition: transform 0.2s;
+.nav-item{
+width:25%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+color:var(--muted);
+text-decoration:none;
 }
 
-.nav-item:active .nav-icon {
-  transform: scale(0.9);
+.nav-item.active{
+color:var(--blue);
 }
 
-.nav-label {
-  font-size: 0.75rem;
-  font-weight: 500;
+.nav-icon{
+width:23px;
+height:23px;
 }
 
-/* Notification Panel */
-.notification-panel {
-  position: fixed;
-  top: 60px;
-  right: 16px;
-  width: 320px;
-  max-width: calc(100vw - 32px);
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-color);
-  z-index: 45;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.2s ease;
+.nav-label{
+font-size:.7rem;
+font-weight:700;
 }
 
-.notification-panel.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+@media(min-width:650px){
+.course-grid,
+.loading-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-.notif-header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border-color);
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.main{
+padding-left:24px;
+padding-right:24px;
 }
 
-.notif-body {
-  padding: 32px 16px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+.filter-scroll{
+margin-left:-24px;
+margin-right:-24px;
+padding-left:24px;
+padding-right:24px;
 }
+}
 
-/* Full Screen Loader overlay */
-.loading-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: var(--bg-color);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease;
+@media(min-width:1024px){
+.main{
+padding-bottom:40px;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(22, 119, 255, 0.2);
-  border-radius: 50%;
-  border-top-color: var(--primary-blue);
-  animation: spin 1s linear infinite;
+.course-grid,
+.loading-grid{
+grid-template-columns:repeat(3,1fr);
+gap:22px;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.bottom-nav{
+display:none;
 }
 
-@media (min-width: 768px) {
-  .course-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.header{
+padding-left:24px;
+padding-right:24px;
 }
+}
 
-@media (min-width: 1024px) {
-  .course-grid { grid-template-columns: repeat(3, 1fr); }
-  .bottom-nav { display: none; }
-  .main-content { padding-bottom: 40px; }
+@media(min-width:1400px){
+.course-grid,
+.loading-grid{
+grid-template-columns:repeat(4,1fr);
+}
 }
 </style>
 </head>
+
 <body>
 
-<div id="loading-screen" class="loading-overlay">
-  <div class="spinner"></div>
+<header class="header">
+<div class="header-left">
+<button class="icon-btn" id="btn-back" aria-label="Go Back">
+<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<line x1="19" y1="12" x2="5" y2="12"></line>
+<polyline points="12 19 5 12 12 5"></polyline>
+</svg>
+</button>
 </div>
 
-<!-- Header -->
-<header class="header">
-  <div class="header-left">
-    <button class="icon-btn" id="btn-back" aria-label="Go Back">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-    </button>
-  </div>
-  <div class="header-center">
-    My Courses
-  </div>
-  <div class="header-right" style="justify-content: flex-end;">
-    <button class="icon-btn" id="btn-notify" aria-label="Notifications" style="position:relative;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-      </svg>
-      <span class="notification-badge" id="notif-badge"></span>
-    </button>
-  </div>
+<div class="header-center">
+My Courses
+</div>
+
+<div class="header-right">
+<button class="icon-btn" id="btn-notify" aria-label="Notifications">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+</svg>
+<span class="notification-badge" id="notif-badge"></span>
+</button>
+</div>
 </header>
 
-<!-- Notification Panel -->
 <div class="notification-panel" id="notif-panel">
-  <div class="notif-header">
-    <span>Notifications</span>
-    <button class="icon-btn" id="btn-close-notif" style="padding: 4px; margin: 0;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
-  </div>
-  <div class="notif-body">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-      <line x1="12" y1="2" x2="12" y2="4"></line>
-    </svg>
-    No new notifications
-  </div>
+<div class="notif-header">
+<span>Notifications</span>
+
+<button class="icon-btn" id="btn-close-notif" aria-label="Close">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<line x1="18" y1="6" x2="6" y2="18"></line>
+<line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+</button>
 </div>
 
-<main class="main-content">
-  <div class="page-header">
-    <h1 class="page-title">Welcome back, <span id="student-name">Student</span> 👋</h1>
-    <p class="page-subtitle">Continue learning and track your progress</p>
-  </div>
+<div class="notif-body" id="notif-body">
+<div class="notif-empty">
+No new notifications
+</div>
+</div>
+</div>
 
-  <div class="filter-scroll">
-    <div class="filter-container" id="filter-container">
-      <button class="filter-tab active" data-filter="all">All Courses</button>
-      <button class="filter-tab" data-filter="active">Active</button>
-      <button class="filter-tab" data-filter="completed">Completed</button>
-    </div>
-  </div>
+<main class="main">
 
-  <div id="course-grid" class="course-grid">
-    <!-- Skeletons -->
-    <div class="skeleton-card visible skeleton-anim" id="skel-1">
-      <div class="skeleton-thumb"></div>
-      <div class="skeleton-body">
-        <div class="skeleton-line medium"></div>
-        <div class="skeleton-line"></div>
-        <div class="skeleton-line short"></div>
-        <div class="skeleton-box"></div>
-      </div>
-    </div>
-    <div class="skeleton-card visible skeleton-anim" id="skel-2">
-      <div class="skeleton-thumb"></div>
-      <div class="skeleton-body">
-        <div class="skeleton-line medium"></div>
-        <div class="skeleton-line"></div>
-        <div class="skeleton-line short"></div>
-        <div class="skeleton-box"></div>
-      </div>
-    </div>
-  </div>
+<section class="page-header">
+<h1 class="page-title">
+Welcome back, <span id="student-name">Student</span> 👋
+</h1>
 
-  <!-- Empty State -->
-  <div class="empty-state" id="empty-state">
-    <div class="empty-icon">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-      </svg>
-    </div>
-    <h2 class="empty-title">No Courses Yet</h2>
-    <p class="empty-desc">You haven't purchased or enrolled in any courses yet.</p>
-    <a href="home.html" class="btn-explore">Explore Courses</a>
-  </div>
+<p class="page-subtitle">
+Continue your learning from where you left off.
+</p>
+</section>
 
-  <!-- Error State -->
-  <div class="error-state" id="error-state">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;">
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="12" y1="8" x2="12" y2="12"></line>
-      <line x1="12" y1="16" x2="12.01" y2="16"></line>
-    </svg>
-    <h3>Unable to load your courses</h3>
-    <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Please check your connection</p>
-    <button class="btn-retry" id="btn-retry">Try Again</button>
-  </div>
+<div class="filter-scroll">
+<div class="filter-container" id="filter-container">
+
+<button class="filter-tab active" data-filter="all">
+All Courses
+</button>
+
+<button class="filter-tab" data-filter="active">
+Active
+</button>
+
+<button class="filter-tab" data-filter="completed">
+Completed
+</button>
+
+</div>
+</div>
+
+<section id="loading-grid" class="loading-grid">
+
+<div class="skeleton-card">
+<div class="skeleton-banner"></div>
+
+<div class="skeleton-content">
+<div class="skeleton-line large"></div>
+<div class="skeleton-line medium"></div>
+<div class="skeleton-line small"></div>
+<div class="skeleton-button"></div>
+</div>
+</div>
+
+<div class="skeleton-card">
+<div class="skeleton-banner"></div>
+
+<div class="skeleton-content">
+<div class="skeleton-line large"></div>
+<div class="skeleton-line medium"></div>
+<div class="skeleton-line small"></div>
+<div class="skeleton-button"></div>
+</div>
+</div>
+
+</section>
+
+<section id="course-grid" class="course-grid"></section>
+
+<section id="empty-state" class="empty-state">
+
+<div class="empty-icon">
+<svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+</svg>
+</div>
+
+<h2 class="empty-title">
+No Courses Yet
+</h2>
+
+<p class="empty-desc">
+आपको अभी तक कोई course assign नहीं किया गया है। Admin द्वारा course assign होने के बाद वह यहाँ दिखाई देगा।
+</p>
+
+<a href="paid-courses.html" class="explore-btn">
+Explore Courses
+</a>
+
+</section>
+
+<section id="error-state" class="error-state">
+
+<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="10"></circle>
+<line x1="12" y1="8" x2="12" y2="12"></line>
+<line x1="12" y1="16" x2="12.01" y2="16"></line>
+</svg>
+
+<div class="error-title">
+Unable to load your courses
+</div>
+
+<div class="error-message" id="error-message">
+Please check your internet connection and try again.
+</div>
+
+<button class="retry-btn" id="btn-retry">
+Try Again
+</button>
+
+</section>
 
 </main>
 
-<!-- Bottom Navigation -->
 <nav class="bottom-nav">
-  <a href="home.html" class="nav-item">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-      <polyline points="9 22 9 12 15 12 15 22"></polyline>
-    </svg>
-    <span class="nav-label">Home</span>
-  </a>
-  <a href="my-courses.html" class="nav-item active">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-    </svg>
-    <span class="nav-label">My Course</span>
-  </a>
-  <a href="downloads.html" class="nav-item">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-      <polyline points="7 10 12 15 17 10"></polyline>
-      <line x1="12" y1="15" x2="12" y2="3"></line>
-    </svg>
-    <span class="nav-label">Downloads</span>
-  </a>
-  <a href="help.html" class="nav-item">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"></circle>
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-      <line x1="12" y1="17" x2="12.01" y2="17"></line>
-    </svg>
-    <span class="nav-label">Help</span>
-  </a>
-</nav>
 
-<script type="module">
+<a href="home.html" class="nav-item">
+<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span class="nav-label">Home</span>
+</a>
+
+<a href="my-courses.html" class="nav-item active">
+<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+</svg>
+<span class="nav-label">My Course</span>
+</a>
+
+<a href="downloads.html" class="nav-item">
+<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" y1="15" x2="12" y2="3"></line>
+</svg>
+<span class="nav-label">Downloads</span>
+</a>
+
+<a href="help.html" class="nav-item">
+<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+<line x1="12" y1="17" x2="12.01" y2="17"></line>
+</svg>
+<span class="nav-label">Help</span>
+</a>
+
+  </nav>
+  <script type="module">
 import { auth, db } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
 
-// DOM Elements
-const loadingScreen = document.getElementById('loading-screen');
-const studentNameEl = document.getElementById('student-name');
-const btnBack = document.getElementById('btn-back');
-const courseGrid = document.getElementById('course-grid');
-const emptyState = document.getElementById('empty-state');
-const errorState = document.getElementById('error-state');
-const btnRetry = document.getElementById('btn-retry');
-const filterTabs = document.querySelectorAll('.filter-tab');
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 
-// Notifications
-const btnNotify = document.getElementById('btn-notify');
-const notifPanel = document.getElementById('notif-panel');
-const btnCloseNotif = document.getElementById('btn-close-notif');
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+const studentNameEl = document.getElementById("student-name");
+const loadingGrid = document.getElementById("loading-grid");
+const courseGrid = document.getElementById("course-grid");
+const emptyState = document.getElementById("empty-state");
+const errorState = document.getElementById("error-state");
+const errorMessage = document.getElementById("error-message");
+const btnRetry = document.getElementById("btn-retry");
+
+const filterTabs = document.querySelectorAll(".filter-tab");
+
+const btnBack = document.getElementById("btn-back");
+
+const btnNotify = document.getElementById("btn-notify");
+const btnCloseNotif = document.getElementById("btn-close-notif");
+const notifPanel = document.getElementById("notif-panel");
+const notifBody = document.getElementById("notif-body");
+const notifBadge = document.getElementById("notif-badge");
 
 let currentUser = null;
+let studentData = null;
 let allCourses = [];
-let currentFilter = 'all';
+let currentFilter = "all";
+let isLoading = false;
 
-// Setup Navigation
-btnBack.addEventListener('click', () => {
+btnBack.addEventListener("click", () => {
   if (window.history.length > 1) {
     window.history.back();
   } else {
-    window.location.href = 'home.html';
+    window.location.href = "home.html";
   }
 });
 
-// Setup Notifications
-btnNotify.addEventListener('click', (e) => {
-  e.stopPropagation();
-  notifPanel.classList.toggle('open');
-});
-btnCloseNotif.addEventListener('click', () => notifPanel.classList.remove('open'));
-document.addEventListener('click', (e) => {
-  if (notifPanel.classList.contains('open') && !notifPanel.contains(e.target)) {
-    notifPanel.classList.remove('open');
+btnNotify.addEventListener("click", event => {
+  event.stopPropagation();
+
+  if (notifPanel.classList.contains("open")) {
+    notifPanel.classList.remove("open");
+  } else {
+    notifPanel.classList.add("open");
   }
 });
 
-// Filters
+btnCloseNotif.addEventListener("click", () => {
+  notifPanel.classList.remove("open");
+});
+
+document.addEventListener("click", event => {
+  if (
+    notifPanel.classList.contains("open") &&
+    !notifPanel.contains(event.target) &&
+    !btnNotify.contains(event.target)
+  ) {
+    notifPanel.classList.remove("open");
+  }
+});
+
 filterTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    filterTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentFilter = tab.getAttribute('data-filter');
+  tab.addEventListener("click", () => {
+    filterTabs.forEach(item => {
+      item.classList.remove("active");
+    });
+
+    tab.classList.add("active");
+
+    currentFilter = tab.dataset.filter || "all";
+
     renderCourses();
   });
 });
 
-// Main Routing logic
-window.openCourse = function(courseId) {
-  // Configurable routing
-  console.log(`Opening course: ${courseId}`);
-  // window.location.href = `course.html?id=${courseId}`;
-};
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
-function renderCourses() {
-  // Clear non-skeleton items
-  const items = Array.from(courseGrid.children);
-  items.forEach(item => {
-    if(!item.classList.contains('skeleton-card')) {
-      item.remove();
-    }
-  });
+function escapeAttribute(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("'", "&#039;");
+}
 
-  const filtered = allCourses.filter(course => {
-    if (currentFilter === 'all') return true;
-    return course.status === currentFilter;
-  });
+function getCourseStatus(course) {
+  const progress = Number(course.progress || 0);
 
-  if (filtered.length === 0) {
-    if(allCourses.length === 0) {
-        // True empty
-        emptyState.classList.add('visible');
-    } else {
-        // Filter empty
-        courseGrid.innerHTML = `<p style="text-align:center; color:var(--text-muted); grid-column: 1/-1; padding: 20px;">No ${currentFilter} courses found.</p>`;
-    }
+  if (
+    course.status === "completed" ||
+    progress >= 100
+  ) {
+    return "completed";
+  }
+
+  return "active";
+}
+
+function normalizeProgress(value) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) {
+    return 0;
+  }
+
+  return Math.min(
+    100,
+    Math.max(0, Math.round(number))
+  );
+}
+
+function getTimestampValue(value) {
+  if (!value) {
+    return 0;
+  }
+
+  if (typeof value.toMillis === "function") {
+    return value.toMillis();
+  }
+
+  if (value instanceof Date) {
+    return value.getTime();
+  }
+
+  if (typeof value === "number") {
+    return value;
+  }
+
+  return 0;
+}
+
+function formatDate(value) {
+  const timestamp = getTimestampValue(value);
+
+  if (!timestamp) {
+    return "";
+  }
+
+  try {
+    return new Date(timestamp).toLocaleDateString(
+      "en-IN",
+      {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      }
+    );
+  } catch {
+    return "";
+  }
+}
+
+function normalizeCourseData(courseId, courseData, assignmentData) {
+  const progress = normalizeProgress(
+    assignmentData?.progress ??
+    assignmentData?.progressPercent ??
+    0
+  );
+
+  const status =
+    getCourseStatus({
+      progress,
+      status: assignmentData?.status
+    });
+
+  return {
+    courseId,
+
+    title:
+      courseData?.title ||
+      courseData?.name ||
+      "Untitled Course",
+
+    description:
+      courseData?.description ||
+      courseData?.shortDescription ||
+      "Course details are available inside this course.",
+
+    banner:
+      courseData?.banner ||
+      courseData?.bannerUrl ||
+      courseData?.image ||
+      courseData?.thumbnail ||
+      "",
+
+    branch:
+      courseData?.branch ||
+      assignmentData?.branch ||
+      "Polytechnic",
+
+    category:
+      courseData?.category ||
+      courseData?.type ||
+      "Course",
+
+    progress,
+
+    status,
+
+    assignedAt:
+      assignmentData?.assignedAt ||
+      assignmentData?.createdAt ||
+      null,
+
+    completedAt:
+      assignmentData?.completedAt ||
+      null,
+
+    published:
+      courseData?.published !== false
+  };
+}
+
+async function loadStudentProfile(user) {
+  const studentRef = doc(
+    db,
+    "students",
+    user.uid
+  );
+
+  const studentSnapshot = await getDoc(
+    studentRef
+  );
+
+  if (!studentSnapshot.exists()) {
+    studentData = {
+      uid: user.uid,
+      name: user.displayName || "Student",
+      email: user.email || "",
+      branch: "",
+      photoURL: user.photoURL || ""
+    };
+
+    studentNameEl.textContent =
+      studentData.name;
+
     return;
   }
 
-  emptyState.classList.remove('visible');
+  studentData = {
+    uid: user.uid,
+    ...studentSnapshot.data()
+  };
 
-  filtered.forEach(course => {
-    const card = document.createElement('div');
-    card.className = 'course-card';
-    card.onclick = () => window.openCourse(course.courseId);
+  const name =
+    studentData.name?.trim() ||
+    user.displayName?.trim() ||
+    "Student";
 
-    const isCompleted = course.status === 'completed';
-    const badgeHtml = isCompleted 
-      ? `<div class="course-badge completed">Completed</div>` 
-      : `<div class="course-badge">${course.branch}</div>`;
+  studentNameEl.textContent = name;
+}
 
-    const btnText = isCompleted ? 'Review Course' : (course.progress > 0 ? 'Continue Learning' : 'Start Course');
-    const btnClass = isCompleted ? 'btn-continue completed' : 'btn-continue';
-    
-    // Fallback thumbnail generator
-    let thumbHtml = '';
-    if(course.thumbnail) {
-      thumbHtml = `<img src="${course.thumbnail}" alt="${course.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                   <div style="display:none; width:100%; height:100%; background:linear-gradient(135deg, var(--primary-navy), var(--primary-blue)); color:white; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; text-align:center; padding:10px;">${course.title}</div>`;
-    } else {
-      thumbHtml = `<div style="width:100%; height:100%; background:linear-gradient(135deg, var(--primary-navy), var(--primary-blue)); color:white; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; text-align:center; padding:10px;">${course.title}</div>`;
+async function loadAssignedCourses(user) {
+  const assignmentsRef = collection(
+    db,
+    "students",
+    user.uid,
+    "purchasedCourses"
+  );
+
+  const assignmentSnapshot = await getDocs(
+    assignmentsRef
+  );
+
+  if (assignmentSnapshot.empty) {
+    allCourses = [];
+    return;
+  }
+
+  const assignments = [];
+
+  assignmentSnapshot.forEach(snapshot => {
+    const data = snapshot.data();
+
+    const courseId =
+      data.courseId ||
+      snapshot.id;
+
+    if (!courseId) {
+      return;
     }
 
-    card.innerHTML = `
-      <div class="course-thumbnail">
-        ${thumbHtml}
-        ${badgeHtml}
-      </div>
-      <div class="course-info">
-        <div class="course-meta">
-          <span>${course.semester} Sem</span>
-          <span>By ${course.instructor}</span>
+    assignments.push({
+      courseId,
+      data
+    });
+  });
+
+  const courseResults = await Promise.all(
+    assignments.map(async assignment => {
+      try {
+        const courseRef = doc(
+          db,
+          "courses",
+          assignment.courseId
+        );
+
+        const courseSnapshot = await getDoc(
+          courseRef
+        );
+
+        if (!courseSnapshot.exists()) {
+          return null;
+        }
+
+        const courseData =
+          courseSnapshot.data();
+
+        if (
+          courseData.published === false
+        ) {
+          return null;
+        }
+
+        return normalizeCourseData(
+          assignment.courseId,
+          courseData,
+          assignment.data
+        );
+      } catch {
+        return null;
+      }
+    })
+  );
+
+  allCourses = courseResults
+    .filter(Boolean)
+    .sort((a, b) => {
+      const first =
+        getTimestampValue(a.assignedAt);
+
+      const second =
+        getTimestampValue(b.assignedAt);
+
+      return second - first;
+    });
+}
+
+async function loadNotifications() {
+  if (!currentUser) {
+    return;
+  }
+
+  try {
+    const notificationsRef =
+      collection(db, "notifications");
+
+    const notificationsQuery = query(
+      notificationsRef,
+      where("active", "==", true),
+      orderBy("createdAt", "desc"),
+      limit(20)
+    );
+
+    const snapshot =
+      await getDocs(notificationsQuery);
+
+    if (snapshot.empty) {
+      notifBody.innerHTML = `
+        <div class="notif-empty">
+          No new notifications
         </div>
-        <h3 class="course-title">${course.title}</h3>
-        
-        <div class="course-progress-container">
-          <div class="progress-stats">
-            <span class="progress-text">${course.completedLessons} / ${course.totalLessons} Lessons</span>
-            <span class="progress-percentage">${Math.round(course.progress)}%</span>
-          </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" style="width: ${course.progress}%"></div>
-          </div>
-          <button class="${btnClass}">${btnText}</button>
+      `;
+
+      notifBadge.style.display = "none";
+
+      return;
+    }
+
+    notifBody.innerHTML = "";
+
+    let hasUnread = false;
+
+    snapshot.forEach(item => {
+      const data = item.data();
+
+      const title =
+        data.title ||
+        "Polytechnic Hub";
+
+      const message =
+        data.message ||
+        data.description ||
+        "";
+
+      const date =
+        formatDate(data.createdAt);
+
+      const link =
+        typeof data.link === "string"
+          ? data.link.trim()
+          : "";
+
+      const element =
+        document.createElement(
+          link ? "a" : "div"
+        );
+
+      if (link) {
+        element.href = link;
+      }
+
+      element.className =
+        "notif-item";
+
+      element.innerHTML = `
+        <div class="notif-item-title">
+          ${escapeHTML(title)}
         </div>
+
+        <div class="notif-item-message">
+          ${escapeHTML(message)}
+        </div>
+
+        ${
+          date
+            ? `
+              <div class="notif-item-time">
+                ${escapeHTML(date)}
+              </div>
+            `
+            : ""
+        }
+      `;
+
+      notifBody.appendChild(element);
+
+      if (
+        data.read === false ||
+        data.read === undefined
+      ) {
+        hasUnread = true;
+      }
+    });
+
+    notifBadge.style.display =
+      hasUnread ? "block" : "none";
+
+  } catch (error) {
+    notifBody.innerHTML = `
+      <div class="notif-empty">
+        Notifications are currently unavailable.
       </div>
     `;
-    courseGrid.appendChild(card);
-  });
-}
 
-function hideSkeletons() {
-  document.querySelectorAll('.skeleton-card').forEach(el => el.classList.remove('visible'));
-}
-
-async function loadUserData(uid) {
-  try {
-    const docRef = doc(db, "students", uid);
-    const docSnap = await getDoc(docRef);
-    
-    let dbName = null;
-    if (docSnap.exists()) {
-      dbName = docSnap.data().name;
-    }
-    
-    const finalName = dbName || auth.currentUser.displayName || "Student";
-    studentNameEl.textContent = finalName;
-    
-  } catch (e) {
-    console.error("Profile load error", e);
-    studentNameEl.textContent = auth.currentUser.displayName || "Student";
+    notifBadge.style.display = "none";
   }
 }
 
-async function loadCourses(uid) {
+function setLoadingState() {
+  loadingGrid.style.display = "grid";
+  courseGrid.innerHTML = "";
+  emptyState.classList.remove("visible");
+  errorState.classList.remove("visible");
+}
+
+function hideLoadingState() {
+  loadingGrid.style.display = "none";
+}
+
+function showErrorState(error) {
+  hideLoadingState();
+
+  courseGrid.innerHTML = "";
+
+  emptyState.classList.remove("visible");
+
+  errorState.classList.add("visible");
+
+  const message =
+    error?.message ||
+    "Please check your internet connection and try again.";
+
+  errorMessage.textContent =
+    message.includes("Missing or insufficient permissions")
+      ? "Firebase permission denied. Please check your account access."
+      : "Courses load नहीं हो सके। Internet connection check करके फिर try करें.";
+}
+
+async function loadEverything(user) {
+  if (isLoading) {
+    return;
+  }
+
+  isLoading = true;
+
+  setLoadingState();
+
   try {
-    errorState.classList.remove('visible');
-    
-    // Configurable structure - currently users/{uid}/courses
-    const coursesRef = collection(db, "users", uid, "courses");
-    const q = query(coursesRef, orderBy("purchasedAt", "desc"));
-    const querySnapshot = await getDocs(q);
-    
-    allCourses = [];
-    
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      
-      // Calculate progress if not provided directly
-      let prog = data.progress || 0;
-      if(data.totalLessons > 0) {
-          prog = (data.completedLessons / data.totalLessons) * 100;
-      }
-      prog = Math.min(Math.max(prog, 0), 100);
-      
-      let stat = data.status || 'active';
-      if(prog >= 100) stat = 'completed';
+    await loadStudentProfile(user);
 
-      allCourses.push({
-        courseId: doc.id,
-        title: data.title || "Untitled Course",
-        branch: data.branch || "General",
-        semester: data.semester || "All",
-        thumbnail: data.thumbnail || "",
-        instructor: data.instructor || "Polytechnic Hub",
-        progress: prog,
-        totalLessons: data.totalLessons || 0,
-        completedLessons: data.completedLessons || 0,
-        status: stat,
-        price: data.price || 0
-      });
-    });
+    await loadAssignedCourses(user);
 
-    hideSkeletons();
+    await loadNotifications();
+
+    hideLoadingState();
+
     renderCourses();
 
   } catch (error) {
-    console.error("Error loading courses:", error);
-    hideSkeletons();
-    errorState.classList.add('visible');
-    emptyState.classList.remove('visible');
+    console.error(
+      "My Courses Error:",
+      error
+    );
+
+    showErrorState(error);
+
+  } finally {
+    isLoading = false;
   }
 }
 
-btnRetry.addEventListener('click', () => {
-  if(currentUser) {
-    errorState.classList.remove('visible');
-    document.querySelectorAll('.skeleton-card').forEach(el => el.classList.add('visible'));
-    loadCourses(currentUser.uid);
-  }
-});
+btnRetry.addEventListener(
+  "click",
+  async () => {
+    if (!currentUser) {
+      return;
+    }
 
-// Auth Listener
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.replace("login.html");
+    await loadEverything(currentUser);
+  }
+);
+
+onAuthStateChanged(
+  auth,
+  async user => {
+    if (!user) {
+      window.location.replace(
+        "./login.html"
+      );
+
+      return;
+    }
+
+    currentUser = user;
+
+    await loadEverything(user);
+  }
+);
+    <script>
+function createCourseCard(course) {
+  const card = document.createElement("article");
+
+  card.className = "course-card";
+
+  const progress =
+    normalizeProgress(course.progress);
+
+  const isCompleted =
+    course.status === "completed" ||
+    progress >= 100;
+
+  const badgeText =
+    isCompleted
+      ? "Completed"
+      : course.branch || "Course";
+
+  const buttonText =
+    isCompleted
+      ? "Review Course"
+      : progress > 0
+        ? "Continue Learning"
+        : "View Course";
+
+  const buttonClass =
+    isCompleted
+      ? "course-action completed"
+      : "course-action";
+
+  const safeCourseId =
+    escapeAttribute(course.courseId);
+
+  const safeTitle =
+    escapeHTML(course.title);
+
+  const safeDescription =
+    escapeHTML(course.description);
+
+  const safeBranch =
+    escapeHTML(course.branch);
+
+  const safeBanner =
+    escapeAttribute(course.banner);
+
+  const assignedDate =
+    formatDate(course.assignedAt);
+
+  let bannerHTML = "";
+
+  if (safeBanner) {
+    bannerHTML = `
+      <img
+        src="${safeBanner}"
+        alt="${safeTitle}"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      >
+    `;
+  } else {
+    bannerHTML = `
+      <div class="course-banner-placeholder">
+        PH
+      </div>
+    `;
+  }
+
+  card.innerHTML = `
+    <div class="course-banner">
+      ${bannerHTML}
+
+      <div class="course-badge ${
+        isCompleted ? "completed" : ""
+      }">
+        ${escapeHTML(badgeText)}
+      </div>
+    </div>
+
+    <div class="course-info">
+
+      <h2 class="course-title">
+        ${safeTitle}
+      </h2>
+
+      <p class="course-description">
+        ${safeDescription}
+      </p>
+
+      <div class="course-meta">
+
+        <span class="course-branch">
+          ${safeBranch}
+        </span>
+
+        ${
+          assignedDate
+            ? `
+              <span>
+                ${escapeHTML(assignedDate)}
+              </span>
+            `
+            : ""
+        }
+
+      </div>
+
+      <div class="course-progress">
+
+        <div class="progress-row">
+
+          <span class="progress-label">
+            Course Progress
+          </span>
+
+          <span class="progress-value">
+            ${progress}%
+          </span>
+
+        </div>
+
+        <div class="progress-track">
+
+          <div
+            class="progress-fill"
+            style="width:${progress}%"
+          ></div>
+
+        </div>
+
+      </div>
+
+      <button
+        class="${buttonClass}"
+        data-course-id="${safeCourseId}"
+        type="button"
+      >
+
+        <span>
+          ${buttonText}
+        </span>
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line
+            x1="5"
+            y1="12"
+            x2="19"
+            y2="12"
+          ></line>
+
+          <polyline
+            points="12 5 19 12 12 19"
+          ></polyline>
+        </svg>
+
+      </button>
+
+    </div>
+  `;
+
+  card.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target.closest(
+          ".course-action"
+        )
+      ) {
+        return;
+      }
+
+      openCourse(
+        course.courseId
+      );
+    }
+  );
+
+  const button =
+    card.querySelector(
+      ".course-action"
+    );
+
+  button.addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      openCourse(
+        course.courseId
+      );
+    }
+  );
+
+  return card;
+}
+
+function openCourse(courseId) {
+
+  if (!courseId) {
     return;
   }
-  
-  currentUser = user;
-  
-  // Start parallel fetching
-  Promise.all([
-    loadUserData(user.uid),
-    loadCourses(user.uid)
-  ]).finally(() => {
-    loadingScreen.style.opacity = '0';
-    setTimeout(() => {
-      loadingScreen.style.display = 'none';
-    }, 300);
-  });
-});
 
+  const assignedCourse =
+    allCourses.find(
+      course =>
+        course.courseId === courseId
+    );
+
+  if (!assignedCourse) {
+    return;
+  }
+
+  const encodedCourseId =
+    encodeURIComponent(courseId);
+
+  window.location.href =
+    `course.html?id=${encodedCourseId}`;
+}
+
+window.openCourse =
+  openCourse;
+
+function renderCourses() {
+
+  courseGrid.innerHTML = "";
+
+  emptyState.classList.remove(
+    "visible"
+  );
+
+  errorState.classList.remove(
+    "visible"
+  );
+
+  if (!Array.isArray(allCourses)) {
+    allCourses = [];
+  }
+
+  let filteredCourses =
+    [...allCourses];
+
+  if (
+    currentFilter === "active"
+  ) {
+
+    filteredCourses =
+      allCourses.filter(
+        course =>
+          getCourseStatus(course) ===
+          "active"
+      );
+
+  } else if (
+    currentFilter === "completed"
+  ) {
+
+    filteredCourses =
+      allCourses.filter(
+        course =>
+          getCourseStatus(course) ===
+          "completed"
+      );
+  }
+
+  if (
+    allCourses.length === 0
+  ) {
+
+    emptyState.classList.add(
+      "visible"
+    );
+
+    return;
+  }
+
+  if (
+    filteredCourses.length === 0
+  ) {
+
+    const message =
+      currentFilter === "completed"
+        ? "You have no completed courses yet."
+        : "You have no active courses right now.";
+
+    courseGrid.innerHTML = `
+      <div class="filter-empty">
+        ${escapeHTML(message)}
+      </div>
+    `;
+
+    return;
+  }
+
+  filteredCourses.forEach(
+    course => {
+
+      const card =
+        createCourseCard(course);
+
+      courseGrid.appendChild(card);
+
+    }
+  );
+}
+
+function updateCourseProgress(
+  courseId,
+  progress
+) {
+
+  const index =
+    allCourses.findIndex(
+      course =>
+        course.courseId ===
+        courseId
+    );
+
+  if (index === -1) {
+    return;
+  }
+
+  const normalized =
+    normalizeProgress(progress);
+
+  allCourses[index].progress =
+    normalized;
+
+  allCourses[index].status =
+    normalized >= 100
+      ? "completed"
+      : "active";
+
+  renderCourses();
+}
+
+window.updateCourseProgress =
+  updateCourseProgress;
+
+window.addEventListener(
+  "pageshow",
+  async () => {
+
+    if (!currentUser) {
+      return;
+    }
+
+    try {
+
+      await loadAssignedCourses(
+        currentUser
+      );
+
+      renderCourses();
+
+    } catch {
+
+    }
+
+  }
+);
 </script>
-</body>
-</html>
