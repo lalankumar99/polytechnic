@@ -22,7 +22,7 @@ color:#0b1f3a
 }
 
 body{
-padding-bottom:90px
+padding-bottom:92px
 }
 
 button,
@@ -39,13 +39,13 @@ cursor:pointer
 .topbar{
 position:sticky;
 top:0;
-z-index:100;
+z-index:1000;
 height:68px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 16px;
-background:rgba(255,255,255,.94);
+padding:0 15px;
+background:rgba(255,255,255,.96);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
 border-bottom:1px solid rgba(11,31,58,.08)
@@ -54,7 +54,7 @@ border-bottom:1px solid rgba(11,31,58,.08)
 .brand{
 display:flex;
 align-items:center;
-gap:11px
+gap:10px
 }
 
 .brand-logo{
@@ -65,7 +65,7 @@ object-fit:cover;
 box-shadow:0 6px 18px rgba(11,31,58,.14)
 }
 
-.brand-text{
+.brand-info{
 display:flex;
 flex-direction:column;
 gap:2px
@@ -73,8 +73,7 @@ gap:2px
 
 .brand-title{
 font-size:16px;
-font-weight:900;
-letter-spacing:.2px
+font-weight:950
 }
 
 .brand-subtitle{
@@ -88,7 +87,7 @@ padding:8px 11px;
 border-radius:12px;
 background:#edf5ff;
 color:#1677ff;
-font-size:11px;
+font-size:10px;
 font-weight:900
 }
 
@@ -99,9 +98,9 @@ padding:18px 14px 30px
 }
 
 .page-title{
-font-size:25px;
+font-size:26px;
 font-weight:950;
-letter-spacing:-.5px
+letter-spacing:-.6px
 }
 
 .page-description{
@@ -128,14 +127,15 @@ margin-bottom:18px
 }
 
 .card-icon{
-width:42px;
-height:42px;
-border-radius:13px;
+width:43px;
+height:43px;
+border-radius:14px;
 display:flex;
 align-items:center;
 justify-content:center;
 background:#edf5ff;
-color:#1677ff
+color:#1677ff;
+flex:none
 }
 
 .card-icon svg{
@@ -155,7 +155,7 @@ font-weight:900
 
 .card-subtitle{
 font-size:11px;
-color:#8a96a8;
+color:#8995a7;
 margin-top:3px
 }
 
@@ -177,8 +177,15 @@ font-weight:850;
 color:#334155
 }
 
-.field label span{
+.required{
 color:#ef4444
+}
+
+.optional{
+font-size:10px;
+font-weight:700;
+color:#94a3b8;
+margin-left:3px
 }
 
 input,
@@ -190,23 +197,20 @@ background:#fbfdff;
 color:#0b1f3a;
 border-radius:14px;
 outline:none;
-padding:13px 14px;
 transition:.2s ease
 }
 
-input{
-height:48px
+input,
+select{
+height:48px;
+padding:0 14px
 }
 
 textarea{
-min-height:105px;
+min-height:110px;
+padding:13px 14px;
 resize:vertical;
 line-height:1.55
-}
-
-select{
-height:48px;
-appearance:auto
 }
 
 input:focus,
@@ -219,30 +223,50 @@ background:#fff
 
 input::placeholder,
 textarea::placeholder{
-color:#a0aabb
+color:#a2adbc
 }
 
-.url-preview{
-margin-top:9px;
+.banner-field{
+display:flex;
+flex-direction:column;
+gap:8px
+}
+
+.banner-preview{
 display:none;
-overflow:hidden;
-border-radius:16px;
-border:1px solid #e2e8f0;
-background:#f8fafc
-}
-
-.url-preview img{
 width:100%;
 aspect-ratio:16/9;
+overflow:hidden;
+border-radius:17px;
+border:1px solid #e1e7ef;
+background:#edf2f7;
+position:relative
+}
+
+.banner-preview img{
+width:100%;
+height:100%;
 display:block;
 object-fit:cover
 }
 
-.preview-text{
-padding:9px 11px;
+.banner-preview-label{
+position:absolute;
+left:10px;
+bottom:10px;
+padding:6px 9px;
+border-radius:9px;
+background:rgba(11,31,58,.78);
+color:#fff;
+font-size:9px;
+font-weight:800;
+backdrop-filter:blur(8px)
+}
+
+.field-hint{
 font-size:10px;
-font-weight:700;
-color:#718096
+line-height:1.5;
+color:#8a96a8
 }
 
 .section-divider{
@@ -251,13 +275,13 @@ background:#edf1f6;
 margin:20px 0
 }
 
-.price-box{
+.price-row{
 display:grid;
 grid-template-columns:1fr;
 gap:12px
 }
 
-.price-input{
+.price-wrap{
 position:relative
 }
 
@@ -270,7 +294,7 @@ font-weight:900;
 color:#1677ff
 }
 
-.price-input input{
+.price-wrap input{
 padding-left:31px
 }
 
@@ -298,8 +322,8 @@ font-weight:850
 
 .toggle-description{
 font-size:10px;
-color:#8490a2;
-line-height:1.5
+line-height:1.5;
+color:#8490a2
 }
 
 .switch{
@@ -342,24 +366,94 @@ background:#1677ff
 transform:translateX(21px)
 }
 
-.next-section{
-margin-top:20px;
-padding:16px;
-border-radius:18px;
-background:linear-gradient(135deg,#0b1f3a,#123c6d);
-color:#fff
+.payment-box{
+padding:15px;
+border-radius:17px;
+background:linear-gradient(135deg,#f0f7ff,#f8fbff);
+border:1px solid #dcecff
 }
 
-.next-section-title{
-font-size:14px;
-font-weight:900
+.payment-title{
+font-size:13px;
+font-weight:900;
+color:#0b1f3a
 }
 
-.next-section-text{
-font-size:11px;
-line-height:1.6;
+.payment-text{
 margin-top:5px;
-color:#dbeafe
+font-size:10px;
+line-height:1.6;
+color:#64748b
+}
+
+.payment-numbers{
+margin-top:10px;
+display:flex;
+flex-wrap:wrap;
+gap:7px
+}
+
+.payment-number{
+padding:7px 10px;
+border-radius:10px;
+background:#fff;
+border:1px solid #dbe6f2;
+font-size:11px;
+font-weight:850;
+color:#1677ff
+}
+
+.security-screen{
+position:fixed;
+inset:0;
+z-index:99999;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#f5f8fc
+}
+
+.security-box{
+width:min(90%,360px);
+padding:28px 22px;
+border-radius:24px;
+background:#fff;
+text-align:center;
+box-shadow:0 20px 60px rgba(11,31,58,.12)
+}
+
+.security-icon{
+width:58px;
+height:58px;
+margin:0 auto 14px;
+border-radius:18px;
+background:#edf5ff;
+color:#1677ff;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.security-icon svg{
+width:29px;
+height:29px;
+stroke:currentColor;
+fill:none;
+stroke-width:2;
+stroke-linecap:round;
+stroke-linejoin:round
+}
+
+.security-title{
+font-size:18px;
+font-weight:950
+}
+
+.security-text{
+margin-top:7px;
+font-size:12px;
+line-height:1.6;
+color:#718096
 }
 
 .admin-bottom{
@@ -376,7 +470,7 @@ border-top:1px solid rgba(11,31,58,.1);
 display:flex;
 align-items:center;
 justify-content:space-around;
-z-index:9999;
+z-index:9998;
 box-shadow:0 -8px 30px rgba(11,31,58,.08)
 }
 
@@ -430,59 +524,6 @@ font-weight:800;
 white-space:nowrap
 }
 
-.security-screen{
-position:fixed;
-inset:0;
-z-index:99999;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#f5f8fc
-}
-
-.security-box{
-width:min(90%,360px);
-background:#fff;
-border-radius:24px;
-padding:28px 22px;
-text-align:center;
-box-shadow:0 20px 60px rgba(11,31,58,.12)
-}
-
-.security-icon{
-width:58px;
-height:58px;
-margin:0 auto 14px;
-border-radius:18px;
-background:#edf5ff;
-color:#1677ff;
-display:flex;
-align-items:center;
-justify-content:center
-}
-
-.security-icon svg{
-width:28px;
-height:28px;
-stroke:currentColor;
-fill:none;
-stroke-width:2;
-stroke-linecap:round;
-stroke-linejoin:round
-}
-
-.security-title{
-font-size:18px;
-font-weight:950
-}
-
-.security-text{
-margin-top:7px;
-font-size:12px;
-line-height:1.6;
-color:#718096
-}
-
 @media(min-width:650px){
 .form-grid{
 grid-template-columns:1fr 1fr
@@ -492,7 +533,7 @@ grid-template-columns:1fr 1fr
 grid-column:1/-1
 }
 
-.price-box{
+.price-row{
 grid-template-columns:1fr 1fr
 }
 }
@@ -519,7 +560,7 @@ grid-template-columns:1fr 1fr
 <header class="topbar">
 <div class="brand">
 <img class="brand-logo" src="https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg">
-<div class="brand-text">
+<div class="brand-info">
 <div class="brand-title">Polytechnic Hub</div>
 <div class="brand-subtitle">Course Management</div>
 </div>
@@ -530,8 +571,9 @@ grid-template-columns:1fr 1fr
 <div class="container">
 
 <h1 class="page-title">Add New Course</h1>
+
 <p class="page-description">
-नया paid course बनाएं और उसके अंदर subjects, videos, PDFs और HTML content manage करें।
+नया course बनाएं और उसके अंदर Introduction, Video, PDF, Folder और HTML content manage करें।
 </p>
 
 <section class="card">
@@ -544,59 +586,90 @@ grid-template-columns:1fr 1fr
 <path d="M8 13h5"/>
 </svg>
 </div>
+
 <div>
 <div class="card-title">Course Information</div>
-<div class="card-subtitle">Course की basic information भरें</div>
+<div class="card-subtitle">Course की basic information</div>
 </div>
 </div>
 
 <div class="form-grid">
 
-<div class="field">
-<label>Course Photo URL <span>*</span></label>
-<input id="photoUrl" type="url" placeholder="https://example.com/photo.jpg">
-<div class="url-preview" id="photoPreview">
-<img id="photoPreviewImage" alt="Course Photo">
-<div class="preview-text">Course photo preview</div>
-</div>
-</div>
+<div class="field full banner-field">
+<label>
+Course Banner URL
+<span class="required">*</span>
+</label>
 
-<div class="field">
-<label>Course Banner URL <span>*</span></label>
-<input id="bannerUrl" type="url" placeholder="https://example.com/banner.jpg">
-<div class="url-preview" id="bannerPreview">
+<input
+id="bannerUrl"
+type="url"
+placeholder="https://example.com/course-banner.jpg"
+autocomplete="off"
+>
+
+<div class="banner-preview" id="bannerPreview">
 <img id="bannerPreviewImage" alt="Course Banner">
-<div class="preview-text">16:9 course banner preview</div>
+<div class="banner-preview-label">16:9 Banner Preview</div>
+</div>
+
+<div class="field-hint">
+Banner हमेशा 16:9 ratio में course card और course page पर दिखाया जाएगा।
 </div>
 </div>
 
 <div class="field full">
-<label>Course Title <span>*</span></label>
-<input id="courseTitle" type="text" maxlength="150" placeholder="Example: Electrical Circuit Complete Course">
+<label>
+Course Title
+<span class="required">*</span>
+</label>
+
+<input
+id="courseTitle"
+type="text"
+maxlength="150"
+placeholder="Example: Electrical Circuit Complete Course"
+>
 </div>
 
 <div class="field full">
-<label>Course Description <span>*</span></label>
-<textarea id="courseDescription" maxlength="1000" placeholder="Course के बारे में पूरी जानकारी लिखें..."></textarea>
+<label>
+Course Description
+<span class="required">*</span>
+</label>
+
+<textarea
+id="courseDescription"
+maxlength="1500"
+placeholder="Course के बारे में पूरी जानकारी लिखें..."
+></textarea>
 </div>
 
 <div class="field">
-<label>Category <span>*</span></label>
+<label>
+Category
+<span class="required">*</span>
+</label>
+
 <select id="category">
 <option value="">Select Category</option>
 <option value="Paid Course">Paid Course</option>
-<option value="Study Material">Study Material</option>
-<option value="PYQ">PYQ</option>
-<option value="MCQ">MCQ</option>
 <option value="Complete Course">Complete Course</option>
 <option value="Crash Course">Crash Course</option>
+<option value="Study Material">Study Material</option>
 <option value="Notes">Notes</option>
+<option value="PYQ">PYQ</option>
+<option value="MCQ">MCQ</option>
 <option value="Other">Other</option>
 </select>
 </div>
 
 <div class="field">
-<label>Branch <span>*</span></label>
+<label>
+Branch
+<span class="required">*</span>
+</label>
+
 <select id="branch">
 <option value="">Select Branch</option>
 <option value="Civil Engineering">Civil Engineering</option>
@@ -609,7 +682,11 @@ grid-template-columns:1fr 1fr
 </div>
 
 <div class="field">
-<label>Semester <span>*</span></label>
+<label>
+Semester
+<span class="required">*</span>
+</label>
+
 <select id="semester">
 <option value="">Select Semester</option>
 <option value="1">1st Semester</option>
@@ -622,37 +699,89 @@ grid-template-columns:1fr 1fr
 </div>
 
 <div class="field">
-<label>Subject <span>*</span></label>
-<select id="subject">
-<option value="">पहले Semester चुनें</option>
-</select>
+<label>
+Subject
+<span class="optional">(Optional)</span>
+</label>
+
+<input
+id="subject"
+type="text"
+maxlength="150"
+placeholder="Subject का नाम लिखें"
+autocomplete="off"
+>
 </div>
 
 <div class="field full">
-<label>Course Price <span>*</span></label>
-<div class="price-box">
-<div class="price-input">
+<label>
+Course Price
+<span class="required">*</span>
+</label>
+
+<div class="price-row">
+
+<div class="price-wrap">
 <span class="price-symbol">₹</span>
-<input id="price" type="number" min="0" step="1" placeholder="Example: 499">
+<input
+id="price"
+type="number"
+min="0"
+step="1"
+placeholder="Example: 499"
+>
 </div>
 
-<div class="field">
-<input id="priceLabel" type="text" maxlength="50" placeholder="Price label: One Time Payment">
-</div>
+<input
+id="priceLabel"
+type="text"
+maxlength="60"
+placeholder="Example: One Time Payment"
+>
 </div>
 </div>
 
 <div class="field full">
-<label>Payment Contact Number</label>
-<input id="paymentNumber" type="tel" value="9973532153" placeholder="Payment contact number">
+
+<label>
+Payment Contact
+</label>
+
+<div class="payment-box">
+
+<div class="payment-title">
+Payment और WhatsApp Contact
+</div>
+
+<div class="payment-text">
+Student payment के लिए इन नंबरों पर call/WhatsApp कर सकता है। Payment screenshot भेजने की जानकारी course के Introduction section में भी दिखाई जा सकेगी।
+</div>
+
+<div class="payment-numbers">
+<div class="payment-number">9973532153</div>
+<div class="payment-number">9296783086</div>
+</div>
+
+</div>
+
+<input
+id="paymentNumber"
+type="hidden"
+value="9973532153"
+>
 </div>
 
 <div class="field full">
+
 <div class="toggle-row">
+
 <div class="toggle-info">
-<div class="toggle-title">Publish Course</div>
+<div class="toggle-title">
+Publish Course
+</div>
+
 <div class="toggle-description">
-ON करने पर authorized students के लिए course available किया जा सकता है।
+Publish होने पर course को student side पर available किया जा सकता है।
 </div>
 </div>
 
@@ -660,18 +789,17 @@ ON करने पर authorized students के लिए course available क
 <input id="published" type="checkbox">
 <span class="slider"></span>
 </label>
+
 </div>
+
 </div>
 
 </div>
 
 <div class="section-divider"></div>
 
-<div class="next-section">
-<div class="next-section-title">Next: Course Introduction & Content</div>
-<div class="next-section-text">
-अगले section में Introduction video, description, payment information और Folder / Video / PDF / HTML content जोड़ने का system होगा।
-</div>
+<div class="field-hint">
+अगले Part 2 में इसी course के अंदर Introduction और पूरा Content Manager जोड़ा जाएगा।
 </div>
 
 </section>
@@ -715,8 +843,6 @@ ON करने पर authorized students के लिए course available क
 
 </nav>
 
-</main>
-
 <script type="module">
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
@@ -729,6 +855,7 @@ const securityText = document.getElementById("securityText");
 const adminContent = document.getElementById("adminContent");
 
 async function verifyAdmin(user){
+
 if(!user){
 location.replace("adminlogin.html");
 return false;
@@ -741,7 +868,9 @@ return false;
 }
 
 try{
-const adminSnap = await getDoc(doc(db,"admins",user.uid));
+
+const adminRef = doc(db,"admins",user.uid);
+const adminSnap = await getDoc(adminRef);
 
 if(!adminSnap.exists()){
 await signOut(auth);
@@ -756,119 +885,1136 @@ adminData.role !== "admin" ||
 adminData.active !== true ||
 (adminData.email || "").toLowerCase() !== ADMIN_EMAIL.toLowerCase()
 ){
+
 await signOut(auth);
 location.replace("adminlogin.html");
 return false;
+
 }
 
 return true;
 
 }catch(error){
+
 securityText.textContent = "Admin permission verify नहीं हो सकी।";
+
 await signOut(auth);
+
 setTimeout(()=>{
 location.replace("adminlogin.html");
 },800);
+
 return false;
 }
 }
 
-function setupImagePreview(inputId,previewId,imageId){
-const input=document.getElementById(inputId);
-const preview=document.getElementById(previewId);
-const image=document.getElementById(imageId);
+const bannerUrl = document.getElementById("bannerUrl");
+const bannerPreview = document.getElementById("bannerPreview");
+const bannerPreviewImage = document.getElementById("bannerPreviewImage");
 
-input.addEventListener("input",()=>{
-const url=input.value.trim();
+bannerUrl.addEventListener("input",()=>{
+
+const url = bannerUrl.value.trim();
 
 if(!url){
-preview.style.display="none";
-image.removeAttribute("src");
+bannerPreview.style.display="none";
+bannerPreviewImage.removeAttribute("src");
 return;
 }
 
-image.src=url;
-preview.style.display="block";
+bannerPreviewImage.src=url;
+bannerPreview.style.display="block";
 
-image.onerror=()=>{
-preview.style.display="none";
-};
-});
-}
-
-setupImagePreview("photoUrl","photoPreview","photoPreviewImage");
-setupImagePreview("bannerUrl","bannerPreview","bannerPreviewImage");
-
-const subjects={
-"1":[
-"Applied Mathematics",
-"Applied Physics",
-"Applied Chemistry",
-"Communication Skills",
-"Fundamentals of Electrical Engineering"
-],
-"2":[
-"Applied Mathematics",
-"Applied Physics",
-"Engineering Mechanics",
-"Communication Skills",
-"Fundamentals of Electronic Engineering"
-],
-"3":[
-"Concrete Technology",
-"Water Resources",
-"Basic Surveying",
-"Strength of Materials",
-"Building Construction"
-],
-"4":[
-"Semester 4 Subject 1",
-"Semester 4 Subject 2",
-"Semester 4 Subject 3",
-"Semester 4 Subject 4",
-"Semester 4 Subject 5"
-],
-"5":[
-"Semester 5 Subject 1",
-"Semester 5 Subject 2",
-"Semester 5 Subject 3",
-"Semester 5 Subject 4",
-"Semester 5 Subject 5"
-],
-"6":[
-"Semester 6 Subject 1",
-"Semester 6 Subject 2",
-"Semester 6 Subject 3",
-"Semester 6 Subject 4",
-"Semester 6 Subject 5"
-]
+bannerPreviewImage.onerror=()=>{
+bannerPreview.style.display="none";
 };
 
-const semester=document.getElementById("semester");
-const subject=document.getElementById("subject");
-
-semester.addEventListener("change",()=>{
-const list=subjects[semester.value] || [];
-
-subject.innerHTML='<option value="">Select Subject</option>';
-
-list.forEach(item=>{
-const option=document.createElement("option");
-option.value=item;
-option.textContent=item;
-subject.appendChild(option);
-});
 });
 
 onAuthStateChanged(auth,async user=>{
-const allowed=await verifyAdmin(user);
+
+const allowed = await verifyAdmin(user);
 
 if(allowed){
 securityScreen.style.display="none";
 adminContent.style.display="block";
 }
+
 });
+  </script>
+  <section class="card" id="contentManager">
+
+<div class="card-header">
+<div class="card-icon">
+<svg viewBox="0 0 24 24">
+<path d="M4 4h16v16H4z"/>
+<path d="M8 8h8"/>
+<path d="M8 12h8"/>
+<path d="M8 16h5"/>
+</svg>
+</div>
+
+<div>
+<div class="card-title">Course Content</div>
+<div class="card-subtitle">Introduction और course के अंदर का पूरा content manage करें</div>
+</div>
+</div>
+
+<div class="field">
+<label>Introduction Video URL <span class="optional">(Optional)</span></label>
+
+<input
+id="introductionVideo"
+type="url"
+placeholder="https://www.youtube.com/watch?v=..."
+autocomplete="off"
+>
+
+<div class="field-hint">
+YouTube video URL डालें। Student side पर YouTube video और उसका original thumbnail दिखाया जाएगा।
+</div>
+</div>
+
+<div class="field" style="margin-top:15px">
+<label>Introduction Description <span class="optional">(Optional)</span></label>
+
+<textarea
+id="introductionDescription"
+maxlength="3000"
+placeholder="Introduction में student को course के बारे में क्या बताना है..."
+></textarea>
+</div>
+
+<div class="field" style="margin-top:15px">
+<label>Payment Instructions <span class="optional">(Optional)</span></label>
+
+<textarea
+id="paymentInstructions"
+maxlength="3000"
+placeholder="Payment करने के बाद screenshot WhatsApp पर भेजें..."
+></textarea>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="content-add-box">
+
+<div class="content-add-title">
+Add Course Content
+</div>
+
+<div class="content-add-description">
+Course के अंदर Folder, YouTube Video, PDF या HTML Content जोड़ें।
+</div>
+
+<div class="form-grid" style="margin-top:16px">
+
+<div class="field">
+<label>Content Type <span class="required">*</span></label>
+
+<select id="contentType">
+<option value="">Select Content Type</option>
+<option value="folder">Folder</option>
+<option value="video">YouTube Video</option>
+<option value="pdf">PDF</option>
+<option value="html">HTML Content</option>
+</select>
+</div>
+
+<div class="field">
+<label>Parent Folder <span class="optional">(Optional)</span></label>
+
+<select id="parentFolder">
+<option value="">Root / Main Course</option>
+</select>
+</div>
+
+<div class="field full" id="contentNameField">
+<label>Content Name <span class="required">*</span></label>
+
+<input
+id="contentName"
+type="text"
+maxlength="200"
+placeholder="Example: Unit 1 - Introduction"
+>
+</div>
+
+<div class="field full content-extra" id="videoField" style="display:none">
+
+<label>YouTube Video URL <span class="required">*</span></label>
+
+<input
+id="videoUrl"
+type="url"
+placeholder="https://www.youtube.com/watch?v=..."
+autocomplete="off"
+>
+
+<div class="video-preview" id="videoPreview">
+<img id="videoThumbnail" alt="YouTube Thumbnail">
+<div class="video-preview-info">
+<div id="videoPreviewTitle">YouTube Video</div>
+<div>Automatic thumbnail preview</div>
+</div>
+</div>
+
+</div>
+
+<div class="field full content-extra" id="pdfField" style="display:none">
+
+<label>PDF URL <span class="required">*</span></label>
+
+<input
+id="pdfUrl"
+type="url"
+placeholder="https://example.com/notes.pdf"
+autocomplete="off"
+>
+
+<div class="field-hint">
+PDF URL save होने के बाद student side पर PDF viewer में खुलेगा।
+</div>
+
+</div>
+
+<div class="field full content-extra" id="htmlField" style="display:none">
+
+<label>HTML Content <span class="required">*</span></label>
+
+<textarea
+id="htmlContent"
+class="code-area"
+placeholder="<h2>Unit 1</h2>
+<p>यहाँ अपना HTML content लिखें...</p>"
+spellcheck="false"
+></textarea>
+
+<div class="field-hint">
+यह HTML student के course content के अंदर render किया जाएगा।
+</div>
+
+</div>
+
+<div class="field full">
+<label>Description <span class="optional">(Optional)</span></label>
+
+<textarea
+id="contentDescription"
+maxlength="2000"
+placeholder="इस content के बारे में short description..."
+></textarea>
+</div>
+
+</div>
+
+<button type="button" class="add-content-btn" id="addContentBtn">
+<span class="add-content-icon">+</span>
+<span>Add Content</span>
+</button>
+
+</div>
+
+<div class="section-divider"></div>
+
+<div class="content-list-header">
+<div>
+<div class="content-list-title">Course Content Structure</div>
+<div class="content-list-subtitle">अभी जो content add किया जाएगा वह यहाँ दिखेगा</div>
+</div>
+
+<div class="content-count" id="contentCount">0</div>
+</div>
+
+<div id="contentList" class="content-list">
+
+<div class="empty-content" id="emptyContent">
+<div class="empty-content-icon">
+<svg viewBox="0 0 24 24">
+<path d="M4 6h16v12H4z"/>
+<path d="M8 10h8"/>
+<path d="M8 14h5"/>
+</svg>
+</div>
+
+<div class="empty-content-title">
+No Content Added
+</div>
+
+<div class="empty-content-text">
+ऊपर से Folder, Video, PDF या HTML Content जोड़ें।
+</div>
+</div>
+
+</div>
+
+</section>
+
+<style>
+.content-add-box{
+margin-top:4px;
+padding:16px;
+border:1px solid #dfe8f3;
+background:#f8fbff;
+border-radius:19px
+}
+
+.content-add-title{
+font-size:14px;
+font-weight:950;
+color:#0b1f3a
+}
+
+.content-add-description{
+margin-top:4px;
+font-size:10px;
+line-height:1.5;
+color:#7b8798
+}
+
+.content-extra{
+margin-top:0
+}
+
+.code-area{
+font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+font-size:12px;
+background:#0b1220;
+color:#e5efff;
+border-color:#17233a;
+min-height:180px
+}
+
+.code-area:focus{
+background:#0b1220;
+border-color:#1677ff;
+box-shadow:0 0 0 4px rgba(22,119,255,.1)
+}
+
+.video-preview{
+display:none;
+margin-top:9px;
+border:1px solid #dce5ef;
+border-radius:15px;
+overflow:hidden;
+background:#fff
+}
+
+.video-preview img{
+width:100%;
+aspect-ratio:16/9;
+display:block;
+object-fit:cover
+}
+
+.video-preview-info{
+padding:10px 12px;
+font-size:10px;
+color:#7b8798
+}
+
+.video-preview-info div:first-child{
+font-size:12px;
+font-weight:850;
+color:#0b1f3a;
+margin-bottom:3px
+}
+
+.add-content-btn{
+width:100%;
+height:50px;
+margin-top:16px;
+border:0;
+border-radius:15px;
+background:#1677ff;
+color:#fff;
+font-size:13px;
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+box-shadow:0 8px 20px rgba(22,119,255,.2);
+transition:.2s ease
+}
+
+.add-content-btn:active{
+transform:scale(.98)
+}
+
+.add-content-icon{
+width:23px;
+height:23px;
+border-radius:8px;
+background:rgba(255,255,255,.18);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:19px;
+line-height:1
+}
+
+.content-list-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+margin-bottom:12px
+}
+
+.content-list-title{
+font-size:14px;
+font-weight:900
+}
+
+.content-list-subtitle{
+font-size:10px;
+color:#8a96a8;
+margin-top:3px
+}
+
+.content-count{
+min-width:30px;
+height:30px;
+padding:0 8px;
+border-radius:10px;
+background:#edf5ff;
+color:#1677ff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+font-weight:900
+}
+
+.empty-content{
+padding:25px 15px;
+border:1px dashed #d7e0eb;
+border-radius:17px;
+text-align:center;
+background:#fbfdff
+}
+
+.empty-content-icon{
+width:48px;
+height:48px;
+margin:0 auto 10px;
+border-radius:15px;
+background:#f0f5fa;
+color:#8da0b5;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+.empty-content-icon svg{
+width:24px;
+height:24px;
+stroke:currentColor;
+fill:none;
+stroke-width:1.8;
+stroke-linecap:round;
+stroke-linejoin:round
+}
+
+.empty-content-title{
+font-size:13px;
+font-weight:900;
+color:#475569
+}
+
+.empty-content-text{
+margin-top:4px;
+font-size:10px;
+line-height:1.5;
+color:#94a3b8
+}
+
+.content-item{
+position:relative;
+display:flex;
+align-items:center;
+gap:11px;
+padding:13px;
+margin-top:9px;
+background:#fff;
+border:1px solid #e3e9f0;
+border-radius:15px
+}
+
+.content-item-icon{
+width:40px;
+height:40px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#edf5ff;
+color:#1677ff;
+flex:none
+}
+
+.content-item-icon svg{
+width:21px;
+height:21px;
+stroke:currentColor;
+fill:none;
+stroke-width:2;
+stroke-linecap:round;
+stroke-linejoin:round
+}
+
+.content-item-info{
+min-width:0;
+flex:1
+}
+
+.content-item-name{
+font-size:12px;
+font-weight:850;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.content-item-meta{
+margin-top:4px;
+font-size:9px;
+color:#8a96a8;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.remove-content{
+width:32px;
+height:32px;
+border:0;
+border-radius:10px;
+background:#fff1f2;
+color:#ef4444;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:17px;
+font-weight:900;
+flex:none
+}
+
+.folder-item{
+background:#fffaf0;
+border-color:#f1dfb8
+}
+
+.folder-item .content-item-icon{
+background:#fff2cf;
+color:#d58a00
+}
+</style>
+
+<script>
+const contentType = document.getElementById("contentType");
+const parentFolder = document.getElementById("parentFolder");
+const contentName = document.getElementById("contentName");
+const videoUrl = document.getElementById("videoUrl");
+const pdfUrl = document.getElementById("pdfUrl");
+const htmlContent = document.getElementById("htmlContent");
+const contentDescription = document.getElementById("contentDescription");
+const videoField = document.getElementById("videoField");
+const pdfField = document.getElementById("pdfField");
+const htmlField = document.getElementById("htmlField");
+const videoPreview = document.getElementById("videoPreview");
+const videoThumbnail = document.getElementById("videoThumbnail");
+const videoPreviewTitle = document.getElementById("videoPreviewTitle");
+const contentList = document.getElementById("contentList");
+const emptyContent = document.getElementById("emptyContent");
+const contentCount = document.getElementById("contentCount");
+const addContentBtn = document.getElementById("addContentBtn");
+
+const courseMaterials = [];
+
+function getYouTubeId(url){
+
+try{
+
+const parsed = new URL(url);
+
+if(parsed.hostname.includes("youtu.be")){
+return parsed.pathname.substring(1).split("/")[0];
+}
+
+if(parsed.hostname.includes("youtube.com")){
+
+const videoId = parsed.searchParams.get("v");
+
+if(videoId){
+return videoId;
+}
+
+const parts = parsed.pathname.split("/");
+
+const embedIndex = parts.indexOf("embed");
+
+if(embedIndex !== -1 && parts[embedIndex + 1]){
+return parts[embedIndex + 1];
+}
+
+const shortsIndex = parts.indexOf("shorts");
+
+if(shortsIndex !== -1 && parts[shortsIndex + 1]){
+return parts[shortsIndex + 1];
+}
+
+}
+
+}catch(error){}
+
+return "";
+}
+
+function updateContentFields(){
+
+const type = contentType.value;
+
+videoField.style.display = type === "video" ? "flex" : "none";
+pdfField.style.display = type === "pdf" ? "flex" : "none";
+htmlField.style.display = type === "html" ? "flex" : "none";
+
+if(type !== "video"){
+videoPreview.style.display="none";
+}
+
+}
+
+contentType.addEventListener("change",updateContentFields);
+
+videoUrl.addEventListener("input",()=>{
+
+const id = getYouTubeId(videoUrl.value.trim());
+
+if(!id){
+videoPreview.style.display="none";
+return;
+}
+
+videoThumbnail.src=`https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+videoPreviewTitle.textContent="YouTube Video";
+videoPreview.style.display="block";
+
+videoThumbnail.onerror=()=>{
+videoPreview.style.display="none";
+};
+
+});
+
+function getContentIcon(type){
+
+if(type==="folder"){
+return `
+<svg viewBox="0 0 24 24">
+<path d="M3 6h7l2 2h9v10H3z"/>
+</svg>
+`;
+}
+
+if(type==="video"){
+return `
+<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="14" rx="3"/>
+<path d="M10 9l5 3-5 3z"/>
+</svg>
+`;
+}
+
+if(type==="pdf"){
+return `
+<svg viewBox="0 0 24 24">
+<path d="M6 3h9l4 4v14H6z"/>
+<path d="M14 3v5h5"/>
+<path d="M9 15h6"/>
+</svg>
+`;
+}
+
+return `
+<svg viewBox="0 0 24 24">
+<path d="M4 5h16v14H4z"/>
+<path d="M7 9h10"/>
+<path d="M7 13h7"/>
+<path d="M7 17h4"/>
+</svg>
+`;
+
+}
+
+function getContentTypeName(type){
+
+if(type==="folder") return "Folder";
+if(type==="video") return "YouTube Video";
+if(type==="pdf") return "PDF";
+return "HTML Content";
+
+}
+
+function refreshParentFolders(){
+
+const currentValue = parentFolder.value;
+
+parentFolder.innerHTML='<option value="">Root / Main Course</option>';
+
+courseMaterials
+.filter(item=>item.type==="folder")
+.forEach(folder=>{
+
+const option=document.createElement("option");
+
+option.value=folder.localId;
+option.textContent=folder.name;
+
+parentFolder.appendChild(option);
+
+});
+
+if(
+[...parentFolder.options]
+.some(option=>option.value===currentValue)
+){
+parentFolder.value=currentValue;
+}
+
+}
+
+function renderContentList(){
+
+contentCount.textContent=courseMaterials.length;
+
+if(!courseMaterials.length){
+
+contentList.innerHTML="";
+contentList.appendChild(emptyContent);
+
+return;
+
+}
+
+contentList.innerHTML="";
+
+courseMaterials.forEach((item,index)=>{
+
+const wrapper=document.createElement("div");
+
+wrapper.className=
+item.type==="folder"
+? "content-item folder-item"
+: "content-item";
+
+const icon=document.createElement("div");
+
+icon.className="content-item-icon";
+icon.innerHTML=getContentIcon(item.type);
+
+const info=document.createElement("div");
+
+info.className="content-item-info";
+
+const name=document.createElement("div");
+
+name.className="content-item-name";
+name.textContent=item.name;
+
+const meta=document.createElement("div");
+
+meta.className="content-item-meta";
+
+const parentName =
+item.parentId
+? (
+courseMaterials.find(x=>x.localId===item.parentId)?.name
+|| "Folder"
+)
+: "Root";
+
+meta.textContent=
+`${getContentTypeName(item.type)} • ${parentName}`;
+
+info.appendChild(name);
+info.appendChild(meta);
+
+const remove=document.createElement("button");
+
+remove.type="button";
+remove.className="remove-content";
+remove.textContent="×";
+
+remove.addEventListener("click",()=>{
+
+const hasChildren=courseMaterials.some(
+x=>x.parentId===item.localId
+);
+
+if(hasChildren){
+alert("इस folder के अंदर content मौजूद है। पहले उसके अंदर का content हटाएँ।");
+return;
+}
+
+const position=courseMaterials.findIndex(
+x=>x.localId===item.localId
+);
+
+if(position!==-1){
+courseMaterials.splice(position,1);
+}
+
+refreshParentFolders();
+renderContentList();
+
+});
+
+wrapper.appendChild(icon);
+wrapper.appendChild(info);
+wrapper.appendChild(remove);
+
+contentList.appendChild(wrapper);
+
+});
+
+}
+
+addContentBtn.addEventListener("click",()=>{
+
+const type=contentType.value;
+const name=contentName.value.trim();
+const parentId=parentFolder.value;
+
+if(!type){
+alert("पहले Content Type चुनें।");
+return;
+}
+
+if(!name){
+alert("Content Name डालें।");
+contentName.focus();
+return;
+}
+
+const item={
+localId:`local_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+name,
+type,
+parentId,
+description:contentDescription.value.trim(),
+url:"",
+html:""
+};
+
+if(type==="video"){
+
+const url=videoUrl.value.trim();
+const youtubeId=getYouTubeId(url);
+
+if(!url || !youtubeId){
+alert("Valid YouTube URL डालें।");
+videoUrl.focus();
+return;
+}
+
+item.url=url;
+item.youtubeId=youtubeId;
+item.thumbnail=`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+
+}
+
+if(type==="pdf"){
+
+const url=pdfUrl.value.trim();
+
+if(!url){
+alert("PDF URL डालें।");
+pdfUrl.focus();
+return;
+}
+
+item.url=url;
+
+}
+
+if(type==="html"){
+
+const html=htmlContent.value.trim();
+
+if(!html){
+alert("HTML Content डालें।");
+htmlContent.focus();
+return;
+}
+
+item.html=html;
+
+}
+
+courseMaterials.push(item);
+
+refreshParentFolders();
+renderContentList();
+
+contentName.value="";
+videoUrl.value="";
+pdfUrl.value="";
+htmlContent.value="";
+contentDescription.value="";
+contentType.value="";
+parentFolder.value="";
+
+updateContentFields();
+
+});
+
+refreshParentFolders();
+renderContentList();
+updateContentFields();
+</script >
+<script type="module">
+import { auth, db } from "./firebase.js";
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+const saveCourseBtn = document.createElement("button");
+
+saveCourseBtn.type = "button";
+saveCourseBtn.id = "saveCourseBtn";
+saveCourseBtn.textContent = "Create Course";
+
+saveCourseBtn.style.cssText = `
+width:100%;
+height:54px;
+margin-top:18px;
+border:0;
+border-radius:16px;
+background:#0b1f3a;
+color:#fff;
+font-size:14px;
+font-weight:900;
+box-shadow:0 10px 24px rgba(11,31,58,.18);
+`;
+
+const courseCard = document.querySelector("#contentManager").previousElementSibling;
+
+const saveArea = document.createElement("div");
+
+saveArea.style.cssText = `
+margin-top:18px;
+padding-top:18px;
+border-top:1px solid #edf1f6;
+`;
+
+saveArea.appendChild(saveCourseBtn);
+
+document.querySelector("#contentManager").appendChild(saveArea);
+
+function getValue(id){
+  return document.getElementById(id).value.trim();
+}
+
+function validateCourse(){
+
+  const banner = getValue("bannerUrl");
+  const title = getValue("courseTitle");
+  const description = getValue("courseDescription");
+  const category = getValue("category");
+  const branch = getValue("branch");
+  const semester = getValue("semester");
+  const price = getValue("price");
+
+  if(!banner){
+    alert("Course Banner URL डालें।");
+    document.getElementById("bannerUrl").focus();
+    return false;
+  }
+
+  if(!title){
+    alert("Course Title डालें।");
+    document.getElementById("courseTitle").focus();
+    return false;
+  }
+
+  if(!description){
+    alert("Course Description डालें।");
+    document.getElementById("courseDescription").focus();
+    return false;
+  }
+
+  if(!category){
+    alert("Category चुनें।");
+    document.getElementById("category").focus();
+    return false;
+  }
+
+  if(!branch){
+    alert("Branch चुनें।");
+    document.getElementById("branch").focus();
+    return false;
+  }
+
+  if(!semester){
+    alert("Semester चुनें।");
+    document.getElementById("semester").focus();
+    return false;
+  }
+
+  if(price === "" || Number(price) < 0){
+    alert("Valid Course Price डालें।");
+    document.getElementById("price").focus();
+    return false;
+  }
+
+  return true;
+}
+
+function createIntroductionData(){
+
+  const video = getValue("introductionVideo");
+  const description = getValue("introductionDescription");
+  const payment = getValue("paymentInstructions");
+
+  let youtubeId = "";
+
+  if(video){
+    youtubeId = getYouTubeId(video);
+
+    if(!youtubeId){
+      alert("Introduction के लिए valid YouTube URL डालें।");
+      return null;
+    }
+  }
+
+  return {
+    videoUrl: video,
+    youtubeId,
+    thumbnail: youtubeId
+      ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+      : "",
+    description,
+    payment
+  };
+}
+
+async function saveMaterials(courseId){
+
+  if(!courseMaterials.length){
+    return;
+  }
+
+  const materialsRef = collection(
+    db,
+    "courses",
+    courseId,
+    "materials"
+  );
+
+  for(let index = 0; index < courseMaterials.length; index++){
+
+    const item = courseMaterials[index];
+
+    const materialData = {
+      name: item.name,
+      type: item.type,
+      parentId: item.parentId || "",
+      description: item.description || "",
+      url: item.url || "",
+      html: item.html || "",
+      youtubeId: item.youtubeId || "",
+      thumbnail: item.thumbnail || "",
+      order: index,
+      createdAt: serverTimestamp()
+    };
+
+    await addDoc(materialsRef, materialData);
+  }
+}
+
+async function saveCourse(){
+
+  if(!validateCourse()){
+    return;
+  }
+
+  const introduction = createIntroductionData();
+
+  if(!introduction){
+    return;
+  }
+
+  const user = auth.currentUser;
+
+  if(!user){
+    location.replace("adminlogin.html");
+    return;
+  }
+
+  saveCourseBtn.disabled = true;
+  saveCourseBtn.textContent = "Creating Course...";
+
+  try{
+
+    const courseData = {
+      title: getValue("courseTitle"),
+      description: getValue("courseDescription"),
+      banner: getValue("bannerUrl"),
+      category: getValue("category"),
+      branch: getValue("branch"),
+      semester: Number(getValue("semester")),
+      subject: getValue("subject"),
+      price: Number(getValue("price")),
+      priceLabel: getValue("priceLabel"),
+      paymentNumber: getValue("paymentNumber") || "9973532153",
+      paymentNumbers: [
+        "9973532153",
+        "9296783086"
+      ],
+      introduction,
+      published: document.getElementById("published").checked,
+      createdBy: user.uid,
+      createdByEmail: user.email || "",
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
+
+    const courseRef = await addDoc(
+      collection(db,"courses"),
+      courseData
+    );
+
+    await saveMaterials(courseRef.id);
+
+    alert("Course successfully created.");
+
+    location.reload();
+
+  }catch(error){
+
+    console.error(error);
+
+    if(error.code === "permission-denied"){
+      alert("Permission denied. Firestore Rules में Admin permission check करें।");
+    }else{
+      alert("Course create नहीं हो सका। फिर से कोशिश करें।");
+    }
+
+    saveCourseBtn.disabled = false;
+    saveCourseBtn.textContent = "Create Course";
+  }
+}
+
+saveCourseBtn.addEventListener(
+  "click",
+  saveCourse
+);
 </script>
 
+</main>
+
 </body>
-  </html>
+</html>
