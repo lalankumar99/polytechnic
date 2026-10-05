@@ -4,961 +4,1114 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="./manifest.json">
 <title>Polytechnic Hub - Home</title>
+
 <style>
-:root {
-  --primary-navy: #0B1F3A;
-  --primary-blue: #1677FF;
-  --bg-color: #F5F8FC;
-  --white: #FFFFFF;
-  --text-dark: #1F2937;
-  --text-muted: #6B7280;
-  --border-color: #E5E7EB;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-drawer: 4px 0 24px rgba(0,0,0,0.15);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
+:root{
+  --primary-navy:#0B1F3A;
+  --primary-blue:#1677FF;
+  --bg-color:#F5F8FC;
+  --white:#FFFFFF;
+  --text-dark:#1F2937;
+  --text-muted:#6B7280;
+  --border-color:#E5E7EB;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow-md:0 5px 15px rgba(0,0,0,.09);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-tap-highlight-color: transparent;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-tap-highlight-color:transparent;
 }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-dark);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
+body{
+  background:var(--bg-color);
+  color:var(--text-dark);
+  min-height:100vh;
+  overflow-x:hidden;
+  overscroll-behavior-y:none;
 }
 
-/* Header */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background-color: var(--white);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: var(--shadow-sm);
-  height: 60px;
+button,a{
+  -webkit-tap-highlight-color:transparent;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.header{
+  position:sticky;
+  top:0;
+  z-index:40;
+  height:60px;
+  padding:12px 16px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:var(--shadow-sm);
 }
 
-.icon-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  margin: -8px;
-  cursor: pointer;
-  color: var(--text-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background-color 0.2s;
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:16px;
 }
 
-.icon-btn:active {
-  background-color: var(--bg-color);
+.icon-btn{
+  border:0;
+  background:none;
+  padding:8px;
+  margin:-8px;
+  color:var(--text-dark);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  cursor:pointer;
 }
 
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--primary-navy);
+.icon-btn:active{
+  background:#F1F5F9;
 }
 
-.brand-dropdown {
-  color: var(--text-muted);
+.header-brand{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:var(--primary-navy);
+  font-size:1.08rem;
+  font-weight:800;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  position: relative;
+.brand-dropdown{
+  color:var(--text-muted);
 }
 
-.notification-badge {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  width: 8px;
-  height: 8px;
-  background-color: #EF4444;
-  border-radius: 50%;
-  border: 2px solid var(--white);
+.header-right{
+  position:relative;
+  display:flex;
+  align-items:center;
 }
 
-/* Main Content Area */
-.main-content {
-  flex: 1;
-  padding: 20px 16px 80px 16px; /* Bottom padding for nav */
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+.notification-badge{
+  position:absolute;
+  top:2px;
+  right:4px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#EF4444;
+  border:2px solid #fff;
+  display:none;
 }
 
-/* Greeting Section */
-.greeting-section {
-  margin-bottom: 24px;
+.main-content{
+  width:100%;
+  max-width:1200px;
+  margin:auto;
+  padding:20px 16px calc(90px + var(--safe-bottom));
 }
 
-.greeting-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-navy);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.greeting-section{
+  margin-bottom:22px;
 }
 
-.greeting-subtext {
-  font-size: 0.95rem;
-  color: var(--text-muted);
+.greeting-text{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+  color:var(--primary-navy);
+  font-size:1.5rem;
+  font-weight:800;
+  margin-bottom:5px;
 }
 
-/* Banner Slider */
-.banner-container {
-  position: relative;
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 32px;
-  box-shadow: var(--shadow-md);
-  background: linear-gradient(135deg, var(--primary-navy) 0%, #173258 100%);
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 24px;
-  color: var(--white);
-  cursor: pointer;
-  transition: transform 0.2s;
+.student-name{
+  display:inline;
+  color:var(--primary-blue);
 }
 
-.banner-container:active {
-  transform: scale(0.98);
+.greeting-subtext{
+  color:var(--text-muted);
+  font-size:.94rem;
 }
 
-.banner-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
+.banner-container{
+  position:relative;
+  min-height:190px;
+  margin-bottom:28px;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#0B1F3A,#173258);
+  box-shadow:var(--shadow-md);
+  cursor:pointer;
+  user-select:none;
+  touch-action:pan-y;
 }
 
-.banner-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin-bottom: 12px;
-  line-height: 1.3;
+.banner-slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .45s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
 }
 
-.banner-btn {
-  background-color: #FFC107;
-  color: #000;
-  font-weight: 700;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 24px;
-  font-size: 1rem;
-  margin-bottom: 12px;
-  pointer-events: none;
+.banner-slide.active{
+  opacity:1;
+  visibility:visible;
 }
 
-.banner-helpline {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+.banner-slide-one{
+  background:linear-gradient(135deg,#0B1F3A,#174A8B);
 }
 
-.banner-numbers {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-top: 4px;
+.banner-slide-two{
+  background:linear-gradient(135deg,#172554,#2563EB);
 }
 
-.banner-bg-shape {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(22, 119, 255, 0.4) 0%, rgba(0,0,0,0) 70%);
-  border-radius: 50%;
-  z-index: 1;
+.banner-content{
+  position:relative;
+  z-index:2;
+  width:100%;
+  text-align:center;
+  color:#fff;
 }
 
-.banner-dots {
-  position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  z-index: 3;
+.banner-title{
+  font-size:1.4rem;
+  font-weight:850;
+  line-height:1.3;
+  margin-bottom:13px;
 }
 
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+.banner-btn{
+  border:0;
+  padding:10px 24px;
+  border-radius:25px;
+  background:#FFC107;
+  color:#111827;
+  font-weight:800;
+  font-size:.95rem;
+  cursor:pointer;
+  margin-bottom:10px;
 }
 
-.dot.active {
-  background-color: var(--white);
-  width: 16px;
-  border-radius: 4px;
+.banner-helpline{
+  color:rgba(255,255,255,.82);
+  font-size:.78rem;
 }
 
-/* Quick Access Grid */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+.banner-numbers{
+  margin-top:3px;
+  font-size:.92rem;
+  font-weight:750;
 }
 
-.grid-card {
-  background-color: var(--white);
-  border-radius: 16px;
-  padding: 16px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
-  color: inherit;
+.banner-shape{
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-55px;
+  top:-60px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,.5),transparent 70%);
 }
 
-.grid-card:active {
-  transform: scale(0.95);
-  background-color: #F8FAFC;
+.banner-shape-two{
+  position:absolute;
+  width:200px;
+  height:200px;
+  left:-70px;
+  bottom:-100px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(96,165,250,.35),transparent 70%);
 }
 
-.icon-wrapper {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
+.banner-dots{
+  position:absolute;
+  z-index:5;
+  left:0;
+  right:0;
+  bottom:12px;
+  display:flex;
+  justify-content:center;
+  gap:6px;
 }
 
-/* Dynamic Icon Colors */
-.icon-c1 { background: #E0F2FE; color: #0284C7; }
-.icon-c2 { background: #FEF3C7; color: #D97706; }
-.icon-c3 { background: #DCFCE7; color: #16A34A; }
-.icon-c4 { background: #F3E8FF; color: #9333EA; }
-.icon-c5 { background: #FFE4E6; color: #E11D48; }
-.icon-c6 { background: #E0E7FF; color: #4F46E5; }
-.icon-c7 { background: #FFEDD5; color: #EA580C; }
-.icon-c8 { background: #ECFCCB; color: #65A30D; }
-.icon-c9 { background: #F1F5F9; color: #475569; }
-
-.card-title {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  line-height: 1.2;
+.dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,.4);
+  transition:.25s;
 }
 
-/* Bottom Navigation */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--white);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 12px 0 calc(12px + var(--safe-bottom));
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
-  z-index: 40;
+.dot.active{
+  width:17px;
+  border-radius:5px;
+  background:#fff;
 }
 
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: var(--text-muted);
-  text-decoration: none;
-  width: 25%;
-  -webkit-tap-highlight-color: transparent;
+.section-title{
+  color:var(--primary-navy);
+  font-size:1.15rem;
+  font-weight:800;
+  margin-bottom:14px;
 }
 
-.nav-item.active {
-  color: var(--primary-blue);
+.grid-container{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
 }
 
-.nav-icon {
-  transition: transform 0.2s;
+.grid-card{
+  min-height:125px;
+  padding:15px 7px;
+  border:1px solid var(--border-color);
+  border-radius:16px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  text-decoration:none;
+  color:inherit;
+  box-shadow:var(--shadow-sm);
+  transition:transform .18s ease,box-shadow .18s ease;
 }
 
-.nav-item:active .nav-icon {
-  transform: scale(0.9);
+.grid-card:active{
+  transform:scale(.95);
 }
 
-.nav-label {
-  font-size: 0.75rem;
-  font-weight: 500;
+.icon-wrapper{
+  width:50px;
+  height:50px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:9px;
 }
 
-/* Side Drawer (Navigation Menu) */
-.drawer-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 50;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+.icon-c1{background:#E0F2FE;color:#0284C7}
+.icon-c2{background:#FEF3C7;color:#D97706}
+.icon-c3{background:#DCFCE7;color:#16A34A}
+.icon-c4{background:#F3E8FF;color:#9333EA}
+.icon-c5{background:#FFE4E6;color:#E11D48}
+.icon-c6{background:#E0E7FF;color:#4F46E5}
+.icon-c7{background:#FFEDD5;color:#EA580C}
+.icon-c8{background:#ECFCCB;color:#65A30D}
+.icon-c9{background:#F1F5F9;color:#475569}
+
+.card-title{
+  font-size:.78rem;
+  line-height:1.25;
+  font-weight:700;
 }
 
-.drawer-overlay.open {
-  opacity: 1;
-  visibility: visible;
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:40;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  background:#fff;
+  padding:11px 0 calc(11px + var(--safe-bottom));
+  box-shadow:0 -5px 18px rgba(0,0,0,.06);
 }
 
-.drawer {
-  position: fixed;
-  top: 0;
-  left: -280px;
-  bottom: 0;
-  width: 280px;
-  background-color: var(--white);
-  z-index: 51;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-drawer);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+.nav-item{
+  width:25%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  color:var(--text-muted);
+  text-decoration:none;
 }
 
-.drawer.open {
-  transform: translateX(280px);
+.nav-item.active{
+  color:var(--primary-blue);
 }
 
-.drawer-header {
-  background: linear-gradient(135deg, var(--primary-navy) 0%, #173258 100%);
-  padding: 30px 20px 20px;
-  color: var(--white);
-  position: relative;
+.nav-label{
+  font-size:.72rem;
+  font-weight:650;
 }
 
-.drawer-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.drawer-overlay{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(2px);
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
 }
 
-.drawer-profile {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.drawer-overlay.open{
+  opacity:1;
+  visibility:visible;
 }
 
-.drawer-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background-color: var(--primary-blue);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  border: 2px solid rgba(255,255,255,0.2);
-  overflow: hidden;
+.drawer{
+  position:fixed;
+  z-index:51;
+  top:0;
+  left:0;
+  bottom:0;
+  width:285px;
+  max-width:85vw;
+  background:#fff;
+  transform:translateX(-100%);
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
+  box-shadow:5px 0 25px rgba(0,0,0,.16);
+  overflow-y:auto;
 }
 
-.drawer-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.drawer.open{
+  transform:translateX(0);
 }
 
-.drawer-info h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 2px;
+.drawer-header{
+  position:relative;
+  padding:30px 20px 22px;
+  color:#fff;
+  background:linear-gradient(135deg,#0B1F3A,#173258);
 }
 
-.drawer-info p {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.7);
+.drawer-close{
+  position:absolute;
+  right:14px;
+  top:14px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.drawer-menu {
-  padding: 16px 0;
-  flex: 1;
+.drawer-profile{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
-.drawer-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
-  color: var(--text-dark);
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.2s;
+.drawer-avatar{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  background:var(--primary-blue);
+  border:2px solid rgba(255,255,255,.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-size:1.4rem;
+  font-weight:800;
 }
 
-.drawer-item:active {
-  background-color: #F3F4F6;
+.drawer-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.drawer-item svg {
-  color: var(--text-muted);
+.drawer-info h3{
+  font-size:1.05rem;
+  font-weight:750;
+  margin-bottom:3px;
 }
 
-.drawer-item.logout {
-  color: #DC2626;
-  margin-top: auto;
-  border-top: 1px solid var(--border-color);
+.drawer-info p{
+  font-size:.78rem;
+  color:rgba(255,255,255,.72);
+  margin-top:3px;
 }
 
-.drawer-item.logout svg {
-  color: #DC2626;
+.drawer-menu{
+  padding:12px 0;
 }
 
-/* Notification Panel */
-.notification-panel {
-  position: fixed;
-  top: 60px;
-  right: 16px;
-  width: 320px;
-  max-width: calc(100vw - 32px);
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color);
-  z-index: 45;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.2s ease;
+.drawer-item{
+  width:100%;
+  min-height:52px;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  border:0;
+  background:none;
+  color:var(--text-dark);
+  text-decoration:none;
+  font-size:.93rem;
+  font-weight:600;
+  text-align:left;
 }
 
-.notification-panel.open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.drawer-item:active{
+  background:#F1F5F9;
 }
 
-.notif-header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border-color);
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.drawer-item svg{
+  color:var(--text-muted);
+  flex-shrink:0;
 }
 
-.notif-body {
-  padding: 32px 16px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+.drawer-item.logout{
+  color:#DC2626;
+  border-top:1px solid var(--border-color);
+  margin-top:8px;
 }
 
-/* Loading Overlay */
-.loading-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: var(--bg-color);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.4s ease;
+.drawer-item.logout svg{
+  color:#DC2626;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(22, 119, 255, 0.2);
-  border-radius: 50%;
-  border-top-color: var(--primary-blue);
-  animation: spin 1s linear infinite;
-  margin-bottom: 16px;
+.notification-panel{
+  position:fixed;
+  z-index:45;
+  top:68px;
+  right:16px;
+  width:320px;
+  max-width:calc(100vw - 32px);
+  background:#fff;
+  border:1px solid var(--border-color);
+  border-radius:14px;
+  box-shadow:0 15px 35px rgba(0,0,0,.12);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px);
+  transition:.2s;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.notification-panel.open{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
 }
 
-/* Responsive Adjustments */
-@media (min-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+.notif-header{
+  padding:15px;
+  border-bottom:1px solid var(--border-color);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-weight:750;
+}
+
+.notif-body{
+  max-height:350px;
+  overflow-y:auto;
+}
+
+.notif-empty{
+  padding:30px 18px;
+  text-align:center;
+  color:var(--text-muted);
+  font-size:.85rem;
+}
+
+.notif-item{
+  display:block;
+  padding:13px 15px;
+  border-bottom:1px solid #F1F5F9;
+  text-decoration:none;
+  color:inherit;
+}
+
+.notif-item-title{
+  font-size:.88rem;
+  font-weight:750;
+  color:var(--text-dark);
+}
+
+.notif-item-message{
+  margin-top:4px;
+  color:var(--text-muted);
+  font-size:.76rem;
+  line-height:1.4;
+}
+
+.notif-item-time{
+  margin-top:6px;
+  color:#94A3B8;
+  font-size:.68rem;
+}
+
+@media(min-width:768px){
+  .grid-container{
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
   }
-  .banner-container {
-    min-height: 220px;
-  }
-  .banner-title {
-    font-size: 1.8rem;
-  }
-}
 
-@media (min-width: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(5, 1fr);
+  .banner-container{
+    min-height:225px;
+  }
+
+  .banner-title{
+    font-size:1.8rem;
   }
 }
 
-/* Skeleton Loading utility for smooth data rendering */
-.skeleton {
-  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
-  background-size: 200% 100%;
-  animation: skeletonLoading 1.5s infinite;
-  border-radius: 4px;
-  color: transparent !important;
+@media(min-width:1024px){
+  .grid-container{
+    grid-template-columns:repeat(5,1fr);
+  }
 }
 
-@keyframes skeletonLoading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+@media(max-width:350px){
+  .grid-container{
+    gap:9px;
+  }
 
+  .grid-card{
+    min-height:115px;
+  }
+
+  .icon-wrapper{
+    width:45px;
+    height:45px;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<!-- Loading Screen -->
-<div id="loading-screen" class="loading-overlay">
-  <div class="spinner"></div>
-  <h2 style="color: var(--primary-navy); font-weight: 700;">Polytechnic Hub</h2>
-</div>
-
-<!-- Header -->
 <header class="header">
   <div class="header-left">
     <button class="icon-btn" id="btn-menu" aria-label="Open Menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
     </button>
+
     <div class="header-brand">
       Polytechnic Hub
-      <svg class="brand-dropdown" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
+      <svg class="brand-dropdown" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
       </svg>
     </div>
   </div>
+
   <div class="header-right">
     <button class="icon-btn" id="btn-notify" aria-label="Notifications">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
       </svg>
-      <span class="notification-badge"></span>
+      <span class="notification-badge" id="notification-badge"></span>
     </button>
   </div>
 </header>
 
-<!-- Notification Panel -->
 <div class="notification-panel" id="notif-panel">
   <div class="notif-header">
     <span>Notifications</span>
-    <button class="icon-btn" id="btn-close-notif" style="padding: 4px; margin: 0;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <button class="icon-btn" id="btn-close-notif">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
     </button>
   </div>
-  <div class="notif-body">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-      <line x1="12" y1="2" x2="12" y2="4"></line>
-    </svg>
-    No new notifications
+  <div class="notif-body" id="notif-body">
+    <div class="notif-empty">No new notifications</div>
   </div>
 </div>
 
-<!-- Main Content -->
 <main class="main-content">
-  
-  <!-- Greeting Section -->
+
   <section class="greeting-section">
     <h1 class="greeting-text">
-      Hello, <span id="student-name" class="skeleton" style="min-width: 120px; display: inline-block;">Loading...</span> 👋
+      Hello, <span id="student-name" class="student-name">Student</span> 👋
     </h1>
     <p class="greeting-subtext">What do you want to learn today?</p>
   </section>
 
-  <!-- Promotional Banner -->
   <section class="banner-container" id="promo-banner">
-    <div class="banner-bg-shape"></div>
-    <div class="banner-content">
-      <h2 class="banner-title">कोर्स खरीदने के लिए<br>यहां क्लिक करें</h2>
-      <button class="banner-btn">Click Here</button>
-      <div class="banner-helpline">Helpline Number</div>
-      <div class="banner-numbers" id="helpline-numbers">99735 32153 / 92967 83086</div>
+
+    <div class="banner-slide banner-slide-one active" data-link="paid-courses.html">
+      <div class="banner-shape"></div>
+      <div class="banner-content">
+        <h2 class="banner-title">कोर्स खरीदने के लिए<br>यहां क्लिक करें</h2>
+        <button class="banner-btn">View Courses</button>
+        <div class="banner-helpline">Helpline Number</div>
+        <div class="banner-numbers">9155563777 / 9334789450</div>
+      </div>
     </div>
+
+    <div class="banner-slide banner-slide-two" data-link="demo-classes.html">
+      <div class="banner-shape-two"></div>
+      <div class="banner-content">
+        <h2 class="banner-title">Demo Classes देखें<br>और सीखना शुरू करें</h2>
+        <button class="banner-btn">View Demo Classes</button>
+        <div class="banner-helpline">Polytechnic Hub</div>
+        <div class="banner-numbers">Learn • Practice • Grow</div>
+      </div>
+    </div>
+
     <div class="banner-dots">
       <div class="dot active"></div>
       <div class="dot"></div>
-      <div class="dot"></div>
     </div>
+
   </section>
 
-  <!-- Quick Access Grid -->
-  <section class="grid-container" id="grid-menu">
-    <!-- Items will be injected via JS -->
+  <h2 class="section-title">Quick Access</h2>
+
+  <section class="grid-container">
+
+    <a href="paid-courses.html" class="grid-card">
+      <div class="icon-wrapper icon-c1">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 7h18"/>
+          <path d="M5 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/>
+          <rect x="3" y="7" width="18" height="13" rx="2"/>
+          <path d="M9 13h6"/>
+        </svg>
+      </div>
+      <span class="card-title">Paid Courses</span>
+    </a>
+
+    <a href="demo-classes.html" class="grid-card">
+      <div class="icon-wrapper icon-c2">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="m10 9 5 3-5 3V9z"/>
+        </svg>
+      </div>
+      <span class="card-title">Demo Classes</span>
+    </a>
+
+    <a href="test.html" class="grid-card">
+      <div class="icon-wrapper icon-c3">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+      </div>
+      <span class="card-title">Test</span>
+    </a>
+
+    <a href="study-material.html" class="grid-card">
+      <div class="icon-wrapper icon-c4">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <span class="card-title">Study Material</span>
+    </a>
+
+    <a href="pyq.html" class="grid-card">
+      <div class="icon-wrapper icon-c5">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <path d="M8 13h8"/>
+          <path d="M8 17h5"/>
+        </svg>
+      </div>
+      <span class="card-title">P.Y.Q. Bank</span>
+    </a>
+
+    <a href="vvi-question.html" class="grid-card">
+      <div class="icon-wrapper icon-c6">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-1.1.9-1.7 1.3-1.7 2.7"/>
+          <path d="M12 17h.01"/>
+        </svg>
+      </div>
+      <span class="card-title">VVI Question</span>
+    </a>
+
+    <a href="notice.html" class="grid-card">
+      <div class="icon-wrapper icon-c7">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </div>
+      <span class="card-title">Notice</span>
+    </a>
+
+    <a href="syllabus.html" class="grid-card">
+      <div class="icon-wrapper icon-c8">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <span class="card-title">Syllabus</span>
+    </a>
+
+    <a href="about.html" class="grid-card">
+      <div class="icon-wrapper icon-c9">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <span class="card-title">About Us</span>
+    </a>
+
   </section>
 
 </main>
 
-<!-- Bottom Navigation -->
 <nav class="bottom-nav">
+
   <a href="home.html" class="nav-item active">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
     </svg>
     <span class="nav-label">Home</span>
   </a>
+
   <a href="my-courses.html" class="nav-item">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
     </svg>
     <span class="nav-label">My Course</span>
   </a>
+
   <a href="downloads.html" class="nav-item">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-      <polyline points="7 10 12 15 17 10"></polyline>
-      <line x1="12" y1="15" x2="12" y2="3"></line>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
     </svg>
     <span class="nav-label">Downloads</span>
   </a>
+
   <a href="help.html" class="nav-item">
-    <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"></circle>
-      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
     </svg>
     <span class="nav-label">Help</span>
   </a>
+
 </nav>
 
-<!-- Side Drawer / Menu -->
 <div class="drawer-overlay" id="drawer-overlay"></div>
-<div class="drawer" id="side-drawer">
+
+<aside class="drawer" id="side-drawer">
+
   <div class="drawer-header">
-    <button class="drawer-close" id="btn-close-drawer" aria-label="Close Menu">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+    <button class="drawer-close" id="btn-close-drawer">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
     </button>
+
     <div class="drawer-profile">
+
       <div class="drawer-avatar" id="drawer-avatar">
-        <!-- Initials or Image will be injected -->
+        <span id="avatar-initial">S</span>
       </div>
+
       <div class="drawer-info">
-        <h3 id="drawer-name" class="skeleton" style="width: 140px; margin-bottom: 4px;">Loading Name</h3>
-        <p id="drawer-email" class="skeleton" style="width: 180px; margin-bottom: 4px;">loading@email.com</p>
-        <p id="drawer-branch" class="skeleton" style="width: 120px;">Loading Branch...</p>
+        <h3 id="drawer-name">Student</h3>
+        <p id="drawer-email">Loading...</p>
+        <p id="drawer-branch">Loading...</p>
       </div>
+
     </div>
+
   </div>
-  
+
   <nav class="drawer-menu">
+
     <a href="home.html" class="drawer-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
       Home
     </a>
+
     <a href="my-courses.html" class="drawer-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+      </svg>
       My Course
     </a>
-    <a href="download.html" class="drawer-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+
+    <a href="downloads.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
       Downloads
     </a>
-    <a href="help.html" class="drawer-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-      Help
-    </a>
-    <a href="settings.html" class="drawer-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-      Settings
-    </a>
-    <a href="about.html" class="drawer-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-      About Us
-    </a>
-    
-    <button class="drawer-item logout" id="btn-logout" style="width: 100%; border-bottom: none; background: none; cursor: pointer; text-align: left; font-size: 1rem; font-family: inherit;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-      Logout
-    </button>
-  </nav>
-</div>
 
-<script type="module">
-import { auth, db } from "./firebase.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
-
-// DOM Elements
-const loadingScreen = document.getElementById('loading-screen');
-const studentNameEl = document.getElementById('student-name');
-const drawerNameEl = document.getElementById('drawer-name');
-const drawerEmailEl = document.getElementById('drawer-email');
-const drawerBranchEl = document.getElementById('drawer-branch');
-const drawerAvatarEl = document.getElementById('drawer-avatar');
-
-const btnMenu = document.getElementById('btn-menu');
-const btnCloseDrawer = document.getElementById('btn-close-drawer');
-const drawerOverlay = document.getElementById('drawer-overlay');
-const sideDrawer = document.getElementById('side-drawer');
-const btnLogout = document.getElementById('btn-logout');
-
-const btnNotify = document.getElementById('btn-notify');
-const notifPanel = document.getElementById('notif-panel');
-const btnCloseNotif = document.getElementById('btn-close-notif');
-
-const promoBanner = document.getElementById('promo-banner');
-const gridMenu = document.getElementById('grid-menu');
-
-// Configuration
-const CONFIG = {
-  helplineNumbers: "99735 32153 / 92967 83086"
-};
-
-const ROUTES = {
-  paidCourses: "paid-courses.html",
-  demoClasses: "demo.html",
-  test: "test.html",
-  studyMaterial: "material.html",
-  pyq: "pyq.html",
-  vvi: "vvi.html",
-  notice: "notice.html",
-  syllabus: "syllabus.html",
-  about: "about.html"
-};
-
-// Update Helpline Number
-document.getElementById('helpline-numbers').textContent = CONFIG.helplineNumbers;
-
-// Grid Menu Data
-const gridItems = [
-  { id: 'paidCourses', title: 'Paid Courses', iconClass: 'icon-c1', route: ROUTES.paidCourses, svg: '<polygon points="5 3 19 12 5 21 5 3"></polygon>' },
-  { id: 'demoClasses', title: 'Demo Classes', iconClass: 'icon-c2', route: ROUTES.demoClasses, svg: '<path d="M12 20v-6M6 20V10M18 20V4"></path>' }, // Using simplified chart for demo classes representation
-  { id: 'test', title: 'Test', iconClass: 'icon-c3', route: ROUTES.test, svg: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>' },
-  { id: 'studyMaterial', title: 'Study Material', iconClass: 'icon-c4', route: ROUTES.studyMaterial, svg: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>' },
-  { id: 'pyq', title: 'P.Y.Q. Bank', iconClass: 'icon-c5', route: ROUTES.pyq, svg: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="M9 15h6"></path>' },
-  { id: 'vvi', title: 'VVI Question', iconClass: 'icon-c6', route: ROUTES.vvi, svg: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>' },
-  { id: 'notice', title: 'Notice', iconClass: 'icon-c7', route: ROUTES.notice, svg: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>' },
-  { id: 'syllabus', title: 'Syllabus', iconClass: 'icon-c8', route: ROUTES.syllabus, svg: '<line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>' },
-  { id: 'about', title: 'About Us', iconClass: 'icon-c9', route: ROUTES.about, svg: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>' }
-];
-
-// Render Grid
-function renderGrid() {
-  gridMenu.innerHTML = '';
-  gridItems.forEach(item => {
-    const card = document.createElement('a');
-    card.href = 'javascript:void(0)'; // Prevent default navigation for now
-    card.className = 'grid-card';
-    card.onclick = () => {
-      // Small delay for animation effect
-      setTimeout(() => {
-        console.log(`Navigating to ${item.route}`);
-        // window.location.href = item.route; 
-      }, 150);
-    };
-    
-    card.innerHTML = `
-      <div class="icon-wrapper ${item.iconClass}">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          ${item.svg}
+    <a href="paid-courses.html" class="grid-card">
+      <div class="icon-wrapper icon-c1">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 7h18"/>
+          <path d="M5 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/>
+          <rect x="3" y="7" width="18" height="13" rx="2"/>
+          <path d="M9 13h6"/>
         </svg>
       </div>
-      <span class="card-title">${item.title}</span>
-    `;
-    gridMenu.appendChild(card);
-  });
-}
+      <span class="card-title">Paid Courses</span>
+    </a>
 
-// Drawer Toggle Logic
-function openDrawer() {
-  drawerOverlay.classList.add('open');
-  sideDrawer.classList.add('open');
-  document.body.style.overflow = 'hidden'; // Prevent background scrolling
-}
+    <a href="demo-classes.html" class="grid-card">
+      <div class="icon-wrapper icon-c2">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="m10 9 5 3-5 3V9z"/>
+        </svg>
+      </div>
+      <span class="card-title">Demo Classes</span>
+    </a>
 
-function closeDrawer() {
-  drawerOverlay.classList.remove('open');
-  sideDrawer.classList.remove('open');
-  document.body.style.overflow = '';
-}
+    <a href="test.html" class="grid-card">
+      <div class="icon-wrapper icon-c3">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+      </div>
+      <span class="card-title">Test</span>
+    </a>
 
-btnMenu.addEventListener('click', openDrawer);
-btnCloseDrawer.addEventListener('click', closeDrawer);
-drawerOverlay.addEventListener('click', closeDrawer);
+    <a href="study-material.html" class="grid-card">
+      <div class="icon-wrapper icon-c4">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <span class="card-title">Study Material</span>
+    </a>
 
-// Swipe to close drawer
-let touchStartX = 0;
-sideDrawer.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
-sideDrawer.addEventListener('touchend', e => {
-  if (touchStartX - e.changedTouches[0].screenX > 50) closeDrawer(); // Swiped left
-}, {passive: true});
+    <a href="pyq.html" class="grid-card">
+      <div class="icon-wrapper icon-c5">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <path d="M8 13h8"/>
+          <path d="M8 17h5"/>
+        </svg>
+      </div>
+      <span class="card-title">P.Y.Q. Bank</span>
+    </a>
 
-// Notification Toggle Logic
-function toggleNotif() {
-  notifPanel.classList.toggle('open');
-}
-btnNotify.addEventListener('click', (e) => {
-  e.stopPropagation();
-  toggleNotif();
-});
-btnCloseNotif.addEventListener('click', () => notifPanel.classList.remove('open'));
-document.addEventListener('click', (e) => {
-  if (notifPanel.classList.contains('open') && !notifPanel.contains(e.target)) {
-    notifPanel.classList.remove('open');
-  }
-});
+    <a href="vvi-question.html" class="grid-card">
+      <div class="icon-wrapper icon-c6">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-1.1.9-1.7 1.3-1.7 2.7"/>
+          <path d="M12 17h.01"/>
+        </svg>
+      </div>
+      <span class="card-title">VVI Question</span>
+    </a>
 
-// Promo Banner Click
-promoBanner.addEventListener('click', () => {
-  console.log(`Opening Paid Courses: ${ROUTES.paidCourses}`);
-  // window.location.href = ROUTES.paidCourses;
-});
+    <a href="notice.html" class="grid-card">
+      <div class="icon-wrapper icon-c7">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </div>
+      <span class="card-title">Notice</span>
+    </a>
 
-// Remove Skeletons and set data
-function updateUIWithUserData(name, email, branch, photoURL) {
-  const displayTitle = name || "Student";
-  
-  // Update Greeting
-  studentNameEl.classList.remove('skeleton');
-  studentNameEl.textContent = displayTitle;
-  
-  // Update Drawer
-  drawerNameEl.classList.remove('skeleton');
-  drawerNameEl.textContent = displayTitle;
-  
-  drawerEmailEl.classList.remove('skeleton');
-  drawerEmailEl.textContent = email || "No email provided";
-  
-  drawerBranchEl.classList.remove('skeleton');
-  drawerBranchEl.textContent = branch || "Student";
-  
-  // Avatar handling
-  if (photoURL) {
-    drawerAvatarEl.innerHTML = `<img src="${photoURL}" alt="Profile" onerror="this.style.display='none'; this.parentNode.innerHTML='${displayTitle.charAt(0).toUpperCase()}'">`;
-  } else {
-    drawerAvatarEl.textContent = displayTitle.charAt(0).toUpperCase();
-  }
-}
+    <a href="syllabus.html" class="grid-card">
+      <div class="icon-wrapper icon-c8">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <span class="card-title">Syllabus</span>
+    </a>
 
-// Firebase Auth State Listener
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    // Not authenticated, redirect to login
-    window.location.replace("login.html");
-    return;
-  }
+    <a href="about.html" class="grid-card">
+      <div class="icon-wrapper icon-c9">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <span class="card-title">About Us</span>
+    </a>
 
-  try {
-    // Attempt to fetch extra details from Firestore
-    const docRef = doc(db, "students", user.uid);
-    const docSnap = await getDoc(docRef);
-    
-    let dbName = null;
-    let dbBranch = null;
-    let dbPhotoURL = null;
-    
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      dbName = data.name;
-      dbBranch = data.branch;
-      dbPhotoURL = data.photoURL;
-    }
-    
-    // Fallbacks
-    const finalName = dbName || user.displayName;
-    const finalEmail = user.email;
-    const finalPhoto = dbPhotoURL || user.photoURL;
-    
-    updateUIWithUserData(finalName, finalEmail, dbBranch, finalPhoto);
-    
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    // Graceful fallback if Firestore fails
-    updateUIWithUserData(user.displayName, user.email, null, user.photoURL);
-  } finally {
-    // Hide loading screen smoothly
-    loadingScreen.style.opacity = '0';
-    setTimeout(() => {
-      loadingScreen.style.display = 'none';
-    }, 400);
-  }
-});
+  </section>
 
-// Logout Handler
-btnLogout.addEventListener('click', async () => {
-  try {
-    btnLogout.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:2px;margin:0 10px 0 0;"></span> Logging out...';
-    await signOut(auth);
-    // Redirect happens in onAuthStateChanged
-  } catch (error) {
-    console.error("Logout error", error);
-    alert("Failed to log out. Please try again.");
-    btnLogout.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Logout';
-  }
-});
+</main>
 
-// Initialize UI
-renderGrid();
+<nav class="bottom-nav">
 
-</script>
-</body>
-</html>
+  <a href="home.html" class="nav-item active">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    <span class="nav-label">Home</span>
+  </a>
+
+  <a href="my-courses.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span class="nav-label">My Course</span>
+  </a>
+
+  <a href="downloads.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <span class="nav-label">Downloads</span>
+  </a>
+
+  <a href="help.html" class="nav-item">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+    <span class="nav-label">Help</span>
+  </a>
+
+</nav>
+
+<div class="drawer-overlay" id="drawer-overlay"></div>
+
+<aside class="drawer" id="side-drawer">
+
+  <div class="drawer-header">
+
+    <button class="drawer-close" id="btn-close-drawer">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="drawer-profile">
+
+      <div class="drawer-avatar" id="drawer-avatar">
+        <span id="avatar-initial">S</span>
+      </div>
+
+      <div class="drawer-info">
+        <h3 id="drawer-name">Student</h3>
+        <p id="drawer-email">Loading...</p>
+        <p id="drawer-branch">Loading...</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <nav class="drawer-menu">
+
+    <a href="home.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      Home
+    </a>
+
+    <a href="my-courses.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+      </svg>
+      My Course
+    </a>
+
+    <a href="downloads.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Downloads
+    </a>
+
+    <a href="paid-courses.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="7" width="18" height="13" rx="2"/>
+        <path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
+      </svg>
+      Paid Courses
+    </a>
+
+    <a href="help.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      Help
+    </a>
+
+    <a href="settings.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+      Settings
+    </a>
+
+    <a href="about.html" class="drawer-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+      About Us
+    </a>
+
+    <button class="drawer-item logout" id="btn-logout">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Logout
+    </button>
+
+  </nav>
+        </aside>
