@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B1F3A">
+<title>Polytechnic Hub - Admin Login</title>
+
+<style>
+:root{
+--navy:#0B1F3A;
+--navy2:#08172B;
+--blue:#1677FF;
+--blue2:#2563EB;
+--bg:#F5F8FC;
+--white:#FFFFFF;
+--text:#172033;
+--muted:#6B7280;
+--border:#E5E7EB;
+--danger:#DC2626;
+--success:#16A34A;
+--shadow:0 20px 60px rgba(11,31,58,.14);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+min-height:100vh;
+background:
+radial-gradient(circle at top left,rgba(37,99,235,.14),transparent 35%),
+linear-gradient(145deg,#F5F8FC,#EAF1FA);
+color:var(--text);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.page{
+width:100%;
+max-width:430px;
+}
+
+.brand{
+text-align:center;
+margin-bottom:22px;
+}
+
+.logo{
+width:82px;
+height:82px;
+border-radius:24px;
+object-fit:cover;
+display:block;
+margin:0 auto 14px;
+box-shadow:0 12px 30px rgba(11,31,58,.2);
+background:var(--white);
+}
+
+.brand-title{
+font-size:1.45rem;
+font-weight:900;
+color:var(--navy);
+}
+
+.brand-subtitle{
+margin-top:5px;
+font-size:.82rem;
+font-weight:650;
+color:var(--muted);
+}
+
+.card{
+background:rgba(255,255,255,.96);
+border:1px solid rgba(255,255,255,.8);
+border-radius:26px;
+box-shadow:var(--shadow);
+padding:28px 22px;
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+}
+
+.admin-icon{
+width:62px;
+height:62px;
+border-radius:19px;
+background:linear-gradient(135deg,var(--navy),var(--blue2));
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 18px;
+box-shadow:0 10px 25px rgba(22,119,255,.22);
+}
+
+.heading{
+text-align:center;
+font-size:1.35rem;
+font-weight:850;
+color:var(--navy);
+}
+
+.description{
+text-align:center;
+font-size:.85rem;
+line-height:1.5;
+color:var(--muted);
+margin:7px auto 24px;
+max-width:300px;
+}
+
+.field{
+margin-bottom:16px;
+}
+
+.label{
+display:block;
+font-size:.8rem;
+font-weight:750;
+color:var(--navy);
+margin-bottom:7px;
+}
+
+.input-wrap{
+position:relative;
+}
+
+.input{
+width:100%;
+height:50px;
+border:1px solid var(--border);
+border-radius:13px;
+background:#F8FAFC;
+padding:0 14px;
+font-size:.92rem;
+color:var(--text);
+outline:none;
+transition:.2s ease;
+}
+
+.input.password{
+padding-right:48px;
+}
+
+.input:focus{
+border-color:var(--blue);
+background:var(--white);
+box-shadow:0 0 0 4px rgba(22,119,255,.1);
+}
+
+.password-toggle{
+position:absolute;
+right:5px;
+top:5px;
+width:40px;
+height:40px;
+border:0;
+border-radius:10px;
+background:transparent;
+color:var(--muted);
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.login-btn{
+width:100%;
+height:50px;
+border:0;
+border-radius:13px;
+background:linear-gradient(135deg,var(--blue),var(--blue2));
+color:white;
+font-size:.95rem;
+font-weight:800;
+box-shadow:0 9px 20px rgba(22,119,255,.2);
+transition:.2s ease;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:9px;
+}
+
+.login-btn:active{
+transform:scale(.98);
+}
+
+.login-btn:disabled{
+opacity:.65;
+cursor:not-allowed;
+}
+
+.status{
+display:none;
+margin-top:15px;
+padding:11px 13px;
+border-radius:11px;
+font-size:.8rem;
+line-height:1.45;
+font-weight:650;
+}
+
+.status.show{
+display:block;
+}
+
+.status.error{
+background:#FEF2F2;
+color:var(--danger);
+border:1px solid #FECACA;
+}
+
+.status.success{
+background:#F0FDF4;
+color:var(--success);
+border:1px solid #BBF7D0;
+}
+
+.security{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:7px;
+margin-top:20px;
+font-size:.72rem;
+color:#94A3B8;
+}
+
+.footer{
+text-align:center;
+margin-top:18px;
+font-size:.72rem;
+color:#94A3B8;
+}
+
+.loader{
+width:18px;
+height:18px;
+border:2px solid rgba(255,255,255,.35);
+border-top-color:#FFFFFF;
+border-radius:50%;
+animation:spin .7s linear infinite;
+display:none;
+}
+
+.login-btn.loading .loader{
+display:block;
+}
+
+.login-btn.loading .btn-text{
+opacity:.75;
+}
+
+@keyframes spin{
+to{
+transform:rotate(360deg);
+}
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+<section class="brand">
+
+<img
+class="logo"
+src="https://lalanview.vercel.app/Polytechnic%20Hub%2020261004_144919.jpg"
+alt="Polytechnic Hub"
+>
+
+<div class="brand-title">
+Polytechnic Hub
+</div>
+
+<div class="brand-subtitle">
+Administration Portal
+</div>
+
+</section>
+
+<section class="card">
+
+<div class="admin-icon">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06-1.42 1.42-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V20h-2v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1 1.51V20h-2v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06-1.42-1.42.06-.06A1.65 1.65 0 0 0 9.6 15a1.65 1.65 0 0 0-1.51-1H8v-2h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06 1.42-1.42.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V6h2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06 1.42 1.42-.06.06A1.65 1.65 0 0 0 19.4 10c.17.6.7 1 1.33 1H21v2h-.27c-.63 0-1.16.4-1.33 1Z"></path>
+</svg>
+</div>
+
+<h1 class="heading">
+Admin Login
+</h1>
+
+<p class="description">
+Only authorized administrators can access the Polytechnic Hub management panel.
+</p>
+
+<form id="admin-login-form">
+
+<div class="field">
+
+<label class="label" for="admin-email">
+Admin Email
+</label>
+
+<input
+class="input"
+id="admin-email"
+type="email"
+autocomplete="username"
+value="lalankumar@electrical.com"
+readonly
+required
+>
+
+</div>
+
+<div class="field">
+
+<label class="label" for="admin-password">
+Password
+</label>
+
+<div class="input-wrap">
+
+<input
+class="input password"
+id="admin-password"
+type="password"
+autocomplete="current-password"
+placeholder="Enter admin password"
+required
+>
+
+<button
+class="password-toggle"
+id="toggle-password"
+type="button"
+aria-label="Show password"
+>
+
+<svg id="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+
+</button>
+
+</div>
+
+</div>
+
+<button
+class="login-btn"
+id="login-btn"
+type="submit"
+>
+
+<span class="btn-text">
+Login as Admin
+</span>
+
+<span class="loader"></span>
+
+</button>
+
+</form>
+
+<div
+class="status"
+id="status"
+></div>
+
+<div class="security">
+
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<rect x="3" y="11" width="18" height="10" rx="2"></rect>
+<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+</svg>
+
+Secure Firebase Authentication
+
+</div>
+
+</section>
+
+<div class="footer">
+Polytechnic Hub Admin Portal
+</div>
+
+</main>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+import {
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+const ADMIN_EMAIL =
+  "lalankumar@electrical.com";
+
+const form =
+  document.getElementById("admin-login-form");
+
+const passwordInput =
+  document.getElementById("admin-password");
+
+const loginButton =
+  document.getElementById("login-btn");
+
+const statusBox =
+  document.getElementById("status");
+
+const togglePassword =
+  document.getElementById("toggle-password");
+
+const eyeIcon =
+  document.getElementById("eye-icon");
+
+let authChecking = true;
+
+function showStatus(
+  message,
+  type = "error"
+) {
+  statusBox.textContent = message;
+
+  statusBox.className =
+    `status show ${type}`;
+}
+
+function hideStatus() {
+  statusBox.textContent = "";
+  statusBox.className = "status";
+}
+
+function setLoading(value) {
+  loginButton.disabled = value;
+
+  loginButton.classList.toggle(
+    "loading",
+    value
+  );
+}
+
+function isAdminEmail(email) {
+  return (
+    String(email || "")
+      .trim()
+      .toLowerCase() ===
+    ADMIN_EMAIL.toLowerCase()
+  );
+}
+
+async function createOrUpdateAdminDocument(
+  user
+) {
+  const adminRef =
+    doc(db, "admins", user.uid);
+
+  const adminSnapshot =
+    await getDoc(adminRef);
+
+  if (adminSnapshot.exists()) {
+
+    const existing =
+      adminSnapshot.data();
+
+    if (
+      existing.email &&
+      existing.email.toLowerCase() !==
+      ADMIN_EMAIL.toLowerCase()
+    ) {
+      throw new Error(
+        "ADMIN_DOCUMENT_EMAIL_MISMATCH"
+      );
+    }
+
+    if (
+      existing.active === false
+    ) {
+      throw new Error(
+        "ADMIN_ACCOUNT_DISABLED"
+      );
+    }
+
+    await setDoc(
+      adminRef,
+      {
+        uid: user.uid,
+        email: ADMIN_EMAIL,
+        role: "admin",
+        active: true,
+        updatedAt: serverTimestamp()
+      },
+      {
+        merge: true
+      }
+    );
+
+    return true;
+  }
+
+  await setDoc(
+    adminRef,
+    {
+      uid: user.uid,
+      email: ADMIN_EMAIL,
+      role: "admin",
+      active: true,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    }
+  );
+
+  return true;
+}
+
+async function verifyAdmin(
+  user
+) {
+  if (!user) {
+    return false;
+  }
+
+  if (!isAdminEmail(user.email)) {
+    return false;
+  }
+
+  const adminRef =
+    doc(db, "admins", user.uid);
+
+  const adminSnapshot =
+    await getDoc(adminRef);
+
+  if (!adminSnapshot.exists()) {
+    return false;
+  }
+
+  const adminData =
+    adminSnapshot.data();
+
+  if (
+    adminData.email &&
+    !isAdminEmail(
+      adminData.email
+    )
+  ) {
+    return false;
+  }
+
+  if (
+    adminData.role &&
+    adminData.role !== "admin"
+  ) {
+    return false;
+  }
+
+  if (
+    adminData.active === false
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+togglePassword.addEventListener(
+  "click",
+  () => {
+
+    const show =
+      passwordInput.type ===
+      "password";
+
+    passwordInput.type =
+      show
+        ? "text"
+        : "password";
+
+    togglePassword.setAttribute(
+      "aria-label",
+      show
+        ? "Hide password"
+        : "Show password"
+    );
+
+    eyeIcon.innerHTML =
+      show
+        ? `
+          <path d="M3 3l18 18"></path>
+          <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"></path>
+          <path d="M9.88 4.24A10.94 10.94 0 0 1 12 4c6.5 0 10 8 10 8a18.5 18.5 0 0 1-3.1 4.3"></path>
+          <path d="M6.61 6.61C3.88 8.5 2 12 2 12s3.5 8 10 8a10.9 10.9 0 0 0 4.12-.81"></path>
+        `
+        : `
+          <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        `;
+  }
+);
+
+form.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    hideStatus();
+
+    const password =
+      passwordInput.value;
+
+    if (!password) {
+
+      showStatus(
+        "Admin password डालें।"
+      );
+
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+
+      const credential =
+        await signInWithEmailAndPassword(
+          auth,
+          ADMIN_EMAIL,
+          password
+        );
+
+      const user =
+        credential.user;
+
+      if (
+        !isAdminEmail(user.email)
+      ) {
+
+        await signOut(auth);
+
+        throw new Error(
+          "UNAUTHORIZED_EMAIL"
+        );
+      }
+
+      await createOrUpdateAdminDocument(
+        user
+      );
+
+      const verified =
+        await verifyAdmin(user);
+
+      if (!verified) {
+
+        await signOut(auth);
+
+        throw new Error(
+          "ADMIN_VERIFICATION_FAILED"
+        );
+      }
+
+      showStatus(
+        "Admin login successful. Opening dashboard...",
+        "success"
+      );
+
+      setTimeout(
+        () => {
+          window.location.replace(
+            "./admin.html"
+          );
+        },
+        500
+      );
+
+    } catch (error) {
+
+      let message =
+        "Admin login failed. Please try again.";
+
+      if (
+        error.message ===
+        "UNAUTHORIZED_EMAIL"
+      ) {
+        message =
+          "यह account authorized admin नहीं है।";
+      } else if (
+        error.message ===
+        "ADMIN_ACCOUNT_DISABLED"
+      ) {
+        message =
+          "Admin account disabled है।";
+      } else if (
+        error.message ===
+        "ADMIN_DOCUMENT_EMAIL_MISMATCH"
+      ) {
+        message =
+          "Admin document में email mismatch है।";
+      } else if (
+        error.message ===
+        "ADMIN_VERIFICATION_FAILED"
+      ) {
+        message =
+          "Admin verification failed.";
+      } else if (
+        error.code ===
+        "auth/invalid-credential"
+      ) {
+        message =
+          "Admin password गलत है।";
+      } else if (
+        error.code ===
+        "auth/invalid-email"
+      ) {
+        message =
+          "Admin email configuration गलत है।";
+      } else if (
+        error.code ===
+        "auth/network-request-failed"
+      ) {
+        message =
+          "Internet connection check करें।";
+      } else if (
+        error.code ===
+        "auth/too-many-requests"
+      ) {
+        message =
+          "बहुत ज्यादा login attempts हुए हैं। थोड़ी देर बाद try करें।";
+      } else if (
+        error.code ===
+        "permission-denied"
+      ) {
+        message =
+          "Firestore permission denied. Admin Firestore rules check करें।";
+      }
+
+      showStatus(message);
+
+      setLoading(false);
+    }
+  }
+);
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if (!user) {
+      authChecking = false;
+      return;
+    }
+
+    if (
+      !isAdminEmail(user.email)
+    ) {
+      await signOut(auth);
+      authChecking = false;
+      return;
+    }
+
+    try {
+
+      const verified =
+        await verifyAdmin(user);
+
+      if (verified) {
+
+        window.location.replace(
+          "./admin.html"
+        );
+
+        return;
+      }
+
+    } catch {
+
+    }
+
+    authChecking = false;
+  }
+);
+</script>
+
+</body>
+</html>
